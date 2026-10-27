@@ -221,11 +221,16 @@ button {
 }
 
 .k-h1 {
-  font-size: clamp(40px, 6vw, 96px);
+  /* Font tracks its container's inline-size (cqi), not the viewport, so the
+     H1 always exceeds its own line box regardless of how the hero text
+     column is squeezed by a side-by-side visual column. Combined with
+     `max-inline-size: 7em` and `text-wrap: balance`, both FR and EN titles
+     wrap to two balanced lines at every viewport ≥ 540 px. */
+  font-size: clamp(52px, 14cqi, 96px);
   line-height: 0.95;
-  overflow-wrap: break-word;
-  word-break: break-word;
+  max-inline-size: 7em;
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .k-h2 {

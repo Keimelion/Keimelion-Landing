@@ -345,6 +345,11 @@ const t = translation
     display: flex;
     flex-direction: column;
     gap: 26px;
+    /* The H1 scales font-size against this column (cqi), not the viewport,
+       so it stays big relative to its real line width at every breakpoint
+       — including the 1120-1280 band where the text column is squeezed by
+       the visual column. */
+    container-type: inline-size;
   }
 
   .hero__badge {
