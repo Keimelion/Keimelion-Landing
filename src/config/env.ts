@@ -5,7 +5,7 @@
 import { z } from 'zod'
 
 const envSchema = z.object({
-  PUBLIC_API_BASE_URL: z.string().url(),
+  PUBLIC_API_BASE_URL: z.url(),
 })
 
 export type Env = z.infer<typeof envSchema>
