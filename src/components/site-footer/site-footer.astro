@@ -1,0 +1,71 @@
+---
+import type { Translation } from '../../i18n/t'
+
+interface Props {
+  translation: Translation
+}
+
+const { translation } = Astro.props
+const { footer } = translation
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner container">
+    <nav class="site-footer__nav" aria-label={footer.contactLabel}>
+      <a href={footer.legalNoticeHref}>{footer.legalNotice}</a>
+      <a href={footer.privacyHref}>{footer.privacy}</a>
+      <a href={`mailto:${footer.contactEmail}`}>{footer.contactEmail}</a>
+    </nav>
+    <p class="site-footer__copyright">{footer.copyright}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-encre);
+    color: #fff;
+    padding-block: var(--space-7);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 720px) {
+    .site-footer__inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .site-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    font-size: var(--font-size-sm);
+  }
+
+  .site-footer__nav a {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.85;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .site-footer__nav a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .site-footer__copyright {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    color: rgb(255 255 255 / 70%);
+    letter-spacing: 0.04em;
+  }
+</style>

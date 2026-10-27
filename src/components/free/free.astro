@@ -1,0 +1,43 @@
+---
+import type { Translation } from '../../i18n/t'
+
+interface Props {
+  translation: Translation
+}
+
+const { translation } = Astro.props
+const { free } = translation
+---
+
+<section class="free">
+  <div class="free__inner container">
+    <h2 class="free__title">{free.title}</h2>
+    <p class="free__body">{free.body}</p>
+  </div>
+</section>
+
+<style>
+  .free {
+    background: var(--color-accent);
+    color: #fff;
+    padding-block: var(--space-8);
+  }
+
+  .free__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 48rem;
+  }
+
+  .free__title {
+    font-size: var(--font-size-2xl);
+    color: inherit;
+  }
+
+  .free__body {
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+    opacity: 0.95;
+  }
+</style>

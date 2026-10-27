@@ -1,3 +1,102 @@
 {
-  "home.placeholder": "Bienvenue sur Keimêlion"
+  "meta": {
+    "title": "Keimêlion — La liste qu'on garde",
+    "description": "Keimêlion arrive bientôt : la liste de cadeaux que l'on garde pour les moments qui comptent. Inscrivez-vous pour être prévenu·e du lancement.",
+    "ogAlt": "Keimêlion — Bientôt disponible"
+  },
+  "header": {
+    "logoAlt": "Keimêlion",
+    "wordmark": "keimêlion",
+    "langSwitcherLabel": "Choisir la langue",
+    "fr": "FR",
+    "en": "EN",
+    "frFull": "Français",
+    "enFull": "Anglais"
+  },
+  "hero": {
+    "badge": "Bientôt disponible",
+    "handwritten": "la liste qu'on garde",
+    "title": "La liste qu'on garde.",
+    "lede": "Keimêlion est la liste de cadeaux pensée pour les moments qui comptent. Discrète, partagée, sans doublons, sans surprise gênante.",
+    "nameExplanation": "keimêlion — du grec ancien κειμήλιον, le trésor que l'on garde.",
+    "listDemoLabel": "Aperçu : liste « Léa & Axel »",
+    "form": {
+      "emailLabel": "Votre adresse e-mail",
+      "emailPlaceholder": "prenom@exemple.fr",
+      "consentLabel": "J'accepte de recevoir un e-mail au lancement et je consens à la",
+      "privacyLink": "politique de confidentialité",
+      "privacyHref": "/confidentialite",
+      "submit": "Prévenez-moi",
+      "submitting": "Enregistrement…",
+      "success": "C'est noté. On vous écrit dès que Keimêlion ouvre.",
+      "duplicate": "C'est noté. On vous écrit dès que Keimêlion ouvre.",
+      "error": "Oups, l'inscription a échoué. Réessayez dans un instant.",
+      "errorInvalidEmail": "Cette adresse e-mail ne semble pas valide.",
+      "errorInvalidConsent": "Le consentement est nécessaire pour poursuivre.",
+      "errorRateLimited": "Beaucoup de demandes à la minute. Réessayez dans un instant.",
+      "honeypotLabel": "Ne remplissez pas ce champ"
+    }
+  },
+  "list": {
+    "title": "Un cadeau emballé pour chaque intention",
+    "caption": "On ajoute, on partage, on garde — sans jamais révéler qui offre quoi."
+  },
+  "moments": {
+    "title": "Pour les moments de vie",
+    "items": {
+      "anniversaire": {
+        "title": "Anniversaires",
+        "caption": "Une liste qui dure plus qu'une bougie."
+      },
+      "mariage": {
+        "title": "Mariages",
+        "caption": "Simple à partager, élégant à offrir."
+      },
+      "naissance": {
+        "title": "Naissances",
+        "caption": "Tout ce qu'il faut, rien en double."
+      },
+      "noel": {
+        "title": "Noël",
+        "caption": "Les envies de toute la famille, réunies."
+      },
+      "cremaillere": {
+        "title": "Crémaillères",
+        "caption": "On fête le nouveau toit avec les bonnes idées."
+      }
+    }
+  },
+  "shelf": {
+    "title": "Emballé, envoyé",
+    "caption": "Vos listes se remplissent, s'organisent et s'offrent. Rien ne se perd.",
+    "counterLabel": "cadeaux reçus cette semaine",
+    "counterStart": "4",
+    "counterEnd": "7"
+  },
+  "free": {
+    "title": "Gratuit, et transparent",
+    "body": "Keimêlion restera gratuit. Nous nous rémunérons via des liens d'affiliation lorsque vous choisissez d'acheter chez un partenaire — sans surcoût pour vous, et sans jamais vendre vos données."
+  },
+  "footer": {
+    "legalNotice": "Mentions légales",
+    "legalNoticeHref": "/mentions-legales",
+    "privacy": "Confidentialité",
+    "privacyHref": "/confidentialite",
+    "contactLabel": "Contact",
+    "contactEmail": "contact@keimelion.app",
+    "copyright": "© 2026 Keimêlion. Tous droits réservés."
+  },
+  "legal": {
+    "notice": {
+      "title": "Mentions légales",
+      "intro": "Page en cours de rédaction. La version définitive sera publiée au lancement de Keimêlion.",
+      "contactLabel": "En attendant, écrivez-nous à"
+    },
+    "privacy": {
+      "title": "Politique de confidentialité",
+      "intro": "Page en cours de rédaction. La version définitive, conforme au RGPD, sera publiée au lancement de Keimêlion.",
+      "contactLabel": "Pour toute question, écrivez-nous à"
+    },
+    "backHome": "Retour à l'accueil"
+  }
 }

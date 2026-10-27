@@ -1,0 +1,204 @@
+---
+import type { Translation } from '../../i18n/t'
+
+interface Props {
+  translation: Translation
+}
+
+const { translation } = Astro.props
+const { shelf } = translation
+---
+
+<section class="shelf">
+  <div class="shelf__inner container">
+    <h2 class="shelf__title">{shelf.title}</h2>
+    <p class="shelf__caption">{shelf.caption}</p>
+    <div class="shelf__scene" aria-hidden="true">
+      <div class="shelf__gift shelf__gift--one"></div>
+      <div class="shelf__gift shelf__gift--two"></div>
+      <div class="shelf__gift shelf__gift--three"></div>
+      <div class="shelf__gift shelf__gift--four"></div>
+      <div class="shelf__board"></div>
+    </div>
+    <p class="shelf__counter">
+      <span class="shelf__counter-digits" aria-hidden="true">
+        <span class="shelf__counter-start">{shelf.counterStart}</span>
+        <span class="shelf__counter-arrow">→</span>
+        <span class="shelf__counter-end">{shelf.counterEnd}</span>
+      </span>
+      <span class="shelf__counter-label">{shelf.counterLabel}</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .shelf {
+    background: var(--color-section-bg);
+    padding-block: var(--space-8);
+  }
+
+  .shelf__title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .shelf__caption {
+    color: var(--color-fg-muted);
+    font-size: var(--font-size-md);
+    max-width: 36rem;
+    margin-bottom: var(--space-6);
+  }
+
+  .shelf__scene {
+    position: relative;
+    width: 100%;
+    max-width: 32rem;
+    height: 10rem;
+    margin: 0 auto;
+  }
+
+  .shelf__board {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1.75rem;
+    height: 0.75rem;
+    background: var(--color-encre);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-md);
+  }
+
+  .shelf__gift {
+    position: absolute;
+    bottom: 2.5rem;
+    width: 3rem;
+    height: 2.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .shelf__gift::after {
+    content: '';
+    position: absolute;
+    inset: 0 46%;
+    background: var(--color-framboise);
+  }
+
+  .shelf__gift--one {
+    left: 10%;
+    background: var(--color-rose);
+    animation-delay: 0ms;
+  }
+
+  .shelf__gift--two {
+    left: 32%;
+    background: var(--color-ciel);
+    animation-delay: 300ms;
+  }
+
+  .shelf__gift--three {
+    left: 54%;
+    background: var(--color-moutarde);
+    animation-delay: 600ms;
+  }
+
+  .shelf__gift--four {
+    left: 76%;
+    background: var(--color-menthe);
+    animation-delay: 900ms;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .shelf__gift {
+      animation-name: shelf-drop;
+      animation-duration: 2600ms;
+      animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation-iteration-count: infinite;
+    }
+  }
+
+  @keyframes shelf-drop {
+    0% {
+      transform: translateY(-6rem);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    35% {
+      transform: translateY(0.2rem);
+    }
+    50%,
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .shelf__counter {
+    margin-top: var(--space-6);
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .shelf__counter-digits {
+    font-family: var(--font-display);
+    font-size: var(--font-size-3xl);
+    letter-spacing: -0.04em;
+    color: var(--color-accent);
+    display: inline-flex;
+    gap: var(--space-3);
+    align-items: baseline;
+  }
+
+  .shelf__counter-arrow {
+    color: var(--color-fg-muted);
+    font-size: var(--font-size-xl);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .shelf__counter-start,
+    .shelf__counter-end {
+      display: inline-block;
+    }
+
+    .shelf__counter-start {
+      animation: counter-fade 4800ms steps(1) infinite;
+    }
+
+    .shelf__counter-end {
+      animation: counter-reveal 4800ms steps(1) infinite;
+    }
+  }
+
+  @keyframes counter-fade {
+    0%,
+    45% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0.35;
+    }
+  }
+
+  @keyframes counter-reveal {
+    0%,
+    45% {
+      opacity: 0.35;
+    }
+    50%,
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .shelf__counter-label {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+</style>

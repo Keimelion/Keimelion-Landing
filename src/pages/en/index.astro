@@ -1,23 +1,35 @@
 ---
-import en from '../../i18n/en.json'
-import '../../styles/base.css'
+import BaseLayout from '../../layouts/base-layout.astro'
+import SiteHeader from '../../components/site-header/site-header.astro'
+import Hero from '../../components/hero/hero.astro'
+import ListCard from '../../components/list-card/list-card.astro'
+import Moments from '../../components/moments/moments.astro'
+import Shelf from '../../components/shelf/shelf.astro'
+import Free from '../../components/free/free.astro'
+import SiteFooter from '../../components/site-footer/site-footer.astro'
+import { Locales, getTranslation } from '../../i18n/t'
 
-const placeholder = en['home.placeholder']
+export const prerender = true
+
+const locale = Locales.EN
+const translation = getTranslation(locale)
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Keimêlion</title>
-    <meta name="description" content="Keimêlion — coming soon." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  </head>
-  <body>
-    <main>
-      <h1>{placeholder}</h1>
-    </main>
-  </body>
-</html>
+<BaseLayout
+  locale={locale}
+  title={translation.meta.title}
+  description={translation.meta.description}
+  canonicalPath="/en/"
+  alternatePath="/"
+  ogAlt={translation.meta.ogAlt}
+>
+  <SiteHeader locale={locale} translation={translation} />
+  <main id="main-content">
+    <Hero locale={locale} translation={translation} />
+    <ListCard translation={translation} />
+    <Moments translation={translation} />
+    <Shelf translation={translation} />
+    <Free translation={translation} />
+  </main>
+  <SiteFooter translation={translation} />
+</BaseLayout>

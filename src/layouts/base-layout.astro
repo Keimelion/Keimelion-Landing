@@ -1,0 +1,75 @@
+---
+import '../styles/base.css'
+import { Locales, type Locale } from '../i18n/t'
+
+interface Props {
+  locale: Locale
+  title: string
+  description: string
+  canonicalPath: string
+  alternatePath: string
+  ogAlt: string
+  bodyClass?: string
+}
+
+const { locale, title, description, canonicalPath, alternatePath, ogAlt, bodyClass } = Astro.props
+
+const siteOrigin = Astro.site?.origin ?? 'https://keimelion.app'
+const canonicalUrl = new URL(canonicalPath, siteOrigin).href
+const frUrl = new URL(locale === Locales.FR ? canonicalPath : alternatePath, siteOrigin).href
+const enUrl = new URL(locale === Locales.EN ? canonicalPath : alternatePath, siteOrigin).href
+const ogLocale = locale === Locales.FR ? 'fr_FR' : 'en_US'
+const ogLocaleAlternate = locale === Locales.FR ? 'en_US' : 'fr_FR'
+const htmlLang = locale === Locales.FR ? 'fr' : 'en'
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#B3204C" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="fr" href={frUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={frUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL('/og-image.svg', siteOrigin).href} />
+    <meta property="og:image:alt" content={ogAlt} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlternate} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og-image.svg', siteOrigin).href} />
+    <script is:inline>
+      ;(function () {
+        try {
+          var stored = localStorage.getItem('keimelion.lang')
+          var path = location.pathname
+          var isRoot = path === '/' || path === '/en' || path === '/en/'
+          if (!isRoot) return
+          var current = path.indexOf('/en') === 0 ? 'en' : 'fr'
+          if (!stored) {
+            var preferred = (navigator.language || 'fr').toLowerCase()
+            stored = preferred.indexOf('en') === 0 ? 'en' : 'fr'
+          }
+          if (stored !== current) {
+            location.replace(stored === 'en' ? '/en/' : '/')
+          }
+        } catch (error) {
+          void error
+        }
+      })()
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

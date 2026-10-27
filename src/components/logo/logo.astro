@@ -1,0 +1,47 @@
+---
+interface Props {
+  label: string
+  wordmark: string
+  withWordmark?: boolean
+}
+
+const { label, wordmark, withWordmark = true } = Astro.props
+---
+
+<a href="/" class="logo" aria-label={label}>
+  <svg class="logo__mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+    <g transform="translate(24 24)" fill="#B3204C">
+      <g transform="rotate(-45) translate(-14 -8)">
+        <rect width="28" height="16" rx="4"></rect>
+      </g>
+      <g transform="rotate(45) translate(-14 -8)">
+        <rect width="28" height="16" rx="4"></rect>
+      </g>
+    </g>
+  </svg>
+  {withWordmark && <span class="logo__wordmark">{wordmark}</span>}
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-fg);
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    font-size: var(--font-size-lg);
+  }
+
+  .logo__mark {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+  }
+
+  .logo__wordmark {
+    line-height: 1;
+  }
+</style>

@@ -1,0 +1,304 @@
+---
+import type { Locale, Translation } from '../../i18n/t'
+
+interface Props {
+  locale: Locale
+  translation: Translation
+}
+
+const { locale, translation } = Astro.props
+const { form } = translation.hero
+---
+
+<form
+  class="waitlist"
+  method="POST"
+  action="/api/waitlist"
+  novalidate
+  data-locale={locale}
+  data-i18n-success={form.success}
+  data-i18n-duplicate={form.duplicate}
+  data-i18n-error={form.error}
+  data-i18n-invalid-email={form.errorInvalidEmail}
+  data-i18n-invalid-consent={form.errorInvalidConsent}
+  data-i18n-rate-limited={form.errorRateLimited}
+  data-i18n-submit={form.submit}
+  data-i18n-submitting={form.submitting}
+>
+  <div class="waitlist__row">
+    <label class="waitlist__field">
+      <span class="waitlist__label">{form.emailLabel}</span>
+      <input
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        inputmode="email"
+        placeholder={form.emailPlaceholder}
+        class="waitlist__input"
+        aria-describedby="waitlist-consent"
+      />
+    </label>
+    <button type="submit" class="waitlist__submit">
+      {form.submit}
+    </button>
+  </div>
+  <div class="waitlist__hp" aria-hidden="true">
+    <label>
+      <span>{form.honeypotLabel}</span>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+  <input type="hidden" name="locale" value={locale} />
+  <label id="waitlist-consent" class="waitlist__consent">
+    <input type="checkbox" name="consent" value="true" required />
+    <span>
+      {form.consentLabel}&nbsp;
+      <a href={form.privacyHref}>{form.privacyLink}</a>.
+    </span>
+  </label>
+  <p class="waitlist__status" data-waitlist-status role="status" aria-live="polite"></p>
+  <p class="waitlist__error" data-waitlist-error role="alert" aria-live="assertive"></p>
+</form>
+
+<script>
+  interface SuccessPayload {
+    ok: true
+    duplicate: boolean
+  }
+
+  interface FailurePayload {
+    ok: false
+    error: 'invalid_email' | 'invalid_consent' | 'rate_limited' | 'invalid_payload'
+  }
+
+  type ResponsePayload = SuccessPayload | FailurePayload
+
+  function isResponsePayload(value: unknown): value is ResponsePayload {
+    if (typeof value !== 'object' || value === null) return false
+    const record = value as Record<string, unknown>
+    return typeof record.ok === 'boolean'
+  }
+
+  function readErrorMessage(form: HTMLFormElement, error: FailurePayload['error']): string {
+    const map: Record<FailurePayload['error'], string | undefined> = {
+      invalid_email: form.dataset.i18nInvalidEmail,
+      invalid_consent: form.dataset.i18nInvalidConsent,
+      rate_limited: form.dataset.i18nRateLimited,
+      invalid_payload: form.dataset.i18nError,
+    }
+    return map[error] ?? form.dataset.i18nError ?? ''
+  }
+
+  function readSuccessMessage(form: HTMLFormElement, payload: SuccessPayload): string {
+    if (payload.duplicate) return form.dataset.i18nDuplicate ?? ''
+    return form.dataset.i18nSuccess ?? ''
+  }
+
+  function setStatus(form: HTMLFormElement, message: string): void {
+    const node = form.querySelector<HTMLElement>('[data-waitlist-status]')
+    if (node === null) return
+    node.textContent = message
+  }
+
+  function setError(form: HTMLFormElement, message: string): void {
+    const node = form.querySelector<HTMLElement>('[data-waitlist-error]')
+    if (node === null) return
+    node.textContent = message
+  }
+
+  function setSubmitting(form: HTMLFormElement, isSubmitting: boolean): void {
+    const button = form.querySelector<HTMLButtonElement>('.waitlist__submit')
+    if (button === null) return
+    const label = isSubmitting ? form.dataset.i18nSubmitting : form.dataset.i18nSubmit
+    button.disabled = isSubmitting
+    if (typeof label === 'string') button.textContent = label
+  }
+
+  async function submit(form: HTMLFormElement): Promise<void> {
+    const data = new FormData(form)
+    const payload = {
+      email: String(data.get('email') ?? ''),
+      locale: String(data.get('locale') ?? 'fr'),
+      consent: data.get('consent') === 'true',
+      website: String(data.get('website') ?? ''),
+    }
+    setError(form, '')
+    setStatus(form, '')
+    setSubmitting(form, true)
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const raw: unknown = await response.json()
+      if (!isResponsePayload(raw)) {
+        setError(form, form.dataset.i18nError ?? '')
+        return
+      }
+      if (raw.ok) {
+        setStatus(form, readSuccessMessage(form, raw))
+        form.reset()
+        return
+      }
+      setError(form, readErrorMessage(form, raw.error))
+    } catch (error) {
+      void error
+      setError(form, form.dataset.i18nError ?? '')
+    } finally {
+      setSubmitting(form, false)
+    }
+  }
+
+  function bindForm(form: HTMLFormElement): void {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
+      void submit(form)
+    })
+  }
+
+  document.querySelectorAll<HTMLFormElement>('form.waitlist').forEach(bindForm)
+</script>
+
+<style>
+  .waitlist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+    max-width: 32rem;
+  }
+
+  .waitlist__row {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .waitlist__field {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 16rem;
+    min-width: 0;
+  }
+
+  .waitlist__label {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .waitlist__input {
+    appearance: none;
+    font: inherit;
+    padding: var(--space-4);
+    min-height: 48px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgb(28 26 51 / 20%);
+    background: #fff;
+    color: var(--color-fg);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .waitlist__input::placeholder {
+    color: color-mix(in srgb, var(--color-fg-muted) 70%, transparent);
+  }
+
+  .waitlist__input:focus-visible {
+    border-color: var(--color-accent);
+    outline-offset: 0;
+    box-shadow: 0 0 0 3px rgb(179 32 76 / 20%);
+  }
+
+  .waitlist__submit {
+    align-self: flex-end;
+    appearance: none;
+    border: none;
+    background: var(--color-accent);
+    color: #fff;
+    padding: var(--space-4) var(--space-6);
+    min-height: 48px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease;
+  }
+
+  .waitlist__submit:hover:not([disabled]) {
+    background: var(--color-accent-deep);
+  }
+
+  .waitlist__submit:active:not([disabled]) {
+    transform: translateY(1px);
+  }
+
+  .waitlist__submit[disabled] {
+    opacity: 0.75;
+    cursor: progress;
+  }
+
+  .waitlist__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-fg-muted);
+    line-height: 1.5;
+  }
+
+  .waitlist__consent input[type='checkbox'] {
+    margin-top: 0.2em;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .waitlist__consent a {
+    color: var(--color-accent);
+  }
+
+  .waitlist__status,
+  .waitlist__error {
+    font-size: var(--font-size-sm);
+    min-height: 1.25em;
+  }
+
+  .waitlist__status {
+    color: var(--color-emeraude);
+    font-weight: 500;
+  }
+
+  .waitlist__status:empty,
+  .waitlist__error:empty {
+    display: none;
+  }
+
+  .waitlist__error {
+    color: var(--color-framboise-deep);
+    font-weight: 500;
+  }
+
+  .waitlist__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 600px) {
+    .waitlist__row {
+      flex-direction: column;
+    }
+
+    .waitlist__submit {
+      align-self: stretch;
+    }
+  }
+</style>

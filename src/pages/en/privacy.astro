@@ -1,0 +1,29 @@
+---
+// TODO(KEI-144): replace stub with the final privacy policy once legal content is drafted.
+import LegalLayout from '../../layouts/legal-layout.astro'
+import { Locales, getTranslation } from '../../i18n/t'
+
+export const prerender = true
+
+const locale = Locales.EN
+const translation = getTranslation(locale)
+const legal = translation.legal.privacy
+---
+
+<LegalLayout
+  locale={locale}
+  translation={translation}
+  title={legal.title}
+  canonicalPath="/en/privacy"
+  alternatePath="/confidentialite"
+>
+  <h1>{legal.title}</h1>
+  <p>{legal.intro}</p>
+  <p>
+    {legal.contactLabel}
+    <a href={`mailto:${translation.footer.contactEmail}`}>{translation.footer.contactEmail}</a>.
+  </p>
+  <p>
+    <a href="/en/">{translation.legal.backHome}</a>
+  </p>
+</LegalLayout>

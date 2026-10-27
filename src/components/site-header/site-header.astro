@@ -1,0 +1,45 @@
+---
+import Logo from '../logo/logo.astro'
+import LanguageSwitcher from '../language-switcher/language-switcher.astro'
+import type { Locale, Translation } from '../../i18n/t'
+
+interface Props {
+  locale: Locale
+  translation: Translation
+}
+
+const { locale, translation } = Astro.props
+const { header } = translation
+---
+
+<header class="site-header">
+  <div class="site-header__inner container">
+    <Logo label={header.logoAlt} wordmark={header.wordmark} />
+    <LanguageSwitcher
+      currentLocale={locale}
+      label={header.langSwitcherLabel}
+      frShort={header.fr}
+      enShort={header.en}
+      frFull={header.frFull}
+      enFull={header.enFull}
+    />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid rgb(28 26 51 / 6%);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-4);
+  }
+</style>

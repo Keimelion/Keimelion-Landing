@@ -1,0 +1,108 @@
+---
+import { Locales, type Locale } from '../../i18n/t'
+
+interface Props {
+  currentLocale: Locale
+  label: string
+  frShort: string
+  enShort: string
+  frFull: string
+  enFull: string
+}
+
+const { currentLocale, label, frShort, enShort, frFull, enFull } = Astro.props
+const isFr = currentLocale === Locales.FR
+---
+
+<nav class="lang-switcher" aria-label={label}>
+  <button
+    type="button"
+    class="lang-switcher__btn"
+    data-target-locale="fr"
+    data-target-path="/"
+    aria-pressed={isFr ? 'true' : 'false'}
+    aria-label={`${frShort} — ${frFull}`}
+    lang="fr"
+  >
+    {frShort}
+  </button>
+  <span class="lang-switcher__sep" aria-hidden="true">|</span>
+  <button
+    type="button"
+    class="lang-switcher__btn"
+    data-target-locale="en"
+    data-target-path="/en/"
+    aria-pressed={!isFr ? 'true' : 'false'}
+    aria-label={`${enShort} — ${enFull}`}
+    lang="en"
+  >
+    {enShort}
+  </button>
+</nav>
+
+<script>
+  const STORAGE_KEY = 'keimelion.lang'
+
+  function navigateTo(targetPath: string, targetLocale: string): void {
+    try {
+      localStorage.setItem(STORAGE_KEY, targetLocale)
+    } catch (error) {
+      void error
+    }
+    window.location.assign(targetPath)
+  }
+
+  function bindLanguageSwitcher(): void {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.lang-switcher__btn')
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const path = button.dataset.targetPath
+        const locale = button.dataset.targetLocale
+        if (typeof path !== 'string' || typeof locale !== 'string') return
+        if (button.getAttribute('aria-pressed') === 'true') return
+        navigateTo(path, locale)
+      })
+    })
+  }
+
+  bindLanguageSwitcher()
+</script>
+
+<style>
+  .lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lang-switcher__btn {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: var(--color-fg-muted);
+    padding: var(--space-2) var(--space-3);
+    min-height: 48px;
+    min-width: 48px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: color 160ms ease, background-color 160ms ease;
+  }
+
+  .lang-switcher__btn[aria-pressed='true'] {
+    color: var(--color-accent);
+    background-color: rgb(179 32 76 / 10%);
+  }
+
+  .lang-switcher__btn:hover:not([aria-pressed='true']) {
+    color: var(--color-fg);
+  }
+
+  .lang-switcher__sep {
+    color: var(--color-fg-muted);
+    user-select: none;
+  }
+</style>
