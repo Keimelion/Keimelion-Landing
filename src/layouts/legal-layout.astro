@@ -25,7 +25,7 @@ const { locale, translation, title, canonicalPath, alternatePath } = Astro.props
 >
   <SiteHeader locale={locale} translation={translation} />
   <main class="legal">
-    <div class="legal__inner container">
+    <div class="legal__inner">
       <slot />
     </div>
   </main>
@@ -34,14 +34,21 @@ const { locale, translation, title, canonicalPath, alternatePath } = Astro.props
 
 <style>
   .legal {
-    padding-block: var(--space-8);
+    padding-block: 64px;
     min-height: 60vh;
   }
 
   .legal__inner {
-    max-width: 48rem;
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 0 24px;
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: 20px;
+  }
+
+  .legal__inner :global(h1) {
+    font: 800 36px/40px var(--font-display);
+    letter-spacing: -0.04em;
   }
 </style>

@@ -6,38 +6,104 @@ interface Props {
 }
 
 const { translation } = Astro.props
-const { free } = translation
+const t = translation
 ---
 
-<section class="free">
-  <div class="free__inner container">
-    <h2 class="free__title">{free.title}</h2>
-    <p class="free__body">{free.body}</p>
+<section class="free" aria-labelledby="k-free-t">
+  <svg
+    class="k-a-spin free__mandala"
+    aria-hidden="true"
+    viewBox="0 0 100 100"
+    width="220"
+    height="220"
+  >
+    <g fill="#f7b8c8">
+      <circle cx="50" cy="24" r="20"></circle>
+      <circle cx="75" cy="42" r="20"></circle>
+      <circle cx="66" cy="72" r="20"></circle>
+      <circle cx="34" cy="72" r="20"></circle>
+      <circle cx="25" cy="42" r="20"></circle>
+    </g>
+    <circle cx="50" cy="50" r="11" fill="#b3204c"></circle>
+  </svg>
+
+  <div class="free__inner">
+    <h2 id="k-free-t" class="free__title">
+      <span class="k-hand free__hand">{t.freeHand}</span>
+      <span class="k-h k-h2">{t.freeTitle}</span>
+    </h2>
+    <p class="free__text">{t.freeText}</p>
   </div>
 </section>
 
 <style>
   .free {
-    background: var(--color-accent);
-    color: #fff;
-    padding-block: var(--space-8);
+    position: relative;
+    background: var(--brand);
+    color: var(--on-brand);
+    padding: 88px 24px;
+    overflow: hidden;
+  }
+
+  .free__mandala {
+    position: absolute;
+    left: -40px;
+    top: -40px;
   }
 
   .free__inner {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
-    max-width: 48rem;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
   }
 
   .free__title {
-    font-size: var(--font-size-2xl);
-    color: inherit;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: var(--on-brand);
   }
 
-  .free__body {
-    font-size: var(--font-size-md);
-    line-height: 1.6;
-    opacity: 0.95;
+  .free__hand {
+    font-size: 36px;
+    line-height: 38px;
+    color: var(--paper-rose);
+  }
+
+  .free__text {
+    margin: 0;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  @keyframes kSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .k-a-spin {
+      animation: kSpin 40s linear infinite;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .free {
+      padding: 64px 24px;
+    }
+
+    .free__mandala {
+      width: 130px;
+      height: 130px;
+      left: -46px;
+      top: -46px;
+    }
   }
 </style>

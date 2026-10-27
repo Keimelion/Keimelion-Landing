@@ -1,92 +1,65 @@
 {
   "meta": {
-    "title": "Keimêlion — The list worth keeping",
-    "description": "Keimêlion is launching soon: the gift list made for the moments that matter. Sign up to be notified when we open.",
+    "title": "Keimêlion — The list you keep",
+    "description": "Keimêlion is coming soon: wish lists to share with your loved ones, who reserve a gift in one click, no account needed. Free, for everyone.",
     "ogAlt": "Keimêlion — Coming soon"
   },
-  "header": {
-    "logoAlt": "Keimêlion",
-    "wordmark": "keimêlion",
-    "langSwitcherLabel": "Choose language",
-    "fr": "FR",
-    "en": "EN",
-    "frFull": "French",
-    "enFull": "English"
-  },
-  "hero": {
-    "badge": "Coming soon",
-    "handwritten": "the list worth keeping",
-    "title": "The list worth keeping.",
-    "lede": "Keimêlion is the gift list designed for the moments that matter. Quietly shared, no duplicates, no awkward surprises.",
-    "nameExplanation": "keimêlion — from the ancient Greek κειμήλιον, the treasure one keeps.",
-    "listDemoLabel": "Preview: list for Léa & Axel",
-    "form": {
-      "emailLabel": "Your email address",
-      "emailPlaceholder": "name@example.com",
-      "consentLabel": "I agree to receive one email at launch and consent to the",
-      "privacyLink": "privacy policy",
-      "privacyHref": "/en/privacy",
-      "submit": "Notify me",
-      "submitting": "Saving…",
-      "success": "Noted. We'll write as soon as Keimêlion opens.",
-      "duplicate": "Noted. We'll write as soon as Keimêlion opens.",
-      "error": "Sign-up failed. Please try again in a moment.",
-      "errorInvalidEmail": "That email address doesn't look valid.",
-      "errorInvalidConsent": "Consent is required to continue.",
-      "errorRateLimited": "Too many requests. Please try again shortly.",
-      "honeypotLabel": "Please leave this field empty"
-    }
-  },
-  "list": {
-    "title": "A wrapped gift for every intention",
-    "caption": "Add, share, keep — without ever revealing who gives what."
-  },
-  "moments": {
-    "title": "For life's moments",
-    "items": {
-      "anniversaire": {
-        "title": "Birthdays",
-        "caption": "A list that outlasts the candle."
-      },
-      "mariage": {
-        "title": "Weddings",
-        "caption": "Simple to share, elegant to give."
-      },
-      "naissance": {
-        "title": "New arrivals",
-        "caption": "Everything needed, nothing twice."
-      },
-      "noel": {
-        "title": "Christmas",
-        "caption": "The whole family's wishes, gathered."
-      },
-      "cremaillere": {
-        "title": "Housewarmings",
-        "caption": "Celebrate the new home with the right ideas."
-      }
-    }
-  },
-  "shelf": {
-    "title": "Wrapped, sent",
-    "caption": "Your lists fill up, line up, and get given. Nothing lost along the way.",
-    "counterLabel": "gifts received this week",
-    "counterStart": "4",
-    "counterEnd": "7"
-  },
-  "free": {
-    "title": "Free, and transparent",
-    "body": "Keimêlion will stay free. We earn through affiliate links when you choose to buy from a partner — at no extra cost to you, and without ever selling your data."
-  },
-  "footer": {
-    "legalNotice": "Legal notice",
-    "legalNoticeHref": "/en/legal-notice",
-    "privacy": "Privacy",
+  "langLabel": "Language",
+  "badge": "Coming soon",
+  "kicker": "for a wedding, a new baby, a first home…",
+  "title": "The list you keep.",
+  "lead": "Keimêlion is coming soon: wish lists to share with your loved ones, who reserve a gift in one click, no account needed. Free, for everyone.",
+  "formLabel": "Your email address",
+  "placeholder": "you@example.com",
+  "notify": "Notify me",
+  "privacy": "Just one email, on launch day. Nothing else.",
+  "thanks": "Thank you! We'll email you as soon as we open.",
+  "nameNote": "from Ancient Greek κειμήλιον: “a treasure you keep”.",
+  "occHand": "for all of life's",
+  "occTitle": "Big moments",
+  "occ1": "Wedding",
+  "occ2": "New baby",
+  "occ3": "First home",
+  "occ4": "Birthday",
+  "occ5": "And more",
+  "shelfHand": "one click, and it's",
+  "shelfTitle": "Wrapped & sent",
+  "shelfText": "When a guest reserves, the gift wraps itself and lands on the list's shelf. No account, no duplicates, and the surprise stays intact.",
+  "freeHand": "and for everyone, it's",
+  "freeTitle": "Free.",
+  "freeText": "Keimêlion is funded by affiliate links: the store pays us a small commission, and the price stays exactly the same for your guests.",
+  "footerNav": "Footer",
+  "legal": "Legal notice",
+  "contact": "Contact",
+  "weddingOf": "the wedding of",
+  "offeredOf": "given out of 12",
+  "item1": "Cast-iron pot",
+  "item2": "Monstera",
+  "item3": "Tea set",
+  "item4": "Brass lamp",
+  "reserve": "Reserve",
+  "given": "already given!",
+  "reservedOf": "gifts reserved out of 12",
+  "example": "Example list",
+  "pileLabel": "A pile of wrapped gifts",
+  "form": {
+    "consentLabel": "I agree to receive one email at launch and consent to the",
+    "privacyLink": "privacy policy",
     "privacyHref": "/en/privacy",
-    "contactLabel": "Contact",
-    "contactEmail": "contact@keimelion.app",
-    "copyright": "© 2026 Keimêlion. All rights reserved."
+    "submitting": "Saving…",
+    "duplicate": "Thank you! We'll email you as soon as we open.",
+    "error": "Sign-up failed. Please try again in a moment.",
+    "errorInvalidEmail": "That email address doesn't look valid.",
+    "errorInvalidConsent": "Consent is required to continue.",
+    "errorRateLimited": "Too many requests. Please try again shortly.",
+    "honeypotLabel": "Please leave this field empty"
   },
-  "legal": {
+  "links": {
+    "legalHref": "/en/legal-notice",
+    "contactHref": "mailto:contact@keimelion.app"
+  },
+  "copyright": "© 2026 Keimêlion",
+  "legalPages": {
     "notice": {
       "title": "Legal notice",
       "intro": "This page is being drafted. The final version will be published at the launch of Keimêlion.",
@@ -97,6 +70,7 @@
       "intro": "This page is being drafted. The final GDPR-compliant version will be published at the launch of Keimêlion.",
       "contactLabel": "For any question, write to us at"
     },
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "contactEmail": "contact@keimelion.app"
   }
 }

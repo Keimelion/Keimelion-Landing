@@ -9,37 +9,39 @@ interface Props {
 }
 
 const { locale, translation } = Astro.props
-const { header } = translation
 ---
 
-<header class="site-header">
-  <div class="site-header__inner container">
-    <Logo label={header.logoAlt} wordmark={header.wordmark} />
-    <LanguageSwitcher
-      currentLocale={locale}
-      label={header.langSwitcherLabel}
-      frShort={header.fr}
-      enShort={header.en}
-      frFull={header.frFull}
-      enFull={header.enFull}
-    />
-  </div>
+<header class="k-head">
+  <Logo label="Keimêlion" wordmark="keimêlion" />
+  <LanguageSwitcher currentLocale={locale} label={translation.langLabel} />
 </header>
 
 <style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
-    backdrop-filter: saturate(140%) blur(8px);
-    border-bottom: 1px solid rgb(28 26 51 / 6%);
-  }
-
-  .site-header__inner {
+  .k-head {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: var(--space-4);
+    gap: 16px;
+  }
+
+  @media (max-width: 720px) {
+    .k-head {
+      flex-wrap: nowrap;
+      padding: 16px;
+      gap: 8px;
+    }
+
+    .k-head :global(.logo__wordmark) {
+      font-size: 24px !important;
+    }
+
+    .k-head :global(.logo__mark) {
+      width: 30px;
+      height: 30px;
+    }
   }
 </style>

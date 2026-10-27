@@ -20,11 +20,11 @@ const translation = getTranslation(locale)
 >
   <SiteHeader locale={locale} translation={translation} />
   <main class="notfound">
-    <div class="notfound__inner container">
-      <h1>404</h1>
+    <div class="notfound__inner">
+      <h1 class="k-h">404</h1>
       <p>Page introuvable / Page not found</p>
       <p>
-        <a href="/">{translation.legal.backHome}</a>
+        <a href="/">{translation.legalPages.backHome}</a>
       </p>
     </div>
   </main>
@@ -33,20 +33,23 @@ const translation = getTranslation(locale)
 
 <style>
   .notfound {
-    padding-block: var(--space-9);
+    padding-block: 96px;
     text-align: center;
     min-height: 50vh;
   }
 
   .notfound__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: 20px;
     align-items: center;
   }
 
   .notfound h1 {
-    font-size: var(--font-size-4xl);
-    color: var(--color-accent);
+    font-size: clamp(72px, 10vw, 128px);
+    color: var(--brand);
   }
 </style>

@@ -2,7 +2,6 @@
 import BaseLayout from '../../layouts/base-layout.astro'
 import SiteHeader from '../../components/site-header/site-header.astro'
 import Hero from '../../components/hero/hero.astro'
-import ListCard from '../../components/list-card/list-card.astro'
 import Moments from '../../components/moments/moments.astro'
 import Shelf from '../../components/shelf/shelf.astro'
 import Free from '../../components/free/free.astro'
@@ -26,7 +25,6 @@ const translation = getTranslation(locale)
   <SiteHeader locale={locale} translation={translation} />
   <main id="main-content">
     <Hero locale={locale} translation={translation} />
-    <ListCard translation={translation} />
     <Moments translation={translation} />
     <Shelf translation={translation} />
     <Free translation={translation} />

@@ -7,7 +7,7 @@ export const prerender = true
 
 const locale = Locales.EN
 const translation = getTranslation(locale)
-const legal = translation.legal.notice
+const legal = translation.legalPages.notice
 ---
 
 <LegalLayout
@@ -21,9 +21,11 @@ const legal = translation.legal.notice
   <p>{legal.intro}</p>
   <p>
     {legal.contactLabel}
-    <a href={`mailto:${translation.footer.contactEmail}`}>{translation.footer.contactEmail}</a>.
+    <a href={`mailto:${translation.legalPages.contactEmail}`}>
+      {translation.legalPages.contactEmail}
+    </a>.
   </p>
   <p>
-    <a href="/en/">{translation.legal.backHome}</a>
+    <a href="/en/">{translation.legalPages.backHome}</a>
   </p>
 </LegalLayout>

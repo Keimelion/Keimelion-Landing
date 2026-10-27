@@ -1,92 +1,65 @@
 {
   "meta": {
     "title": "Keimêlion — La liste qu'on garde",
-    "description": "Keimêlion arrive bientôt : la liste de cadeaux que l'on garde pour les moments qui comptent. Inscrivez-vous pour être prévenu·e du lancement.",
+    "description": "Keimêlion arrive bientôt : des listes de souhaits à partager avec vos proches, qui réservent un cadeau en un clic, sans créer de compte. Gratuit, pour tout le monde.",
     "ogAlt": "Keimêlion — Bientôt disponible"
   },
-  "header": {
-    "logoAlt": "Keimêlion",
-    "wordmark": "keimêlion",
-    "langSwitcherLabel": "Choisir la langue",
-    "fr": "FR",
-    "en": "EN",
-    "frFull": "Français",
-    "enFull": "Anglais"
-  },
-  "hero": {
-    "badge": "Bientôt disponible",
-    "handwritten": "la liste qu'on garde",
-    "title": "La liste qu'on garde.",
-    "lede": "Keimêlion est la liste de cadeaux pensée pour les moments qui comptent. Discrète, partagée, sans doublons, sans surprise gênante.",
-    "nameExplanation": "keimêlion — du grec ancien κειμήλιον, le trésor que l'on garde.",
-    "listDemoLabel": "Aperçu : liste « Léa & Axel »",
-    "form": {
-      "emailLabel": "Votre adresse e-mail",
-      "emailPlaceholder": "prenom@exemple.fr",
-      "consentLabel": "J'accepte de recevoir un e-mail au lancement et je consens à la",
-      "privacyLink": "politique de confidentialité",
-      "privacyHref": "/confidentialite",
-      "submit": "Prévenez-moi",
-      "submitting": "Enregistrement…",
-      "success": "C'est noté. On vous écrit dès que Keimêlion ouvre.",
-      "duplicate": "C'est noté. On vous écrit dès que Keimêlion ouvre.",
-      "error": "Oups, l'inscription a échoué. Réessayez dans un instant.",
-      "errorInvalidEmail": "Cette adresse e-mail ne semble pas valide.",
-      "errorInvalidConsent": "Le consentement est nécessaire pour poursuivre.",
-      "errorRateLimited": "Beaucoup de demandes à la minute. Réessayez dans un instant.",
-      "honeypotLabel": "Ne remplissez pas ce champ"
-    }
-  },
-  "list": {
-    "title": "Un cadeau emballé pour chaque intention",
-    "caption": "On ajoute, on partage, on garde — sans jamais révéler qui offre quoi."
-  },
-  "moments": {
-    "title": "Pour les moments de vie",
-    "items": {
-      "anniversaire": {
-        "title": "Anniversaires",
-        "caption": "Une liste qui dure plus qu'une bougie."
-      },
-      "mariage": {
-        "title": "Mariages",
-        "caption": "Simple à partager, élégant à offrir."
-      },
-      "naissance": {
-        "title": "Naissances",
-        "caption": "Tout ce qu'il faut, rien en double."
-      },
-      "noel": {
-        "title": "Noël",
-        "caption": "Les envies de toute la famille, réunies."
-      },
-      "cremaillere": {
-        "title": "Crémaillères",
-        "caption": "On fête le nouveau toit avec les bonnes idées."
-      }
-    }
-  },
-  "shelf": {
-    "title": "Emballé, envoyé",
-    "caption": "Vos listes se remplissent, s'organisent et s'offrent. Rien ne se perd.",
-    "counterLabel": "cadeaux reçus cette semaine",
-    "counterStart": "4",
-    "counterEnd": "7"
-  },
-  "free": {
-    "title": "Gratuit, et transparent",
-    "body": "Keimêlion restera gratuit. Nous nous rémunérons via des liens d'affiliation lorsque vous choisissez d'acheter chez un partenaire — sans surcoût pour vous, et sans jamais vendre vos données."
-  },
-  "footer": {
-    "legalNotice": "Mentions légales",
-    "legalNoticeHref": "/mentions-legales",
-    "privacy": "Confidentialité",
+  "langLabel": "Langue",
+  "badge": "Bientôt disponible",
+  "kicker": "pour un mariage, une naissance, un premier chez-soi…",
+  "title": "La liste qu'on garde.",
+  "lead": "Keimêlion arrive bientôt : des listes de souhaits à partager avec vos proches, qui réservent un cadeau en un clic, sans créer de compte. Gratuit, pour tout le monde.",
+  "formLabel": "Votre adresse e-mail",
+  "placeholder": "vous@exemple.fr",
+  "notify": "Prévenez-moi",
+  "privacy": "Un seul e-mail, le jour du lancement. Rien d'autre.",
+  "thanks": "Merci ! On vous écrit dès l'ouverture.",
+  "nameNote": "du grec ancien κειμήλιον : « le trésor que l'on garde ».",
+  "occHand": "pour tous les",
+  "occTitle": "Moments de vie",
+  "occ1": "Mariage",
+  "occ2": "Naissance",
+  "occ3": "Premier appart",
+  "occ4": "Anniversaire",
+  "occ5": "Et les autres",
+  "shelfHand": "un clic, et c'est",
+  "shelfTitle": "Emballé, envoyé",
+  "shelfText": "Quand un invité réserve, le cadeau s'emballe et rejoint l'étagère de la liste. Pas de compte, pas de doublon, et la surprise reste entière.",
+  "freeHand": "et pour tout le monde, c'est",
+  "freeTitle": "Gratuit.",
+  "freeText": "Keimêlion se finance grâce aux liens affiliés : le marchand nous reverse une petite commission, et le prix reste exactement le même pour vos invités.",
+  "footerNav": "Pied de page",
+  "legal": "Mentions légales",
+  "contact": "Contact",
+  "weddingOf": "le mariage de",
+  "offeredOf": "offerts sur 12",
+  "item1": "Cocotte en fonte",
+  "item2": "Monstera",
+  "item3": "Service à thé",
+  "item4": "Lampe en laiton",
+  "reserve": "Réserver",
+  "given": "déjà offert !",
+  "reservedOf": "cadeaux réservés sur 12",
+  "example": "Exemple de liste",
+  "pileLabel": "Une pile de cadeaux emballés",
+  "form": {
+    "consentLabel": "J'accepte de recevoir un e-mail au lancement et je consens à la",
+    "privacyLink": "politique de confidentialité",
     "privacyHref": "/confidentialite",
-    "contactLabel": "Contact",
-    "contactEmail": "contact@keimelion.app",
-    "copyright": "© 2026 Keimêlion. Tous droits réservés."
+    "submitting": "Enregistrement…",
+    "duplicate": "Merci ! On vous écrit dès l'ouverture.",
+    "error": "Oups, l'inscription a échoué. Réessayez dans un instant.",
+    "errorInvalidEmail": "Cette adresse e-mail ne semble pas valide.",
+    "errorInvalidConsent": "Le consentement est nécessaire pour poursuivre.",
+    "errorRateLimited": "Beaucoup de demandes à la minute. Réessayez dans un instant.",
+    "honeypotLabel": "Ne remplissez pas ce champ"
   },
-  "legal": {
+  "links": {
+    "legalHref": "/mentions-legales",
+    "contactHref": "mailto:contact@keimelion.app"
+  },
+  "copyright": "© 2026 Keimêlion",
+  "legalPages": {
     "notice": {
       "title": "Mentions légales",
       "intro": "Page en cours de rédaction. La version définitive sera publiée au lancement de Keimêlion.",
@@ -97,6 +70,7 @@
       "intro": "Page en cours de rédaction. La version définitive, conforme au RGPD, sera publiée au lancement de Keimêlion.",
       "contactLabel": "Pour toute question, écrivez-nous à"
     },
-    "backHome": "Retour à l'accueil"
+    "backHome": "Retour à l'accueil",
+    "contactEmail": "contact@keimelion.app"
   }
 }

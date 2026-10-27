@@ -1,4 +1,5 @@
 ---
+import Logo from '../logo/logo.astro'
 import type { Translation } from '../../i18n/t'
 
 interface Props {
@@ -6,66 +7,49 @@ interface Props {
 }
 
 const { translation } = Astro.props
-const { footer } = translation
+const t = translation
 ---
 
 <footer class="site-footer">
-  <div class="site-footer__inner container">
-    <nav class="site-footer__nav" aria-label={footer.contactLabel}>
-      <a href={footer.legalNoticeHref}>{footer.legalNotice}</a>
-      <a href={footer.privacyHref}>{footer.privacy}</a>
-      <a href={`mailto:${footer.contactEmail}`}>{footer.contactEmail}</a>
-    </nav>
-    <p class="site-footer__copyright">{footer.copyright}</p>
-  </div>
+  <Logo
+    label="Keimêlion"
+    wordmark="keimêlion"
+    size={28}
+    wordmarkSize={24}
+    color="var(--ink)"
+  />
+  <nav class="site-footer__nav" aria-label={t.footerNav}>
+    <a href={t.links.legalHref} class="k-link site-footer__link">{t.legal}</a>
+    <a href={t.links.contactHref} class="k-link site-footer__link">{t.contact}</a>
+  </nav>
+  <span class="site-footer__copyright">{t.copyright}</span>
 </footer>
 
 <style>
   .site-footer {
-    background: var(--color-encre);
-    color: #fff;
-    padding-block: var(--space-7);
-  }
-
-  .site-footer__inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
     display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  @media (min-width: 720px) {
-    .site-footer__inner {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
   }
 
   .site-footer__nav {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-5);
-    font-size: var(--font-size-sm);
+    gap: 20px;
   }
 
-  .site-footer__nav a {
-    color: #fff;
-    text-decoration: none;
-    opacity: 0.85;
-    min-height: 48px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .site-footer__nav a:hover {
-    opacity: 1;
-    text-decoration: underline;
+  .site-footer__link {
+    font-size: 14px;
   }
 
   .site-footer__copyright {
-    font-family: var(--font-mono);
-    font-size: var(--font-size-xs);
-    color: rgb(255 255 255 / 70%);
-    letter-spacing: 0.04em;
+    font-size: 14px;
+    color: var(--ink-muted);
   }
 </style>
