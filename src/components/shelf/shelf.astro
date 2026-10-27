@@ -211,10 +211,10 @@ const t = translation
     display: flex;
     flex-direction: column;
     gap: 24px;
-    /* Clip any overscaled parcels row — the row keeps its full 478px layout
-       width while being visually scaled by `--shelf-scale`, so the extra
-       layout box bleed is hidden here. */
-    overflow: hidden;
+    /* Lets the "Léa & Axel" display face size against the card width,
+       not the viewport — the card is squeezed in the 2-column desktop
+       layout at 1024–1120 while the viewport is still comfortable. */
+    container-type: inline-size;
   }
 
   .shelf__couple {
@@ -230,7 +230,10 @@ const t = translation
   }
 
   .k-couple {
-    font-size: clamp(44px, 6vw, 68px);
+    /* Sized against the lilac card's inline-size via cqi so the heading
+       never clips past the card's rounded corner even when it's squeezed
+       by the two-column desktop layout. */
+    font-size: clamp(36px, 11cqi, 68px);
     line-height: 0.95;
     overflow-wrap: break-word;
   }
@@ -243,6 +246,10 @@ const t = translation
        scene narrows (tablet, two-column desktop at 1024–1120, mobile). Without
        this the row wraps to a second line between 1024 and ~1150 px. */
     container-type: inline-size;
+    /* The scaled row keeps its full ~478 px layout width while visually
+       shrinking via --shelf-scale; clip that layout bleed here so it never
+       pokes past the lilac card. */
+    overflow: hidden;
   }
 
   .k-shelf {
@@ -621,10 +628,6 @@ const t = translation
   @media (max-width: 720px) {
     .shelf {
       gap: 32px;
-    }
-
-    .k-couple {
-      font-size: 44px;
     }
   }
 </style>
