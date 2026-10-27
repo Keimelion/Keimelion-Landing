@@ -43,14 +43,12 @@
   "example": "Exemple de liste",
   "pileLabel": "Une pile de cadeaux emballés",
   "form": {
-    "consentLabel": "J'accepte de recevoir un e-mail au lancement et je consens à la",
-    "privacyLink": "politique de confidentialité",
+    "privacyLink": "Politique de confidentialité",
     "privacyHref": "/confidentialite",
     "submitting": "Enregistrement…",
     "duplicate": "Merci ! On vous écrit dès l'ouverture.",
     "error": "Oups, l'inscription a échoué. Réessayez dans un instant.",
     "errorInvalidEmail": "Cette adresse e-mail ne semble pas valide.",
-    "errorInvalidConsent": "Le consentement est nécessaire pour poursuivre.",
     "errorRateLimited": "Beaucoup de demandes à la minute. Réessayez dans un instant.",
     "honeypotLabel": "Ne remplissez pas ce champ"
   },

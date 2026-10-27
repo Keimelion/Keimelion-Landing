@@ -43,14 +43,12 @@
   "example": "Example list",
   "pileLabel": "A pile of wrapped gifts",
   "form": {
-    "consentLabel": "I agree to receive one email at launch and consent to the",
-    "privacyLink": "privacy policy",
+    "privacyLink": "Privacy policy",
     "privacyHref": "/en/privacy",
     "submitting": "Saving…",
     "duplicate": "Thank you! We'll email you as soon as we open.",
     "error": "Sign-up failed. Please try again in a moment.",
     "errorInvalidEmail": "That email address doesn't look valid.",
-    "errorInvalidConsent": "Consent is required to continue.",
     "errorRateLimited": "Too many requests. Please try again shortly.",
     "honeypotLabel": "Please leave this field empty"
   },

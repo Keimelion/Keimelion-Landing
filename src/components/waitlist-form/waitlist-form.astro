@@ -20,7 +20,6 @@ const t = translation
   data-i18n-duplicate={t.form.duplicate}
   data-i18n-error={t.form.error}
   data-i18n-invalid-email={t.form.errorInvalidEmail}
-  data-i18n-invalid-consent={t.form.errorInvalidConsent}
   data-i18n-rate-limited={t.form.errorRateLimited}
   data-i18n-submit={t.notify}
   data-i18n-submitting={t.form.submitting}
@@ -46,13 +45,10 @@ const t = translation
     </label>
   </div>
   <input type="hidden" name="locale" value={locale} />
-  <label class="k-form__consent">
-    <input type="checkbox" name="consent" value="true" required />
-    <span>
-      {t.form.consentLabel}&nbsp;<a href={t.form.privacyHref}>{t.form.privacyLink}</a>.
-    </span>
-  </label>
-  <span class="k-form__privacy">{t.privacy}</span>
+  <input type="hidden" name="consent" value="true" />
+  <span class="k-form__privacy">
+    {t.privacy}&nbsp;<a href={t.form.privacyHref} class="k-form__privacy-link">{t.form.privacyLink}</a>.
+  </span>
   <p
     class="k-form__thanks"
     role="status"
@@ -97,7 +93,7 @@ const t = translation
   function errorMessageFor(form: HTMLFormElement, code: FailurePayload['error']): string {
     const map: Record<FailurePayload['error'], string | undefined> = {
       invalid_email: form.dataset.i18nInvalidEmail,
-      invalid_consent: form.dataset.i18nInvalidConsent,
+      invalid_consent: form.dataset.i18nError,
       rate_limited: form.dataset.i18nRateLimited,
       invalid_payload: form.dataset.i18nError,
     }
@@ -212,21 +208,15 @@ const t = translation
     color: var(--ink-muted);
   }
 
-  .k-form__consent {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    line-height: 18px;
+  .k-form__privacy-link {
     color: var(--ink-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
-  .k-form__consent input[type='checkbox'] {
-    margin-top: 2px;
-    width: 18px;
-    height: 18px;
-    accent-color: var(--brand);
-    flex-shrink: 0;
+  .k-form__privacy-link:hover,
+  .k-form__privacy-link:focus-visible {
+    color: var(--brand);
   }
 
   .k-form__thanks {
