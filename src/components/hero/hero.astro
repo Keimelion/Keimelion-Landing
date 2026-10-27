@@ -877,7 +877,7 @@ const t = translation
   @media (min-width: 721px) and (max-width: 1023px) {
     .hero {
       flex-direction: column;
-      align-items: center;
+      align-items: stretch;
       gap: 56px;
       padding: 32px 24px 80px;
     }
@@ -885,8 +885,7 @@ const t = translation
     .hero__text {
       flex: 0 1 auto;
       width: 100%;
-      max-width: 600px;
-      margin-inline: auto;
+      max-width: none;
     }
 
     .k-hero-art {
