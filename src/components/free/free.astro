@@ -71,15 +71,15 @@ const t = translation
   }
 
   .free__hand {
-    font-size: 36px;
-    line-height: 38px;
+    font-size: clamp(26px, 3.4vw, 36px);
+    line-height: 1.1;
     color: var(--paper-rose);
   }
 
   .free__text {
     margin: 0;
-    font-size: 18px;
-    line-height: 28px;
+    font-size: clamp(16px, 1.6vw, 18px);
+    line-height: 1.6;
   }
 
   @keyframes kSpin {
