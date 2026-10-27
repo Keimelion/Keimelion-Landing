@@ -876,7 +876,12 @@ const t = translation
     z-index: 2;
   }
 
-  @media (min-width: 721px) and (max-width: 1023px) {
+  /* Tablet band: hero items stack and centre. Upper bound = the smallest
+     viewport where the two desktop columns (text 500 + art 440 + 10vw gap)
+     actually fit side-by-side in the available width (viewport − 48 px of
+     page padding), computed from `0.9 × W ≥ 988` → W ≥ 1098 px.
+     We cap at 1119 to leave a small safety margin. */
+  @media (min-width: 721px) and (max-width: 1119px) {
     .hero {
       flex-direction: column;
       align-items: stretch;
