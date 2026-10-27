@@ -1,0 +1,23 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept-language",
+          "value": "^(?!.*\\bfr\\b).*\\ben\\b.*"
+        }
+      ],
+      "missing": [
+        {
+          "type": "cookie",
+          "key": "locale"
+        }
+      ],
+      "destination": "/en/",
+      "permanent": false
+    }
+  ]
+}

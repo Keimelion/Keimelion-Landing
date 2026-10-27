@@ -26,3 +26,6 @@ npm-debug.log*
 # IDE
 .idea/
 .vscode/
+
+# husky runtime
+.husky/_/
