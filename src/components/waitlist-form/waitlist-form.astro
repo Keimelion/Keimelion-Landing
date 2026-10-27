@@ -187,19 +187,64 @@ const t = translation
 
   .k-form__row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: stretch;
+    gap: 0;
+    padding: 5px;
+    background: #ffffff;
+    border: 1.5px solid var(--rule-strong);
+    border-radius: var(--radius-pill);
+    max-width: 520px;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+  }
+
+  .k-form__row:focus-within {
+    border-color: var(--ink);
+  }
+
+  .k-form__row .k-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 46px;
+    padding: 0 18px;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .k-form__row .k-input:focus-visible {
+    outline: none;
   }
 
   .k-form__submit {
-    min-height: 54px;
-    padding: 0 26px;
-    font-size: 16px;
+    flex: 0 0 auto;
+    min-height: 46px;
+    padding: 0 22px;
+    font-size: 15px;
+    border-radius: var(--radius-pill);
   }
 
   .k-form__submit[disabled] {
     opacity: 0.75;
     cursor: progress;
+  }
+
+  @media (max-width: 420px) {
+    .k-form__row {
+      flex-wrap: wrap;
+      border-radius: 24px;
+      padding: 6px;
+    }
+
+    .k-form__row .k-input {
+      flex: 1 1 100%;
+      min-height: 44px;
+    }
+
+    .k-form__submit {
+      flex: 1 1 100%;
+      min-height: 44px;
+    }
   }
 
   .k-form__privacy {
