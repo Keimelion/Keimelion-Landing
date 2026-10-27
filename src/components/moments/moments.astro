@@ -171,6 +171,10 @@ const OCCASIONS: readonly Occasion[] = [
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
+      /* The scroll-snap `start` alignment ignores the container's padding by
+         default, which parks the first tile flush against the viewport edge.
+         Mirror the 24 px gutter on both sides via scroll-padding-inline. */
+      scroll-padding-inline: 24px;
       gap: 14px;
       margin: 0 -24px;
       padding: 0 24px 8px;
