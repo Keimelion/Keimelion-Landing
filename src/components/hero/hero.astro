@@ -874,6 +874,29 @@ const t = translation
     z-index: 2;
   }
 
+  @media (min-width: 721px) and (max-width: 1023px) {
+    .hero {
+      flex-direction: column;
+      align-items: center;
+      gap: 56px;
+      padding: 32px 24px 80px;
+    }
+
+    .hero__text {
+      flex: 0 1 auto;
+      width: 100%;
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    .k-hero-art {
+      flex: 0 1 auto;
+      width: 100%;
+      max-width: 560px;
+      margin-inline: auto;
+    }
+  }
+
   @media (max-width: 720px) {
     .hero {
       padding: 24px 24px 72px;
