@@ -210,6 +210,10 @@ const t = translation
     display: flex;
     flex-direction: column;
     gap: 24px;
+    /* Clip any overscaled parcels row — the row keeps its full 478px layout
+       width while being visually scaled by `--shelf-scale`, so the extra
+       layout box bleed is hidden here. */
+    overflow: hidden;
   }
 
   .shelf__couple {
@@ -234,15 +238,46 @@ const t = translation
     display: flex;
     flex-direction: column;
     gap: 0;
+    /* Container query root: the parcels row scales down proportionally as the
+       scene narrows (tablet, two-column desktop at 1024–1120, mobile). Without
+       this the row wraps to a second line between 1024 and ~1150 px. */
+    container-type: inline-size;
   }
 
   .k-shelf {
     display: flex;
     align-items: flex-end;
     gap: 10px;
-    flex-wrap: wrap;
+    /* Natural width is ~478 px (parcels + slots + gaps + padding). Any shrink
+       below that happens through --shelf-scale rather than a wrap. */
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     min-height: 96px;
     padding: 0 12px;
+    transform-origin: left bottom;
+    transform: scale(var(--shelf-scale, 1));
+  }
+
+  /* Scale the row down in bands so it fits inside the lilac card at every
+     breakpoint. Breakpoints are the available scene inner width, not the
+     viewport, which keeps the two-column desktop and mobile paths consistent. */
+  @container (max-width: 478px) {
+    .k-shelf { --shelf-scale: 0.9; }
+  }
+  @container (max-width: 430px) {
+    .k-shelf { --shelf-scale: 0.8; }
+  }
+  @container (max-width: 383px) {
+    .k-shelf { --shelf-scale: 0.72; }
+  }
+  @container (max-width: 345px) {
+    .k-shelf { --shelf-scale: 0.65; }
+  }
+  @container (max-width: 310px) {
+    .k-shelf { --shelf-scale: 0.58; }
+  }
+  @container (max-width: 280px) {
+    .k-shelf { --shelf-scale: 0.52; }
   }
 
   .k-parcel--p1 {
@@ -589,13 +624,6 @@ const t = translation
 
     .k-couple {
       font-size: 44px;
-    }
-
-    .k-shelf {
-      flex-wrap: nowrap;
-      gap: 6px;
-      padding: 0;
-      zoom: 0.7;
     }
   }
 </style>
