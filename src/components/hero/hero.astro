@@ -331,7 +331,8 @@ const t = translation
     position: relative;
     max-width: 1360px;
     margin: 0 auto;
-    padding: 40px 24px 96px;
+    padding-block: clamp(56px, 8vw, 96px);
+    padding-inline: 24px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -880,7 +881,6 @@ const t = translation
       flex-direction: column;
       align-items: stretch;
       gap: 56px;
-      padding: 32px 24px 80px;
     }
 
     .hero__text {
@@ -917,7 +917,6 @@ const t = translation
 
   @media (max-width: 720px) {
     .hero {
-      padding: 24px 24px 72px;
       gap: 32px;
     }
 

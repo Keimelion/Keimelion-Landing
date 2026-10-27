@@ -102,7 +102,8 @@ const OCCASIONS: readonly Occasion[] = [
   .moments {
     position: relative;
     background: var(--surface);
-    padding: 80px 24px;
+    padding-block: clamp(56px, 8vw, 96px);
+    padding-inline: 24px;
   }
 
   .moments__inner {

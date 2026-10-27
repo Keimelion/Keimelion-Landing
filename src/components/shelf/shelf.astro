@@ -190,7 +190,8 @@ const t = translation
     position: relative;
     max-width: 1360px;
     margin: 0 auto;
-    padding: 96px 24px;
+    padding-block: clamp(56px, 8vw, 96px);
+    padding-inline: 24px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -619,7 +620,6 @@ const t = translation
 
   @media (max-width: 720px) {
     .shelf {
-      padding: 56px 24px;
       gap: 32px;
     }
 

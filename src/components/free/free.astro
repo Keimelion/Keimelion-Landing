@@ -41,7 +41,8 @@ const t = translation
     position: relative;
     background: var(--brand);
     color: var(--on-brand);
-    padding: 88px 24px;
+    padding-block: clamp(56px, 8vw, 96px);
+    padding-inline: 24px;
     overflow: hidden;
   }
 
@@ -96,10 +97,6 @@ const t = translation
   }
 
   @media (max-width: 720px) {
-    .free {
-      padding: 64px 24px;
-    }
-
     .free__mandala {
       width: 130px;
       height: 130px;
