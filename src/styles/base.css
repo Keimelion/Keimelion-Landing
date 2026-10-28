@@ -28,6 +28,36 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  color-scheme: light;
+}
+
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--surface-raised);
+  font: 600 14px/1 var(--font-sans);
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  color: var(--surface-raised);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
 }
 
 body {
@@ -272,5 +302,45 @@ button {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* View Transitions — FR <-> EN language switch.
+   Each major section carries its own view-transition-name so the browser
+   runs an isolated per-box crossfade instead of a single flash across the
+   whole page. Keep the lang slider's bouncy curve; everything else fades
+   gently in ~0.35 s so the different text content melts across in place. */
+::view-transition-group(*) {
+  animation-duration: 0.4s;
+}
+
+::view-transition-old(vt-hero-text),
+::view-transition-new(vt-hero-text),
+::view-transition-old(vt-hero-visual),
+::view-transition-new(vt-hero-visual),
+::view-transition-old(vt-moments),
+::view-transition-new(vt-moments),
+::view-transition-old(vt-shelf-card),
+::view-transition-new(vt-shelf-card),
+::view-transition-old(vt-free),
+::view-transition-new(vt-free),
+::view-transition-old(vt-header),
+::view-transition-new(vt-header),
+::view-transition-old(vt-footer),
+::view-transition-new(vt-footer) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+}
+
+::view-transition-group(vt-header),
+::view-transition-group(vt-footer) {
+  animation-duration: 0.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

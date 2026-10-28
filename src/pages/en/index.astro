@@ -22,12 +22,17 @@ const translation = getTranslation(locale)
   alternatePath="/"
   ogAlt={translation.meta.ogAlt}
 >
-  <SiteHeader locale={locale} translation={translation} />
+  <SiteHeader
+    locale={locale}
+    translation={translation}
+    canonicalPath="/en/"
+    alternatePath="/"
+  />
   <main id="main-content">
     <Hero locale={locale} translation={translation} />
     <Moments translation={translation} />
     <Shelf translation={translation} />
     <Free translation={translation} />
   </main>
-  <SiteFooter translation={translation} />
+  <SiteFooter locale={locale} translation={translation} />
 </BaseLayout>

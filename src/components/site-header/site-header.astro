@@ -1,19 +1,29 @@
 ---
 import Logo from '../logo/logo.astro'
 import LanguageSwitcher from '../language-switcher/language-switcher.astro'
-import type { Locale, Translation } from '../../i18n/t'
+import { Locales, getLocalisedHomePath, type Locale, type Translation } from '../../i18n/t'
 
 interface Props {
   locale: Locale
   translation: Translation
+  canonicalPath: string
+  alternatePath: string
 }
 
-const { locale, translation } = Astro.props
+const { locale, translation, canonicalPath, alternatePath } = Astro.props
+const homeHref = getLocalisedHomePath(locale)
+const frHref = locale === Locales.FR ? canonicalPath : alternatePath
+const enHref = locale === Locales.EN ? canonicalPath : alternatePath
 ---
 
 <header class="k-head">
-  <Logo label="Keimêlion" wordmark="keimêlion" />
-  <LanguageSwitcher currentLocale={locale} label={translation.langLabel} />
+  <Logo label="Keimêlion" wordmark="keimêlion" href={homeHref} />
+  <LanguageSwitcher
+    currentLocale={locale}
+    label={translation.langLabel}
+    frHref={frHref}
+    enHref={enHref}
+  />
 </header>
 
 <style>
@@ -26,6 +36,7 @@ const { locale, translation } = Astro.props
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    view-transition-name: vt-header;
   }
 
   @media (max-width: 720px) {

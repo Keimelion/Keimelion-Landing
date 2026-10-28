@@ -38,7 +38,7 @@ const t = translation
     />
     <button type="submit" class="k-btn k-btn-primary k-form__submit">{t.notify}</button>
   </div>
-  <div class="k-form__hp" aria-hidden="true">
+  <div class="visually-hidden k-form__hp" aria-hidden="true">
     <label>
       <span>{t.form.honeypotLabel}</span>
       <input type="text" name="website" tabindex="-1" autocomplete="off" />
@@ -68,7 +68,13 @@ const t = translation
     </svg>
     <span data-waitlist-status-text></span>
   </p>
-  <p class="k-form__error" role="alert" aria-live="assertive" data-waitlist-error hidden></p>
+  <p
+    class="k-form__error"
+    role="alert"
+    tabindex="-1"
+    data-waitlist-error
+    hidden
+  ></p>
 </form>
 
 <script>
@@ -113,11 +119,22 @@ const t = translation
     node.hidden = message.length === 0
   }
 
-  function showError(form: HTMLFormElement, message: string): void {
+  function showError(
+    form: HTMLFormElement,
+    message: string,
+    code?: FailurePayload['error'],
+  ): void {
     const node = form.querySelector<HTMLElement>('[data-waitlist-error]')
     if (node === null) return
     node.textContent = message
     node.hidden = message.length === 0
+    if (message.length === 0) return
+    if (code === 'invalid_email') {
+      const input = form.querySelector<HTMLInputElement>('input[name="email"]')
+      input?.focus()
+      return
+    }
+    node.focus()
   }
 
   function setSubmitting(form: HTMLFormElement, isSubmitting: boolean): void {
@@ -155,7 +172,7 @@ const t = translation
         form.reset()
         return
       }
-      showError(form, errorMessageFor(form, raw.error))
+      showError(form, errorMessageFor(form, raw.error), raw.error)
     } catch (error) {
       void error
       showError(form, form.dataset.i18nError ?? '')
@@ -302,11 +319,9 @@ const t = translation
     display: none;
   }
 
-  .k-form__hp {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
+  .k-form__error:focus {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 </style>

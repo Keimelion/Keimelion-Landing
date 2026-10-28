@@ -23,13 +23,18 @@ const { locale, translation, title, canonicalPath, alternatePath } = Astro.props
   alternatePath={alternatePath}
   ogAlt={translation.meta.ogAlt}
 >
-  <SiteHeader locale={locale} translation={translation} />
-  <main class="legal">
+  <SiteHeader
+    locale={locale}
+    translation={translation}
+    canonicalPath={canonicalPath}
+    alternatePath={alternatePath}
+  />
+  <main id="main-content" class="legal">
     <div class="legal__inner">
       <slot />
     </div>
   </main>
-  <SiteFooter translation={translation} />
+  <SiteFooter locale={locale} translation={translation} />
 </BaseLayout>
 
 <style>

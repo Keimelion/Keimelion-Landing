@@ -4,16 +4,18 @@ import { Locales, type Locale } from '../../i18n/t'
 interface Props {
   currentLocale: Locale
   label: string
+  frHref?: string
+  enHref?: string
 }
 
-const { currentLocale, label } = Astro.props
+const { currentLocale, label, frHref = '/', enHref = '/en/' } = Astro.props
 const isFr = currentLocale === Locales.FR
 ---
 
 <div class="k-lang" role="group" aria-label={label} data-active={isFr ? 'fr' : 'en'}>
   <span class="k-lang__slider" aria-hidden="true"></span>
   <a
-    href="/"
+    href={frHref}
     class="k-lang-btn"
     aria-current={isFr ? 'page' : undefined}
     data-target-locale="fr"
@@ -23,7 +25,7 @@ const isFr = currentLocale === Locales.FR
     FR
   </a>
   <a
-    href="/en/"
+    href={enHref}
     class="k-lang-btn"
     aria-current={!isFr ? 'page' : undefined}
     data-target-locale="en"

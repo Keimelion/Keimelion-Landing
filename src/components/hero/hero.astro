@@ -52,8 +52,8 @@ const t = translation
     <div class="k-hero-card">
       <div class="k-hero-card__head">
         <div class="k-hero-card__title">
-          <span class="k-hand" style="font-size:24px;line-height:24px">{t.weddingOf}</span>
-          <span class="k-h" style="font-size:38px;line-height:1">Léa &amp; Axel</span>
+          <span class="k-hand k-hero-card__hand">{t.weddingOf}</span>
+          <span class="k-h k-hero-card__couple">Léa &amp; Axel</span>
         </div>
         <span class="k-hero-card__ratio">
           <span class="k-hero-card__ratio-num">4</span>
@@ -106,7 +106,7 @@ const t = translation
           <div class="k-tile__meta">
             <span class="k-tile__name">{t.item1}</span>
             <div class="k-tile__row">
-              <span class="k-h k-a-btn k-tile__price">89 €</span>
+              <span class="k-h k-a-btn k-tile__price">89&nbsp;€</span>
               <span class="k-tile__cta">
                 <span class="k-btn k-btn-primary k-a-btn k-tile__btn">{t.reserve}</span>
                 <span class="k-hand k-a-note k-tile__note">{t.given}</span>
@@ -230,7 +230,7 @@ const t = translation
           <div class="k-tile__meta">
             <span class="k-tile__name">{t.item4}</span>
             <div class="k-tile__row">
-              <span class="k-h k-tile__price">64 €</span>
+              <span class="k-h k-tile__price">64&nbsp;€</span>
               <span class="k-btn k-btn-primary k-tile__btn">{t.reserve}</span>
             </div>
           </div>
@@ -238,9 +238,9 @@ const t = translation
       </div>
     </div>
 
-    <!-- 4. Bobbing pile of gifts -->
+    <!-- 4. Bobbing pile of gifts (parent k-hero-art is aria-hidden; no role/label needed) -->
     <div class="k-a-bob k-pile">
-      <svg role="img" aria-label={t.pileLabel} viewBox="0 0 200 170" width="200" height="170">
+      <svg viewBox="0 0 200 170" width="200" height="170">
         <defs>
           <pattern id="hpP1" width="22" height="22" patternUnits="userSpaceOnUse">
             <rect width="22" height="22" fill="#f2bf3d"></rect>
@@ -350,6 +350,7 @@ const t = translation
        — including the 1120-1280 band where the text column is squeezed by
        the visual column. */
     container-type: inline-size;
+    view-transition-name: vt-hero-text;
   }
 
   .hero__badge {
@@ -367,25 +368,39 @@ const t = translation
   }
 
   .hero__dot {
+    position: relative;
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: var(--brand);
   }
 
+  .hero__dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--brand);
+    opacity: 0;
+    transform: scale(1);
+    transform-origin: center;
+    pointer-events: none;
+  }
+
   @keyframes kPulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 rgba(179, 32, 76, 0.45);
+    0% {
+      opacity: 0.45;
+      transform: scale(1);
     }
-    50% {
-      box-shadow: 0 0 0 7px rgba(179, 32, 76, 0);
+    100% {
+      opacity: 0;
+      transform: scale(2.75);
     }
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .hero__dot {
-      animation: kPulse 2s ease-in-out infinite;
+    .hero__dot::after {
+      animation: kPulse 2s ease-out infinite;
     }
   }
 
@@ -439,6 +454,7 @@ const t = translation
     min-width: 490px;
     max-width: 560px;
     height: 600px;
+    view-transition-name: vt-hero-visual;
   }
 
   .hero__arch {
@@ -482,6 +498,16 @@ const t = translation
   .k-hero-card__title {
     display: flex;
     flex-direction: column;
+  }
+
+  .k-hero-card__hand {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .k-hero-card__couple {
+    font-size: 38px;
+    line-height: 1;
   }
 
   .k-hero-card__ratio {
@@ -582,6 +608,7 @@ const t = translation
   .k-tile__price {
     font-size: 16px;
     letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
   }
 
   .k-tile__btn {

@@ -72,6 +72,9 @@ const htmlLang = locale === Locales.FR ? 'fr' : 'en'
     </script>
   </head>
   <body class={bodyClass}>
+    <a href="#main-content" class="skip-link">
+      {locale === Locales.FR ? 'Aller au contenu' : 'Skip to content'}
+    </a>
     <slot />
   </body>
 </html>

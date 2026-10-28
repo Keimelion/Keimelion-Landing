@@ -1,19 +1,22 @@
 ---
 import Logo from '../logo/logo.astro'
-import type { Translation } from '../../i18n/t'
+import { getLocalisedHomePath, type Locale, type Translation } from '../../i18n/t'
 
 interface Props {
+  locale: Locale
   translation: Translation
 }
 
-const { translation } = Astro.props
+const { locale, translation } = Astro.props
 const t = translation
+const homeHref = getLocalisedHomePath(locale)
 ---
 
 <footer class="site-footer">
   <Logo
     label="Keimêlion"
     wordmark="keimêlion"
+    href={homeHref}
     size={28}
     wordmarkSize={24}
     color="var(--ink)"
@@ -36,6 +39,7 @@ const t = translation
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    view-transition-name: vt-footer;
   }
 
   .site-footer__nav {

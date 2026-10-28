@@ -18,17 +18,25 @@ const translation = getTranslation(locale)
   alternatePath="/en/404"
   ogAlt={translation.meta.ogAlt}
 >
-  <SiteHeader locale={locale} translation={translation} />
-  <main class="notfound">
+  <SiteHeader
+    locale={locale}
+    translation={translation}
+    canonicalPath="/"
+    alternatePath="/en/"
+  />
+  <main id="main-content" class="notfound">
     <div class="notfound__inner">
-      <h1 class="k-h">404</h1>
-      <p>Page introuvable / Page not found</p>
+      <span class="notfound__code k-h" aria-hidden="true">404</span>
+      <h1 class="notfound__title">
+        Page introuvable
+        <span lang="en"> / Page not found</span>
+      </h1>
       <p>
         <a href="/">{translation.legalPages.backHome}</a>
       </p>
     </div>
   </main>
-  <SiteFooter translation={translation} />
+  <SiteFooter locale={locale} translation={translation} />
 </BaseLayout>
 
 <style>
@@ -48,8 +56,14 @@ const translation = getTranslation(locale)
     align-items: center;
   }
 
-  .notfound h1 {
+  .notfound__code {
     font-size: clamp(72px, 10vw, 128px);
     color: var(--brand);
+    line-height: 1;
+  }
+
+  .notfound__title {
+    font-size: clamp(20px, 2.4vw, 24px);
+    font-weight: 600;
   }
 </style>

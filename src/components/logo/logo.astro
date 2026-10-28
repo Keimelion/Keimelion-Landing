@@ -7,15 +7,23 @@
 interface Props {
   label: string
   wordmark: string
+  href?: string
   size?: number
   wordmarkSize?: number
   color?: string
 }
 
-const { label, wordmark, size = 40, wordmarkSize = 32, color = 'var(--brand)' } = Astro.props
+const {
+  label,
+  wordmark,
+  href = '/',
+  size = 40,
+  wordmarkSize = 32,
+  color = 'var(--brand)',
+} = Astro.props
 ---
 
-<a href="/" class="logo" aria-label={label}>
+<a href={href} class="logo" aria-label={label}>
   <svg
     class="logo__mark"
     viewBox="0 0 100 100"
