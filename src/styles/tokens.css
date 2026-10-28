@@ -10,7 +10,6 @@
   --rule-strong: #8a7f6c;
   --ink: #1c1a33;
   --ink-muted: #5a5570;
-  --on-paper: #1c1a33;
 
   /* Brand */
   --brand: #b3204c;
@@ -18,7 +17,6 @@
   --on-brand: #fffaf0;
 
   /* Semantic accents */
-  --emerald: #13694d;
   --ultramarine: #2b45b8;
   --accent: #f2622e;
   --danger: #a3261a;
@@ -30,30 +28,8 @@
   --paper-mint: #a8e0c0;
   --paper-lilac: #cdb8f5;
 
-  /* Kraft + wax (reserved for future ticket decorations) */
-  --kraft: #d4ad78;
-  --kraft-fiber: #a77d48;
-  --wax: #a3172f;
-  --wax-light: #e0526c;
-  --wax-deep: #5c0817;
-  --gold: #c9a04a;
-  --gold-light: #f5dd94;
-  --stamp-ink: #0b4f39;
-
   --focus-ring: #1c1a33;
 
-  --shadow-paper: 0 1px 0 0 rgba(28, 26, 51, 0.06),
-    0 6px 16px -10px rgba(28, 26, 51, 0.35);
-  --shadow-lift: 0 2px 0 0 rgba(28, 26, 51, 0.06),
-    0 18px 32px -16px rgba(28, 26, 51, 0.4);
-  --shadow-wax: 0 2px 1px rgba(60, 5, 15, 0.35),
-    0 6px 10px -4px rgba(60, 5, 15, 0.45),
-    inset 0 2px 2px rgba(255, 220, 225, 0.35),
-    inset 0 -3px 4px rgba(40, 0, 8, 0.45);
-  --shadow-deboss: inset 0 1px 1px rgba(28, 26, 51, 0.25),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.6);
-  --shadow-card: 0 1px 2px rgba(28, 26, 51, 0.06),
-    0 16px 32px -20px rgba(28, 26, 51, 0.4);
   --shadow-hero-card: 0 2px 4px rgba(28, 26, 51, 0.06),
     0 30px 50px -28px rgba(28, 26, 51, 0.55);
   --shadow-tile: 0 1px 2px rgba(28, 26, 51, 0.08),
@@ -66,22 +42,13 @@
   --space-8: 32px;
   --space-16: 64px;
 
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-notch: 10px;
   --radius-pill: 999px;
 
   --font-display: 'Bricolage Grotesque', 'Arial Narrow', system-ui, sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
     sans-serif;
   --font-mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-hand: 'Caveat', 'Comic Sans MS', cursive;
 
   --text-body: 400 16px/24px var(--font-sans);
-  --text-button: 600 15px/20px var(--font-sans);
-  --text-small: 400 14px/20px var(--font-sans);
-  --text-price: 500 17px/24px var(--font-mono);
-  --text-label: 500 11px/16px var(--font-mono);
 }

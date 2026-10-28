@@ -41,7 +41,6 @@
   "given": "already given!",
   "reservedOf": "gifts reserved out of 12",
   "example": "Example list",
-  "pileLabel": "A pile of wrapped gifts",
   "form": {
     "privacyLink": "Privacy policy",
     "privacyHref": "/en/privacy",
