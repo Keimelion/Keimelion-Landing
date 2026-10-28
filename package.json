@@ -1,6 +1,6 @@
 {
   "name": "keimelion-landing",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Keimelion pre-launch landing page (Astro, static output, Vercel).",
   "private": true,
   "type": "module",
