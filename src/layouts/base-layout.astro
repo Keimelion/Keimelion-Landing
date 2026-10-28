@@ -2,6 +2,8 @@
 import '../styles/base.css'
 import { ClientRouter } from 'astro:transitions'
 import { Locales, type Locale } from '../i18n/t'
+import bricolage800 from '@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff2?url'
+import dmSans400 from '@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2?url'
 
 interface Props {
   locale: Locale
@@ -30,6 +32,8 @@ const htmlLang = locale === Locales.FR ? 'fr' : 'en'
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#b3204c" />
+    <link rel="preload" as="font" type="font/woff2" href={bricolage800} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={dmSans400} crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

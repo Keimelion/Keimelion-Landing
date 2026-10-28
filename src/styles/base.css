@@ -3,20 +3,18 @@
  * reset, typography defaults, reduced-motion guard, shared utility classes.
  * Fontsource ships font-display: swap by default per family.
  */
-@import '@fontsource/bricolage-grotesque/400.css';
-@import '@fontsource/bricolage-grotesque/700.css';
-@import '@fontsource/bricolage-grotesque/800.css';
-@import '@fontsource/instrument-serif/400.css';
-@import '@fontsource/instrument-serif/400-italic.css';
-@import '@fontsource/caveat/500.css';
-@import '@fontsource/caveat/600.css';
-@import '@fontsource/caveat/700.css';
-@import '@fontsource/dm-sans/400.css';
-@import '@fontsource/dm-sans/500.css';
-@import '@fontsource/dm-sans/600.css';
-@import '@fontsource/dm-sans/700.css';
-@import '@fontsource/dm-mono/400.css';
-@import '@fontsource/dm-mono/500.css';
+/* Only the weights actually used by the design — Bricolage 800 (display
+   headings via .k-h), DM Sans 400/500/600/700 (body, buttons, badges,
+   counter chips), DM Mono 500 (small-caps labels), Caveat 600 (handwritten
+   accents). Latin subset only; FR + EN text sits entirely in U+0000-00FF,
+   and the Greek "κειμήλιον" naturally falls back to the system sans. */
+@import '@fontsource/bricolage-grotesque/latin-800.css';
+@import '@fontsource/caveat/latin-600.css';
+@import '@fontsource/dm-sans/latin-400.css';
+@import '@fontsource/dm-sans/latin-500.css';
+@import '@fontsource/dm-sans/latin-600.css';
+@import '@fontsource/dm-sans/latin-700.css';
+@import '@fontsource/dm-mono/latin-500.css';
 
 @import './tokens.css';
 
