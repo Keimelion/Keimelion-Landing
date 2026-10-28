@@ -1,5 +1,6 @@
 ---
 import '../styles/base.css'
+import { ClientRouter } from 'astro:transitions'
 import { Locales, type Locale } from '../i18n/t'
 
 interface Props {
@@ -48,6 +49,7 @@ const htmlLang = locale === Locales.FR ? 'fr' : 'en'
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL('/og-image.svg', siteOrigin).href} />
+    <ClientRouter fallback="swap" />
     <script is:inline>
       ;(function () {
         try {

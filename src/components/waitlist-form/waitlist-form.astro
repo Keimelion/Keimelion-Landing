@@ -164,12 +164,19 @@ const t = translation
     }
   }
 
-  document.querySelectorAll<HTMLFormElement>('form.k-form').forEach((form) => {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault()
-      void submit(form)
+  function bindWaitlistForms(): void {
+    document.querySelectorAll<HTMLFormElement>('form.k-form').forEach((form) => {
+      if (form.dataset.waitlistBound === 'true') return
+      form.dataset.waitlistBound = 'true'
+      form.addEventListener('submit', (event) => {
+        event.preventDefault()
+        void submit(form)
+      })
     })
-  })
+  }
+
+  bindWaitlistForms()
+  document.addEventListener('astro:page-load', bindWaitlistForms)
 </script>
 
 <style>
