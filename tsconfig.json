@@ -6,5 +6,5 @@
     "resolveJsonModule": true
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", "maquette"]
+  "exclude": ["dist", "node_modules"]
 }

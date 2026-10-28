@@ -1,6 +1,6 @@
 /*
- * Design tokens — single source of truth, replicated verbatim from the
- * canonical mockup `maquette/Bientot.dc.html` (header style block, line 2).
+ * Design tokens — single source of truth for the landing's palette,
+ * typography, spacing, radii and shadows.
  */
 :root {
   /* Surface + ink */

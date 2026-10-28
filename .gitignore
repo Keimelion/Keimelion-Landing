@@ -29,3 +29,6 @@ npm-debug.log*
 
 # husky runtime
 .husky/_/
+
+# design reference (local only — the final design lives in the implementation)
+maquette/
