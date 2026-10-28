@@ -462,30 +462,31 @@ const t = translation
     text-wrap: pretty;
   }
 
-  /* Timeline (8s cycle):
-       t1 — gift 1 lands at 15% (1.20s), counter 4 → 5, +1 pulses
-       t2 — gift 2 lands at 30% (2.40s), counter 5 → 6, +1 pulses
-       t3 — gift 3 lands at 45% (3.60s), counter 6 → 7, +1 pulses
-       45-88% — all three sit on the shelf, counter stays on 7
-       93-100% — fade out, reset */
+  /* Timeline (8s cycle): landings at 17 % / 32 % / 47 % — each gift
+       falls from -420 px, bounces, and the counter + "+1 !" pulse at
+       the same instants. All three sit on the shelf until 88 %, then
+       fade out and reset. */
   @keyframes kFall1 {
     0% {
       opacity: 0;
-      transform: translateY(-300px) rotate(-28deg);
+      transform: translateY(-420px) rotate(-28deg);
     }
     3% {
       opacity: 1;
     }
-    13% {
+    17% {
       transform: translateY(0) rotate(6deg) scale(1);
     }
-    14% {
-      transform: translateY(0) scale(1.16, 0.8);
+    18% {
+      transform: translateY(0) scale(1.18, 0.78);
     }
-    15% {
-      transform: translateY(-14px) rotate(-3deg);
+    21% {
+      transform: translateY(-24px) rotate(-5deg) scale(0.94, 1.08);
     }
-    16%,
+    23% {
+      transform: translateY(0) rotate(2deg) scale(1.06, 0.94);
+    }
+    25%,
     88% {
       opacity: 1;
       transform: translateY(0) rotate(0) scale(1);
@@ -500,21 +501,24 @@ const t = translation
     0%,
     15% {
       opacity: 0;
-      transform: translateY(-300px) rotate(-28deg);
+      transform: translateY(-420px) rotate(-28deg);
     }
     18% {
       opacity: 1;
     }
-    28% {
+    32% {
       transform: translateY(0) rotate(5deg) scale(1);
     }
-    29% {
-      transform: translateY(0) scale(1.16, 0.8);
+    33% {
+      transform: translateY(0) scale(1.18, 0.78);
     }
-    30% {
-      transform: translateY(-14px) rotate(-3deg);
+    36% {
+      transform: translateY(-24px) rotate(-5deg) scale(0.94, 1.08);
     }
-    31%,
+    38% {
+      transform: translateY(0) rotate(2deg) scale(1.06, 0.94);
+    }
+    40%,
     88% {
       opacity: 1;
       transform: translateY(0) rotate(0) scale(1);
@@ -529,21 +533,24 @@ const t = translation
     0%,
     30% {
       opacity: 0;
-      transform: translateY(-300px) rotate(-28deg);
+      transform: translateY(-420px) rotate(-28deg);
     }
     33% {
       opacity: 1;
     }
-    43% {
+    47% {
       transform: translateY(0) rotate(6deg) scale(1);
     }
-    44% {
-      transform: translateY(0) scale(1.16, 0.8);
+    48% {
+      transform: translateY(0) scale(1.18, 0.78);
     }
-    45% {
-      transform: translateY(-14px) rotate(-3deg);
+    51% {
+      transform: translateY(-24px) rotate(-5deg) scale(0.94, 1.08);
     }
-    46%,
+    53% {
+      transform: translateY(0) rotate(2deg) scale(1.06, 0.94);
+    }
+    55%,
     88% {
       opacity: 1;
       transform: translateY(0) rotate(0) scale(1);
@@ -556,11 +563,11 @@ const t = translation
   }
   @keyframes kC4 {
     0%,
-    14% {
+    16% {
       opacity: 1;
       transform: translateY(0);
     }
-    16%,
+    18%,
     94% {
       opacity: 0;
       transform: translateY(-10px);
@@ -573,16 +580,16 @@ const t = translation
   }
   @keyframes kC5 {
     0%,
-    14% {
+    16% {
       opacity: 0;
       transform: translateY(10px);
     }
-    16%,
-    29% {
+    18%,
+    31% {
       opacity: 1;
       transform: translateY(0);
     }
-    31%,
+    33%,
     100% {
       opacity: 0;
       transform: translateY(-10px);
@@ -590,16 +597,16 @@ const t = translation
   }
   @keyframes kC6 {
     0%,
-    29% {
+    31% {
       opacity: 0;
       transform: translateY(10px);
     }
-    31%,
-    44% {
+    33%,
+    46% {
       opacity: 1;
       transform: translateY(0);
     }
-    46%,
+    48%,
     100% {
       opacity: 0;
       transform: translateY(-10px);
@@ -607,11 +614,11 @@ const t = translation
   }
   @keyframes kC7 {
     0%,
-    44% {
+    46% {
       opacity: 0;
       transform: translateY(10px);
     }
-    46%,
+    48%,
     88% {
       opacity: 1;
       transform: translateY(0);
@@ -623,42 +630,42 @@ const t = translation
   }
   @keyframes kPlus {
     0%,
-    14% {
+    16% {
       opacity: 0;
       visibility: hidden;
       transform: translateY(6px);
     }
-    15%,
-    20% {
+    17%,
+    22% {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
-    22%,
-    29% {
+    24%,
+    31% {
       opacity: 0;
       visibility: hidden;
       transform: translateY(6px);
     }
-    30%,
-    35% {
+    32%,
+    37% {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
-    37%,
-    44% {
+    39%,
+    46% {
       opacity: 0;
       visibility: hidden;
       transform: translateY(6px);
     }
-    45%,
-    52% {
+    47%,
+    54% {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
-    54%,
+    56%,
     100% {
       opacity: 0;
       visibility: hidden;

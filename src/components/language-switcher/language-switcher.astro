@@ -10,10 +10,11 @@ const { currentLocale, label } = Astro.props
 const isFr = currentLocale === Locales.FR
 ---
 
-<div class="k-lang" role="group" aria-label={label}>
+<div class="k-lang" role="group" aria-label={label} data-active={isFr ? 'fr' : 'en'}>
+  <span class="k-lang__slider" aria-hidden="true"></span>
   <a
     href="/"
-    class:list={['k-lang-btn', isFr && 'k-lang-on']}
+    class="k-lang-btn"
     aria-current={isFr ? 'page' : undefined}
     data-target-locale="fr"
     hreflang="fr"
@@ -23,7 +24,7 @@ const isFr = currentLocale === Locales.FR
   </a>
   <a
     href="/en/"
-    class:list={['k-lang-btn', !isFr && 'k-lang-on']}
+    class="k-lang-btn"
     aria-current={!isFr ? 'page' : undefined}
     data-target-locale="en"
     hreflang="en"
@@ -59,14 +60,39 @@ const isFr = currentLocale === Locales.FR
 
 <style>
   .k-lang {
+    position: relative;
     display: inline-flex;
     padding: 4px;
     border-radius: var(--radius-pill);
     background: var(--surface);
     gap: 2px;
+    isolation: isolate;
+  }
+
+  .k-lang__slider {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    width: calc(50% - 5px);
+    background: #ffffff;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 2px 6px -2px rgba(28, 26, 51, 0.3);
+    transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 0;
+    view-transition-name: k-lang-slider;
+  }
+
+  .k-lang[data-active='fr'] .k-lang__slider {
+    left: 4px;
+  }
+
+  .k-lang[data-active='en'] .k-lang__slider {
+    left: calc(50% + 1px);
   }
 
   .k-lang-btn {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -81,7 +107,11 @@ const isFr = currentLocale === Locales.FR
     letter-spacing: 0.06em;
     text-decoration: none;
     cursor: pointer;
-    transition: color 0.2s ease, background 0.2s ease;
+    transition: color 0.25s ease;
+  }
+
+  .k-lang-btn[aria-current='page'] {
+    color: var(--ink);
   }
 
   .k-lang-btn:hover {
@@ -93,15 +123,9 @@ const isFr = currentLocale === Locales.FR
     outline-offset: 2px;
   }
 
-  .k-lang-on {
-    background: #ffffff;
-    color: var(--ink);
-    box-shadow: 0 2px 6px -2px rgba(28, 26, 51, 0.3);
-    view-transition-name: k-lang-active;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .k-lang-on {
+    .k-lang__slider {
+      transition: none;
       view-transition-name: none;
     }
   }
