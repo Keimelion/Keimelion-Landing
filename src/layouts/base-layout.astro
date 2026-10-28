@@ -45,14 +45,38 @@ const htmlLang = locale === Locales.FR ? 'fr' : 'en'
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={new URL('/og-image.svg', siteOrigin).href} />
+    <meta property="og:image" content={new URL('/og.png', siteOrigin).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:alt" content={ogAlt} />
     <meta property="og:locale" content={ogLocale} />
     <meta property="og:locale:alternate" content={ogLocaleAlternate} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/og-image.svg', siteOrigin).href} />
+    <meta name="twitter:image" content={new URL('/og.png', siteOrigin).href} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Keimêlion',
+          url: siteOrigin,
+          logo: new URL('/favicon.svg', siteOrigin).href,
+          sameAs: [],
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Keimêlion',
+          url: siteOrigin,
+          inLanguage: htmlLang,
+          description,
+        },
+      ])}
+    />
     <ClientRouter fallback="swap" />
     <script is:inline>
       ;(function () {
