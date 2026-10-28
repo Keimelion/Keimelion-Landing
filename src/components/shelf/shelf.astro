@@ -466,14 +466,13 @@ const t = translation
   }
 
   /* Timeline (8s cycle): landings at 17 % / 32 % / 47 % — each gift
-       falls from -140 px (within the lilac card's own gap area above the
-       shelf), bounces, and the counter + "+1 !" pulse at the same
-       instants. All three sit on the shelf until 88 %, then fade out
-       and reset. */
+       falls from -420 px high above the shelf, bounces, and the counter
+       + "+1 !" pulse at the same instants. All three sit on the shelf
+       until 88 %, then fade out and reset. */
   @keyframes kFall1 {
     0% {
       opacity: 0;
-      transform: translateY(-140px) rotate(-28deg);
+      transform: translateY(-420px) rotate(-28deg);
     }
     3% {
       opacity: 1;
@@ -505,7 +504,7 @@ const t = translation
     0%,
     15% {
       opacity: 0;
-      transform: translateY(-140px) rotate(-28deg);
+      transform: translateY(-420px) rotate(-28deg);
     }
     18% {
       opacity: 1;
@@ -537,7 +536,7 @@ const t = translation
     0%,
     30% {
       opacity: 0;
-      transform: translateY(-140px) rotate(-28deg);
+      transform: translateY(-420px) rotate(-28deg);
     }
     33% {
       opacity: 1;
