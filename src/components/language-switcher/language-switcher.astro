@@ -123,8 +123,20 @@ const isFr = currentLocale === Locales.FR
     outline-offset: 2px;
   }
 
+  /* Give each label its own stable view-transition-name so they are matched
+     1-to-1 across the FR <-> EN router transition and don't cross-fade with
+     the root (which would briefly blank the "FR" / "EN" text mid-slide). */
+  .k-lang-btn[data-target-locale='fr'] {
+    view-transition-name: k-lang-label-fr;
+  }
+
+  .k-lang-btn[data-target-locale='en'] {
+    view-transition-name: k-lang-label-en;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .k-lang__slider {
+    .k-lang__slider,
+    .k-lang-btn {
       transition: none;
       view-transition-name: none;
     }

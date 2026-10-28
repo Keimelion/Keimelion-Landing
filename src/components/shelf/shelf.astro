@@ -246,10 +246,13 @@ const t = translation
        scene narrows (tablet, two-column desktop at 1024–1120, mobile). Without
        this the row wraps to a second line between 1024 and ~1150 px. */
     container-type: inline-size;
-    /* The scaled row keeps its full ~478 px layout width while visually
-       shrinking via --shelf-scale; clip that layout bleed here so it never
-       pokes past the lilac card. */
-    overflow: hidden;
+    /* Horizontally clip the scaled row's ~478 px layout bleed so it never
+       pokes past the lilac card. Vertically leave visible so the three
+       falling parcels can descend from above the shelf without being clipped
+       at the scene's top edge. */
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding-top: 40px;
   }
 
   .k-shelf {
@@ -463,13 +466,14 @@ const t = translation
   }
 
   /* Timeline (8s cycle): landings at 17 % / 32 % / 47 % — each gift
-       falls from -420 px, bounces, and the counter + "+1 !" pulse at
-       the same instants. All three sit on the shelf until 88 %, then
-       fade out and reset. */
+       falls from -140 px (within the lilac card's own gap area above the
+       shelf), bounces, and the counter + "+1 !" pulse at the same
+       instants. All three sit on the shelf until 88 %, then fade out
+       and reset. */
   @keyframes kFall1 {
     0% {
       opacity: 0;
-      transform: translateY(-420px) rotate(-28deg);
+      transform: translateY(-140px) rotate(-28deg);
     }
     3% {
       opacity: 1;
@@ -501,7 +505,7 @@ const t = translation
     0%,
     15% {
       opacity: 0;
-      transform: translateY(-420px) rotate(-28deg);
+      transform: translateY(-140px) rotate(-28deg);
     }
     18% {
       opacity: 1;
@@ -533,7 +537,7 @@ const t = translation
     0%,
     30% {
       opacity: 0;
-      transform: translateY(-420px) rotate(-28deg);
+      transform: translateY(-140px) rotate(-28deg);
     }
     33% {
       opacity: 1;
