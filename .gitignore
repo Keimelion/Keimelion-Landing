@@ -36,3 +36,5 @@ maquette/
 # Claude Code local config (agents, skills, standards — not shipped with the repo)
 .claude/agents/
 .claude/skills/
+.agents/
+skills-lock.json
