@@ -1,0 +1,62 @@
+---
+/*
+ * Brand mark + wordmark. The infinity-ribbon SVG is the design-system brand
+ * mark (identical geometry to the mockup, lines 136 and following). Colour is
+ * driven by the `color` prop so the mark can be re-tinted on dark surfaces.
+ */
+interface Props {
+  label: string
+  wordmark: string
+  href?: string
+  size?: number
+  wordmarkSize?: number
+  color?: string
+}
+
+const {
+  label,
+  wordmark,
+  href = '/',
+  size = 40,
+  wordmarkSize = 32,
+  color = 'var(--brand)',
+} = Astro.props
+---
+
+<a href={href} class="logo" aria-label={label}>
+  <svg
+    class="logo__mark"
+    viewBox="0 0 100 100"
+    width={size}
+    height={size}
+    style={`color:${color}`}
+    aria-hidden="true"
+    focusable="false"
+  >
+    <use href="#brand-ribbon" y="-2"></use>
+  </svg>
+  <span class="logo__wordmark" style={`font-size:${wordmarkSize}px;color:${color}`}>
+    {wordmark}
+  </span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: var(--brand);
+  }
+
+  .logo__mark {
+    flex: none;
+  }
+
+  .logo__wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+</style>

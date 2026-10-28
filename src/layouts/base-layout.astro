@@ -1,0 +1,130 @@
+---
+import '../styles/base.css'
+import { ClientRouter } from 'astro:transitions'
+import { Locales, type Locale } from '../i18n/t'
+import bricolage800 from '@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff2?url'
+import dmSans400 from '@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2?url'
+
+interface Props {
+  locale: Locale
+  title: string
+  description: string
+  canonicalPath: string
+  alternatePath: string
+  ogAlt: string
+  bodyClass?: string
+}
+
+const { locale, title, description, canonicalPath, alternatePath, ogAlt, bodyClass } = Astro.props
+
+const siteOrigin = Astro.site?.origin ?? 'https://keimelion.app'
+const canonicalUrl = new URL(canonicalPath, siteOrigin).href
+const frUrl = new URL(locale === Locales.FR ? canonicalPath : alternatePath, siteOrigin).href
+const enUrl = new URL(locale === Locales.EN ? canonicalPath : alternatePath, siteOrigin).href
+const ogLocale = locale === Locales.FR ? 'fr_FR' : 'en_US'
+const ogLocaleAlternate = locale === Locales.FR ? 'en_US' : 'fr_FR'
+const htmlLang = locale === Locales.FR ? 'fr' : 'en'
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#b3204c" />
+    <link rel="preload" as="font" type="font/woff2" href={bricolage800} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={dmSans400} crossorigin />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="fr" href={frUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={frUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL('/og.png', siteOrigin).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content={ogAlt} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlternate} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og.png', siteOrigin).href} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify([
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Keimêlion',
+          url: siteOrigin,
+          logo: new URL('/favicon.svg', siteOrigin).href,
+          sameAs: [],
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Keimêlion',
+          url: siteOrigin,
+          inLanguage: htmlLang,
+          description,
+        },
+      ])}
+    />
+    <ClientRouter fallback="swap" />
+    <script is:inline>
+      ;(function () {
+        try {
+          var stored = localStorage.getItem('keimelion.lang')
+          var path = location.pathname
+          var isRoot = path === '/' || path === '/en' || path === '/en/'
+          if (!isRoot) return
+          var current = path.indexOf('/en') === 0 ? 'en' : 'fr'
+          if (!stored) {
+            var preferred = (navigator.language || 'fr').toLowerCase()
+            stored = preferred.indexOf('en') === 0 ? 'en' : 'fr'
+          }
+          if (stored !== current) {
+            location.replace(stored === 'en' ? '/en/' : '/')
+          }
+        } catch (error) {
+          void error
+        }
+      })()
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <a href="#main-content" class="skip-link">
+      {locale === Locales.FR ? 'Aller au contenu' : 'Skip to content'}
+    </a>
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      style="position:absolute;width:0;height:0;overflow:hidden"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <symbol id="brand-ribbon" viewBox="0 0 100 100">
+        <g fill="currentColor" stroke="currentColor">
+          <path
+            stroke="none"
+            d="M46 50C40 62 32 74 22 86l8-1 3 8c8-12 14-26 17-40zM54 50c6 12 14 24 24 36l-8-1-3 8c-8-12-14-26-17-40z"
+          ></path>
+          <path
+            d="M50 44C42 26 14 24 14 42c0 16 24 18 36 2 12-16 36-18 36-2 0 18-28 16-36 0z"
+            fill="none"
+            stroke-width="11"
+            stroke-linejoin="round"
+          ></path>
+          <circle stroke="none" cx="50" cy="46" r="7"></circle>
+        </g>
+      </symbol>
+    </svg>
+    <slot />
+  </body>
+</html>

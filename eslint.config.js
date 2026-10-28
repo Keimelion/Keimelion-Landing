@@ -4,7 +4,13 @@ import astro from 'eslint-plugin-astro'
 
 export default tseslint.config(
   {
-    ignores: ['dist/**', 'node_modules/**', '.astro/**', '.vercel/**'],
+    ignores: [
+      'dist/**',
+      'node_modules/**',
+      '.astro/**',
+      '.vercel/**',
+      '.agents/**',
+    ],
   },
   // Block 1: TypeScript — type-aware linting mirroring Keimelion-API.
   {

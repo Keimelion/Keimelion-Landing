@@ -1,0 +1,74 @@
+---
+import Logo from './logo.astro'
+import { getLocalisedHomePath, type Locale, type Translation } from '../i18n/t'
+
+interface Props {
+  locale: Locale
+  translation: Translation
+}
+
+const { locale, translation } = Astro.props
+const t = translation
+const homeHref = getLocalisedHomePath(locale)
+---
+
+<footer class="site-footer">
+  <Logo
+    label="Keimêlion"
+    wordmark="keimêlion"
+    href={homeHref}
+    size={28}
+    wordmarkSize={24}
+    color="var(--ink)"
+  />
+  <nav class="site-footer__nav" aria-label={t.footerNav}>
+    <a href={t.links.legalHref} class="k-link site-footer__link">{t.legal}</a>
+    <a href={t.links.contactHref} class="k-link site-footer__link">{t.contact}</a>
+  </nav>
+  <span class="site-footer__copyright">{t.copyright}</span>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    view-transition-name: vt-footer;
+  }
+
+  .site-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .site-footer__link {
+    font-size: 14px;
+  }
+
+  .site-footer__copyright {
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 720px) {
+    .site-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      justify-content: flex-start;
+      gap: 20px;
+      padding: 32px 24px 40px;
+    }
+
+    .site-footer__nav {
+      justify-content: flex-start;
+    }
+  }
+</style>

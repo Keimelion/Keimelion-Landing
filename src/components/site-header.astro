@@ -1,0 +1,58 @@
+---
+import Logo from './logo.astro'
+import LanguageSwitcher from './language-switcher.astro'
+import { Locales, getLocalisedHomePath, type Locale, type Translation } from '../i18n/t'
+
+interface Props {
+  locale: Locale
+  translation: Translation
+  canonicalPath: string
+  alternatePath: string
+}
+
+const { locale, translation, canonicalPath, alternatePath } = Astro.props
+const homeHref = getLocalisedHomePath(locale)
+const frHref = locale === Locales.FR ? canonicalPath : alternatePath
+const enHref = locale === Locales.EN ? canonicalPath : alternatePath
+---
+
+<header class="k-head">
+  <Logo label="Keimêlion" wordmark="keimêlion" href={homeHref} />
+  <LanguageSwitcher
+    currentLocale={locale}
+    label={translation.langLabel}
+    frHref={frHref}
+    enHref={enHref}
+  />
+</header>
+
+<style>
+  .k-head {
+    position: relative;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    view-transition-name: vt-header;
+  }
+
+  @media (max-width: 720px) {
+    .k-head {
+      flex-wrap: nowrap;
+      padding: 16px;
+      gap: 8px;
+    }
+
+    .k-head :global(.logo__wordmark) {
+      font-size: 24px !important;
+    }
+
+    .k-head :global(.logo__mark) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+</style>

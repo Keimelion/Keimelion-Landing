@@ -18,6 +18,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/vercel": "^11.0.16",
     "@fontsource/bricolage-grotesque": "^5.1.0",
     "@fontsource/caveat": "^5.1.0",
     "@fontsource/dm-mono": "^5.1.0",

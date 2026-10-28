@@ -1,0 +1,327 @@
+---
+import type { Locale, Translation } from '../i18n/t'
+
+interface Props {
+  locale: Locale
+  translation: Translation
+}
+
+const { locale, translation } = Astro.props
+const t = translation
+---
+
+<form
+  class="k-form"
+  method="POST"
+  action="/api/waitlist"
+  novalidate
+  data-locale={locale}
+  data-i18n-thanks={t.thanks}
+  data-i18n-duplicate={t.form.duplicate}
+  data-i18n-error={t.form.error}
+  data-i18n-invalid-email={t.form.errorInvalidEmail}
+  data-i18n-rate-limited={t.form.errorRateLimited}
+  data-i18n-submit={t.notify}
+  data-i18n-submitting={t.form.submitting}
+>
+  <label for="k-email" class="k-form__label">{t.formLabel}</label>
+  <div class="k-form__row">
+    <input
+      id="k-email"
+      name="email"
+      class="k-input"
+      type="email"
+      required
+      autocomplete="email"
+      inputmode="email"
+      placeholder={t.placeholder}
+    />
+    <button type="submit" class="k-btn k-btn-primary k-form__submit">{t.notify}</button>
+  </div>
+  <div class="visually-hidden k-form__hp" aria-hidden="true">
+    <label>
+      <span>{t.form.honeypotLabel}</span>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+  <input type="hidden" name="locale" value={locale} />
+  <input type="hidden" name="consent" value="true" />
+  <span class="k-form__privacy">
+    {t.privacy}&nbsp;<a href={t.form.privacyHref} class="k-form__privacy-link">{t.form.privacyLink}</a>.
+  </span>
+  <p
+    class="k-form__thanks"
+    role="status"
+    aria-live="polite"
+    data-waitlist-status
+    hidden
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+      <path
+        d="m5 12.5 4.5 4.5L19 7.5"
+        fill="none"
+        stroke="#13694d"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+    <span data-waitlist-status-text></span>
+  </p>
+  <p
+    class="k-form__error"
+    role="alert"
+    tabindex="-1"
+    data-waitlist-error
+    hidden
+  ></p>
+</form>
+
+<script>
+  interface SuccessPayload {
+    ok: true
+    duplicate: boolean
+  }
+
+  interface FailurePayload {
+    ok: false
+    error: 'invalid_email' | 'invalid_consent' | 'rate_limited' | 'invalid_payload'
+  }
+
+  type ResponsePayload = SuccessPayload | FailurePayload
+
+  function isResponsePayload(value: unknown): value is ResponsePayload {
+    if (typeof value !== 'object' || value === null) return false
+    const record = value as Record<string, unknown>
+    return typeof record.ok === 'boolean'
+  }
+
+  function errorMessageFor(form: HTMLFormElement, code: FailurePayload['error']): string {
+    const map: Record<FailurePayload['error'], string | undefined> = {
+      invalid_email: form.dataset.i18nInvalidEmail,
+      invalid_consent: form.dataset.i18nError,
+      rate_limited: form.dataset.i18nRateLimited,
+      invalid_payload: form.dataset.i18nError,
+    }
+    return map[code] ?? form.dataset.i18nError ?? ''
+  }
+
+  function successMessageFor(form: HTMLFormElement, payload: SuccessPayload): string {
+    if (payload.duplicate) return form.dataset.i18nDuplicate ?? ''
+    return form.dataset.i18nThanks ?? ''
+  }
+
+  function showStatus(form: HTMLFormElement, message: string): void {
+    const node = form.querySelector<HTMLElement>('[data-waitlist-status]')
+    const text = form.querySelector<HTMLElement>('[data-waitlist-status-text]')
+    if (node === null || text === null) return
+    text.textContent = message
+    node.hidden = message.length === 0
+  }
+
+  function showError(
+    form: HTMLFormElement,
+    message: string,
+    code?: FailurePayload['error'],
+  ): void {
+    const node = form.querySelector<HTMLElement>('[data-waitlist-error]')
+    if (node === null) return
+    node.textContent = message
+    node.hidden = message.length === 0
+    if (message.length === 0) return
+    if (code === 'invalid_email') {
+      const input = form.querySelector<HTMLInputElement>('input[name="email"]')
+      input?.focus()
+      return
+    }
+    node.focus()
+  }
+
+  function setSubmitting(form: HTMLFormElement, isSubmitting: boolean): void {
+    const button = form.querySelector<HTMLButtonElement>('.k-form__submit')
+    if (button === null) return
+    const label = isSubmitting ? form.dataset.i18nSubmitting : form.dataset.i18nSubmit
+    button.disabled = isSubmitting
+    if (typeof label === 'string') button.textContent = label
+  }
+
+  async function submit(form: HTMLFormElement): Promise<void> {
+    const data = new FormData(form)
+    const payload = {
+      email: String(data.get('email') ?? ''),
+      locale: String(data.get('locale') ?? 'fr'),
+      consent: data.get('consent') === 'true',
+      website: String(data.get('website') ?? ''),
+    }
+    showError(form, '')
+    showStatus(form, '')
+    setSubmitting(form, true)
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const raw: unknown = await response.json()
+      if (!isResponsePayload(raw)) {
+        showError(form, form.dataset.i18nError ?? '')
+        return
+      }
+      if (raw.ok) {
+        showStatus(form, successMessageFor(form, raw))
+        form.reset()
+        return
+      }
+      showError(form, errorMessageFor(form, raw.error), raw.error)
+    } catch (error) {
+      void error
+      showError(form, form.dataset.i18nError ?? '')
+    } finally {
+      setSubmitting(form, false)
+    }
+  }
+
+  function bindWaitlistForms(): void {
+    document.querySelectorAll<HTMLFormElement>('form.k-form').forEach((form) => {
+      if (form.dataset.waitlistBound === 'true') return
+      form.dataset.waitlistBound = 'true'
+      form.addEventListener('submit', (event) => {
+        event.preventDefault()
+        void submit(form)
+      })
+    })
+  }
+
+  bindWaitlistForms()
+  document.addEventListener('astro:page-load', bindWaitlistForms)
+</script>
+
+<style>
+  .k-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 520px;
+  }
+
+  .k-form__label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .k-form__row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    background: #ffffff;
+    border: 1.5px solid var(--rule-strong);
+    border-radius: var(--radius-pill);
+    max-width: 520px;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+
+  .k-form__row:focus-within {
+    border-color: var(--ink);
+  }
+
+  .k-form__row .k-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 54px;
+    padding: 0 22px;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .k-form__row .k-input:focus-visible {
+    outline: none;
+  }
+
+  .k-form__submit {
+    flex: 0 0 auto;
+    align-self: stretch;
+    min-height: 54px;
+    padding: 0 26px;
+    font-size: 15px;
+    border-radius: var(--radius-pill);
+  }
+
+  .k-form__submit[disabled] {
+    opacity: 0.75;
+    cursor: progress;
+  }
+
+  @media (max-width: 420px) {
+    .k-form__row {
+      flex-wrap: wrap;
+      border-radius: 24px;
+      overflow: visible;
+    }
+
+    .k-form__row .k-input {
+      flex: 1 1 100%;
+      min-height: 48px;
+    }
+
+    .k-form__submit {
+      flex: 1 1 100%;
+      min-height: 48px;
+      margin-top: 4px;
+    }
+  }
+
+  .k-form__privacy {
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--ink-muted);
+  }
+
+  .k-form__privacy-link {
+    color: var(--ink-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .k-form__privacy-link:hover,
+  .k-form__privacy-link:focus-visible {
+    color: var(--brand);
+  }
+
+  .k-form__thanks {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 520px;
+    padding: 14px 18px;
+    border-radius: 18px;
+    background: var(--paper-mint);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .k-form__thanks[hidden] {
+    display: none;
+  }
+
+  .k-form__error {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--danger);
+  }
+
+  .k-form__error[hidden] {
+    display: none;
+  }
+
+  .k-form__error:focus {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+</style>

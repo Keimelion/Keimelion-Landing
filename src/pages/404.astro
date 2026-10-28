@@ -1,21 +1,69 @@
 ---
-import '../styles/base.css'
+import BaseLayout from '../layouts/base-layout.astro'
+import SiteHeader from '../components/site-header.astro'
+import SiteFooter from '../components/site-footer.astro'
+import { Locales, getTranslation } from '../i18n/t'
+
+export const prerender = true
+
+const locale = Locales.FR
+const translation = getTranslation(locale)
 ---
 
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>404 — Keimêlion</title>
-    <meta name="description" content="Page introuvable." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  </head>
-  <body>
-    <main>
-      <h1>404</h1>
-      <p>Page introuvable / Page not found</p>
-    </main>
-  </body>
-</html>
+<BaseLayout
+  locale={locale}
+  title={`404 — ${translation.meta.title}`}
+  description="Page introuvable / Page not found"
+  canonicalPath="/404"
+  alternatePath="/en/404"
+  ogAlt={translation.meta.ogAlt}
+>
+  <SiteHeader
+    locale={locale}
+    translation={translation}
+    canonicalPath="/"
+    alternatePath="/en/"
+  />
+  <main id="main-content" class="notfound">
+    <div class="notfound__inner">
+      <span class="notfound__code k-h" aria-hidden="true">404</span>
+      <h1 class="notfound__title">
+        Page introuvable
+        <span lang="en"> / Page not found</span>
+      </h1>
+      <p>
+        <a href="/">{translation.legalPages.backHome}</a>
+      </p>
+    </div>
+  </main>
+  <SiteFooter locale={locale} translation={translation} />
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: 96px;
+    text-align: center;
+    min-height: 50vh;
+  }
+
+  .notfound__inner {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .notfound__code {
+    font-size: clamp(72px, 10vw, 128px);
+    color: var(--brand);
+    line-height: 1;
+  }
+
+  .notfound__title {
+    font-size: clamp(20px, 2.4vw, 24px);
+    font-weight: 600;
+  }
+</style>

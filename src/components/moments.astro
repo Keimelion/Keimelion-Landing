@@ -1,0 +1,220 @@
+---
+import type { Translation } from '../i18n/t'
+
+interface Props {
+  translation: Translation
+}
+
+const { translation } = Astro.props
+const t = translation
+
+interface Occasion {
+  key: 'occ1' | 'occ2' | 'occ3' | 'occ4' | 'occ5'
+  background: string
+  shape: 'wedding' | 'baby' | 'home' | 'birthday' | 'other'
+}
+
+const OCCASIONS: readonly Occasion[] = [
+  { key: 'occ1', background: 'var(--paper-lilac)', shape: 'wedding' },
+  { key: 'occ2', background: 'var(--paper-rose)', shape: 'baby' },
+  { key: 'occ3', background: 'var(--paper-sky)', shape: 'home' },
+  { key: 'occ4', background: 'var(--paper-mustard)', shape: 'birthday' },
+  { key: 'occ5', background: 'var(--paper-mint)', shape: 'other' },
+] as const
+---
+
+<section class="moments" aria-labelledby="k-occ-t">
+  <div class="moments__inner">
+    <h2 id="k-occ-t" class="moments__title">
+      <span class="k-hand moments__hand">{t.occHand}</span>
+      <span class="k-h k-h2">{t.occTitle}</span>
+    </h2>
+    <ul class="k-occ-grid" role="list">
+      {
+        OCCASIONS.map((occasion) => (
+          <li class="k-occ" style={`background:${occasion.background}`}>
+            <span class="k-occ__icon">
+              {occasion.shape === 'wedding' && (
+                <svg aria-hidden="true" viewBox="0 0 100 100" width="64" height="64">
+                  <g fill="#1c1a33">
+                    <circle cx="50" cy="24" r="20" />
+                    <circle cx="75" cy="42" r="20" />
+                    <circle cx="66" cy="72" r="20" />
+                    <circle cx="34" cy="72" r="20" />
+                    <circle cx="25" cy="42" r="20" />
+                  </g>
+                  <circle cx="50" cy="50" r="11" fill="#cdb8f5" />
+                </svg>
+              )}
+              {occasion.shape === 'baby' && (
+                <svg aria-hidden="true" viewBox="0 0 120 100" width="80" height="67">
+                  <path
+                    fill="#1c1a33"
+                    d="M30 82a20 20 0 0 1-2-40 26 26 0 0 1 50-8 22 22 0 0 1 14 48z"
+                  />
+                </svg>
+              )}
+              {occasion.shape === 'home' && (
+                <svg aria-hidden="true" viewBox="0 -12 140 112" width="80" height="64">
+                  <path
+                    fill="#1c1a33"
+                    d="M0 100V44a28 28 0 0 1 56 0v56zM64 100V30a38 38 0 0 1 76 0v70z"
+                  />
+                </svg>
+              )}
+              {occasion.shape === 'birthday' && (
+                <svg aria-hidden="true" viewBox="0 0 120 120" width="68" height="68">
+                  <circle cx="60" cy="60" r="26" fill="#1c1a33" />
+                  <g fill="#1c1a33">
+                    <circle cx="60" cy="14" r="8" />
+                    <circle cx="60" cy="106" r="8" />
+                    <circle cx="14" cy="60" r="8" />
+                    <circle cx="106" cy="60" r="8" />
+                    <circle cx="27" cy="27" r="7" />
+                    <circle cx="93" cy="27" r="7" />
+                    <circle cx="27" cy="93" r="7" />
+                    <circle cx="93" cy="93" r="7" />
+                  </g>
+                </svg>
+              )}
+              {occasion.shape === 'other' && (
+                <svg aria-hidden="true" viewBox="0 0 120 120" width="68" height="68">
+                  <path fill="#1c1a33" d="M60 114C18 92 8 40 60 6c52 34 42 86 0 108z" />
+                  <path
+                    fill="none"
+                    stroke="#a8e0c0"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    d="M60 104V24M60 50l-18-14M60 50l18-14M60 74l-22-16M60 74l22-16"
+                  />
+                </svg>
+              )}
+            </span>
+            <span class="k-h k-occ__label">{t[occasion.key]}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .moments {
+    position: relative;
+    background: var(--surface);
+    padding-block: clamp(56px, 8vw, 96px);
+    padding-inline: 24px;
+  }
+
+  .moments__inner {
+    max-width: 1360px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    view-transition-name: vt-moments;
+  }
+
+  .moments__title {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .moments__hand {
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.1;
+  }
+
+  .k-occ-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .k-occ {
+    text-decoration: none;
+    color: var(--ink);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    height: 180px;
+    padding-inline: 16px;
+    box-sizing: border-box;
+    will-change: transform;
+  }
+
+  @keyframes kOccFloat {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .k-occ {
+      animation: kOccFloat 5.4s ease-in-out infinite;
+    }
+
+    .k-occ-grid > li:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .k-occ-grid > li:nth-child(2) {
+      animation-delay: -0.9s;
+    }
+    .k-occ-grid > li:nth-child(3) {
+      animation-delay: -1.8s;
+    }
+    .k-occ-grid > li:nth-child(4) {
+      animation-delay: -2.7s;
+    }
+    .k-occ-grid > li:nth-child(5) {
+      animation-delay: -3.6s;
+    }
+  }
+
+  .k-occ__icon {
+    height: 72px;
+    display: flex;
+    align-items: center;
+  }
+
+  .k-occ__label {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .k-occ-grid {
+      display: flex;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      /* The scroll-snap `start` alignment ignores the container's padding by
+         default, which parks the first tile flush against the viewport edge.
+         Mirror the 24 px gutter on both sides via scroll-padding-inline. */
+      scroll-padding-inline: 24px;
+      gap: 14px;
+      margin: 0 -24px;
+      padding: 0 24px 8px;
+    }
+
+    .k-occ-grid > li {
+      flex: 0 0 150px;
+      scroll-snap-align: start;
+    }
+  }
+</style>

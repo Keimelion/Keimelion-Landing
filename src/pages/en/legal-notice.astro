@@ -1,0 +1,31 @@
+---
+// TODO(KEI-144): replace stub with the final legal notice once legal content is drafted.
+import LegalLayout from '../../layouts/legal-layout.astro'
+import { Locales, getTranslation } from '../../i18n/t'
+
+export const prerender = true
+
+const locale = Locales.EN
+const translation = getTranslation(locale)
+const legal = translation.legalPages.notice
+---
+
+<LegalLayout
+  locale={locale}
+  translation={translation}
+  title={legal.title}
+  canonicalPath="/en/legal-notice"
+  alternatePath="/mentions-legales"
+>
+  <h1>{legal.title}</h1>
+  <p>{legal.intro}</p>
+  <p>
+    {legal.contactLabel}
+    <a href={`mailto:${translation.legalPages.contactEmail}`}>
+      {translation.legalPages.contactEmail}
+    </a>.
+  </p>
+  <p>
+    <a href="/en/">{translation.legalPages.backHome}</a>
+  </p>
+</LegalLayout>

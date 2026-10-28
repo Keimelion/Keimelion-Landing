@@ -1,3 +1,73 @@
 {
-  "home.placeholder": "Welcome to Keimêlion"
+  "meta": {
+    "title": "Keimêlion — The list you keep",
+    "description": "Keimêlion is coming soon: wish lists to share with your loved ones, who reserve a gift in one click, no account needed. Free, for everyone.",
+    "ogAlt": "Keimêlion — Coming soon"
+  },
+  "langLabel": "Language",
+  "badge": "Coming soon",
+  "kicker": "for a wedding, a new baby, a first home…",
+  "title": "The list you keep.",
+  "lead": "Keimêlion is coming soon: wish lists to share with your loved ones, who reserve a gift in one click, no account needed. Free, for everyone.",
+  "formLabel": "Your email address",
+  "placeholder": "you@example.com",
+  "notify": "Notify me",
+  "privacy": "Just one email, on launch day. Nothing else.",
+  "thanks": "Thank you! We'll email you as soon as we open.",
+  "nameNote": "from Ancient Greek κειμήλιον: “a treasure you keep”.",
+  "occHand": "for all of life's",
+  "occTitle": "Big moments",
+  "occ1": "Wedding",
+  "occ2": "New baby",
+  "occ3": "First home",
+  "occ4": "Birthday",
+  "occ5": "And more",
+  "shelfHand": "one click, and it's",
+  "shelfTitle": "Wrapped & sent",
+  "shelfText": "When a guest reserves, the gift wraps itself and lands on the list's shelf. No account, no duplicates, and the surprise stays intact.",
+  "freeHand": "and for everyone, it's",
+  "freeTitle": "Free.",
+  "freeText": "Keimêlion is funded by affiliate links: the store pays us a small commission, and the price stays exactly the same for your guests.",
+  "footerNav": "Footer",
+  "legal": "Legal notice",
+  "contact": "Contact",
+  "weddingOf": "the wedding of",
+  "offeredOf": "given out of 12",
+  "item1": "Cast-iron pot",
+  "item2": "Monstera",
+  "item3": "Tea set",
+  "item4": "Brass lamp",
+  "reserve": "Reserve",
+  "given": "already given!",
+  "reservedOf": "gifts reserved out of 12",
+  "example": "Example list",
+  "form": {
+    "privacyLink": "Privacy policy",
+    "privacyHref": "/en/privacy",
+    "submitting": "Saving…",
+    "duplicate": "Thank you! We'll email you as soon as we open.",
+    "error": "Sign-up failed. Please try again in a moment.",
+    "errorInvalidEmail": "That email address doesn't look valid.",
+    "errorRateLimited": "Too many requests. Please try again shortly.",
+    "honeypotLabel": "Please leave this field empty"
+  },
+  "links": {
+    "legalHref": "/en/legal-notice",
+    "contactHref": "mailto:contact@keimelion.app"
+  },
+  "copyright": "© 2026 Keimêlion",
+  "legalPages": {
+    "notice": {
+      "title": "Legal notice",
+      "intro": "This page is being drafted. The final version will be published at the launch of Keimêlion.",
+      "contactLabel": "In the meantime, write to us at"
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "intro": "This page is being drafted. The final GDPR-compliant version will be published at the launch of Keimêlion.",
+      "contactLabel": "For any question, write to us at"
+    },
+    "backHome": "Back to home",
+    "contactEmail": "contact@keimelion.app"
+  }
 }

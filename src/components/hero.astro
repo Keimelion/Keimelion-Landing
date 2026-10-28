@@ -1,0 +1,936 @@
+---
+import WaitlistForm from './waitlist-form.astro'
+import type { Locale, Translation } from '../i18n/t'
+
+interface Props {
+  locale: Locale
+  translation: Translation
+}
+
+const { locale, translation } = Astro.props
+const t = translation
+---
+
+<section class="hero">
+  <div class="hero__text">
+    <span class="hero__badge">
+      <span class="hero__dot" aria-hidden="true"></span>
+      {t.badge}
+    </span>
+    <h1 class="hero__h1">
+      <span class="hero__kicker k-hand">{t.kicker}</span>
+      <span class="k-h k-h1">{t.title}</span>
+    </h1>
+    <p class="hero__lead">{t.lead}</p>
+    <WaitlistForm locale={locale} translation={translation} />
+    <p class="hero__name">
+      <span class="k-word hero__name-mark">keimêlion</span>
+      <span>{t.nameNote}</span>
+    </p>
+  </div>
+
+  <div class="k-hero-art" aria-hidden="true">
+    <!-- 1. Lilac arch backdrop -->
+    <div class="hero__arch"></div>
+
+    <!-- 2. Yellow mandala -->
+    <svg class="hero__mandala" viewBox="0 0 120 120" width="90" height="90">
+      <circle cx="60" cy="60" r="26" fill="#f2bf3d"></circle>
+      <g fill="#f2bf3d">
+        <circle cx="60" cy="14" r="8"></circle>
+        <circle cx="60" cy="106" r="8"></circle>
+        <circle cx="14" cy="60" r="8"></circle>
+        <circle cx="106" cy="60" r="8"></circle>
+        <circle cx="27" cy="27" r="7"></circle>
+        <circle cx="93" cy="27" r="7"></circle>
+        <circle cx="27" cy="93" r="7"></circle>
+        <circle cx="93" cy="93" r="7"></circle>
+      </g>
+    </svg>
+
+    <!-- 3. Floating list card -->
+    <div class="k-hero-card">
+      <div class="k-hero-card__head">
+        <div class="k-hero-card__title">
+          <span class="k-hand k-hero-card__hand">{t.weddingOf}</span>
+          <span class="k-h k-hero-card__couple">Léa &amp; Axel</span>
+        </div>
+        <span class="k-hero-card__ratio">
+          <span class="k-hero-card__ratio-num">4</span>
+          {t.offeredOf}
+        </span>
+      </div>
+      <div class="k-hero-card__grid">
+        <!-- Tile 1: cast-iron pot with wrapping animation -->
+        <div class="k-tile">
+          <div class="k-tile__image k-tile__image--mustard">
+            <svg
+              viewBox="0 0 72 72"
+              width="64"
+              height="64"
+              fill="none"
+              stroke="#1c1a33"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M14 32h44v14a12 12 0 0 1-12 12H26a12 12 0 0 1-12-12z"></path>
+              <path d="M8 32h56"></path>
+              <path d="M30 32v-3a6 6 0 0 1 12 0v3"></path>
+            </svg>
+            <span class="k-wrap">
+              <span class="k-wrap__left k-a-wl"></span>
+              <span class="k-wrap__right k-a-wr"></span>
+              <span class="k-wrap__rv k-a-rv"></span>
+              <span class="k-wrap__rh k-a-rh"></span>
+              <span class="k-wrap__bow k-a-bow">
+                <svg viewBox="0 0 100 100" width="60" height="60" style="color:#b3204c">
+                  <use href="#brand-ribbon" y="-2"></use>
+                </svg>
+              </span>
+            </span>
+          </div>
+          <div class="k-tile__meta">
+            <span class="k-tile__name">{t.item1}</span>
+            <div class="k-tile__row">
+              <span class="k-h k-a-btn k-tile__price">89&nbsp;€</span>
+              <span class="k-tile__cta">
+                <span class="k-btn k-btn-primary k-a-btn k-tile__btn">{t.reserve}</span>
+                <span class="k-hand k-a-note k-tile__note">{t.given}</span>
+                <svg
+                  class="k-a-cur k-tile__cur"
+                  viewBox="0 0 20 26"
+                  width="20"
+                  height="26"
+                >
+                  <path
+                    d="M2 2v19l5-5 4 8 3-1.5-4-7.5h7z"
+                    fill="#1c1a33"
+                    stroke="#fffaf0"
+                    stroke-width="1.6"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tile 2: Monstera (rose paper, cross ribbon, bow) -->
+        <div class="k-tile">
+          <svg
+            viewBox="0 0 160 92"
+            width="100%"
+            height="92"
+            preserveAspectRatio="xMidYMid slice"
+            class="k-tile__paper"
+          >
+            <defs>
+              <pattern id="hpA" width="22" height="22" patternUnits="userSpaceOnUse">
+                <rect width="22" height="22" fill="#f7b8c8"></rect>
+                <circle cx="5" cy="5" r="3" fill="#fffaf0"></circle>
+                <circle cx="16" cy="16" r="3" fill="#fffaf0"></circle>
+              </pattern>
+            </defs>
+            <rect width="160" height="92" fill="url(#hpA)"></rect>
+            <rect x="72" y="0" width="16" height="92" fill="#fffaf0"></rect>
+            <rect x="0" y="39.24" width="160" height="16" fill="#fffaf0"></rect>
+            <g
+              transform="translate(80 43.24) scale(0.6) translate(-50 -46)"
+              style="color:#b3204c"
+            >
+              <use href="#brand-ribbon" width="100" height="100"></use>
+            </g>
+          </svg>
+          <div class="k-tile__meta k-tile__meta--given">
+            <span class="k-tile__name k-tile__name--muted">{t.item2}</span>
+            <span class="k-hand k-tile__given">{t.given}</span>
+          </div>
+        </div>
+
+        <!-- Tile 3: Tea set (mint paper, cross ribbon, bow) -->
+        <div class="k-tile">
+          <svg
+            viewBox="0 0 160 92"
+            width="100%"
+            height="92"
+            preserveAspectRatio="xMidYMid slice"
+            class="k-tile__paper"
+          >
+            <defs>
+              <pattern id="hpB" width="22" height="22" patternUnits="userSpaceOnUse">
+                <rect width="22" height="22" fill="#a8e0c0"></rect>
+                <circle cx="5" cy="5" r="3" fill="#fffaf0"></circle>
+                <circle cx="16" cy="16" r="3" fill="#fffaf0"></circle>
+              </pattern>
+            </defs>
+            <rect width="160" height="92" fill="url(#hpB)"></rect>
+            <rect x="72" y="0" width="16" height="92" fill="#fffaf0"></rect>
+            <rect x="0" y="39.24" width="160" height="16" fill="#fffaf0"></rect>
+            <g
+              transform="translate(80 43.24) scale(0.6) translate(-50 -46)"
+              style="color:#b3204c"
+            >
+              <use href="#brand-ribbon" width="100" height="100"></use>
+            </g>
+          </svg>
+          <div class="k-tile__meta k-tile__meta--given">
+            <span class="k-tile__name k-tile__name--muted">{t.item3}</span>
+            <span class="k-hand k-tile__given">{t.given}</span>
+          </div>
+        </div>
+
+        <!-- Tile 4: Brass lamp -->
+        <div class="k-tile">
+          <div class="k-tile__image k-tile__image--sky">
+            <svg
+              viewBox="0 0 72 72"
+              width="64"
+              height="64"
+              fill="none"
+              stroke="#1c1a33"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M24 12h24l8 22H16z"></path>
+              <path d="M36 34v24"></path>
+              <path d="M24 60h24"></path>
+            </svg>
+          </div>
+          <div class="k-tile__meta">
+            <span class="k-tile__name">{t.item4}</span>
+            <div class="k-tile__row">
+              <span class="k-h k-tile__price">64&nbsp;€</span>
+              <span class="k-btn k-btn-primary k-tile__btn">{t.reserve}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Bobbing pile of gifts (parent k-hero-art is aria-hidden; no role/label needed) -->
+    <div class="k-a-bob k-pile">
+      <svg viewBox="0 0 200 170" width="200" height="170">
+        <defs>
+          <pattern id="hpP1" width="22" height="22" patternUnits="userSpaceOnUse">
+            <rect width="22" height="22" fill="#f2bf3d"></rect>
+            <circle cx="5" cy="5" r="3" fill="#f8dc8e"></circle>
+            <circle cx="16" cy="16" r="3" fill="#f8dc8e"></circle>
+          </pattern>
+          <pattern
+            id="hpP2"
+            width="18"
+            height="18"
+            patternUnits="userSpaceOnUse"
+            patternTransform="rotate(45)"
+          >
+            <rect width="18" height="18" fill="#a8e0c0"></rect>
+            <rect width="7" height="18" fill="#7fcfa2"></rect>
+          </pattern>
+          <pattern id="hpP3" width="22" height="22" patternUnits="userSpaceOnUse">
+            <rect width="22" height="22" fill="#9fcbf2"></rect>
+            <circle cx="5" cy="5" r="3" fill="#d3e8fa"></circle>
+            <circle cx="16" cy="16" r="3" fill="#d3e8fa"></circle>
+          </pattern>
+        </defs>
+        <ellipse cx="100" cy="160" rx="86" ry="8" fill="#1c1a33" opacity="0.08"></ellipse>
+        <g transform="rotate(-3 60 119)">
+          <rect x="14" y="82" width="92" height="74" rx="6" fill="url(#hpP1)"></rect>
+          <rect x="55" y="82" width="10" height="74" fill="#fffaf0"></rect>
+          <rect x="14" y="108.08" width="92" height="10" fill="#fffaf0"></rect>
+          <g
+            transform="translate(60 109.08) scale(0.5411764705882353) translate(-50 -46)"
+            style="color:#b3204c"
+          >
+            <use href="#brand-ribbon" width="100" height="100"></use>
+          </g>
+        </g>
+        <g transform="rotate(4 144 126)">
+          <rect x="104" y="96" width="80" height="60" rx="6" fill="url(#hpP2)"></rect>
+          <rect x="139" y="96" width="10" height="60" fill="#fffaf0"></rect>
+          <rect x="104" y="116.2" width="80" height="10" fill="#fffaf0"></rect>
+          <g
+            transform="translate(144 117.2) scale(0.47058823529411764) translate(-50 -46)"
+            style="color:#b3204c"
+          >
+            <use href="#brand-ribbon" width="100" height="100"></use>
+          </g>
+        </g>
+        <g transform="rotate(-8 91 53)">
+          <rect x="54" y="22" width="74" height="62" rx="6" fill="url(#hpP3)"></rect>
+          <rect x="86" y="22" width="10" height="62" fill="#fffaf0"></rect>
+          <rect x="54" y="43.04" width="74" height="10" fill="#fffaf0"></rect>
+          <g
+            transform="translate(91 44.04) scale(0.43529411764705883) translate(-50 -46)"
+            style="color:#b3204c"
+          >
+            <use href="#brand-ribbon" width="100" height="100"></use>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding-block: clamp(56px, 8vw, 96px);
+    padding-inline: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(48px, 10vw, 180px);
+  }
+
+  .hero__text {
+    flex: 1 1 500px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    /* The H1 scales font-size against this column (cqi), not the viewport,
+       so it stays big relative to its real line width at every breakpoint
+       — including the 1120-1280 band where the text column is squeezed by
+       the visual column. */
+    container-type: inline-size;
+    view-transition-name: vt-hero-text;
+  }
+
+  .hero__badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: var(--radius-pill);
+    background: #ffffff;
+    box-shadow: inset 0 0 0 1.5px #e6dcc7;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .hero__dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brand);
+  }
+
+  .hero__dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--brand);
+    opacity: 0;
+    transform: scale(1);
+    transform-origin: center;
+    pointer-events: none;
+  }
+
+  @keyframes kPulse {
+    0% {
+      opacity: 0.45;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2.75);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__dot::after {
+      animation: kPulse 2s ease-out infinite;
+    }
+  }
+
+  .hero__h1 {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .hero__kicker {
+    font-size: clamp(22px, 3.2vw, 42px);
+    line-height: 1.05;
+    transform: rotate(-2deg);
+    transform-origin: left center;
+    overflow-wrap: break-word;
+  }
+
+  .hero__lead {
+    margin: 0;
+    max-width: 500px;
+    font-size: clamp(16px, 1.6vw, 18px);
+    line-height: 1.6;
+    color: var(--ink-muted);
+    text-wrap: pretty;
+  }
+
+  .hero__name {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink-muted);
+  }
+
+  .hero__name-mark {
+    font-size: 18px;
+    color: var(--ink);
+  }
+
+  /* Hero visual */
+  .k-hero-art {
+    position: relative;
+    flex: 1 1 440px;
+    /* Arch is positioned at left:50 width:440, so the art container must be
+       at least 490 px wide to hold it. Below that the arch would bleed past
+       the viewport (which it did at 1120 px desktop before this guard). */
+    min-width: 490px;
+    max-width: 560px;
+    height: 600px;
+    view-transition-name: vt-hero-visual;
+  }
+
+  .hero__arch {
+    position: absolute;
+    left: 50px;
+    top: 10px;
+    width: 440px;
+    height: 560px;
+    border-radius: 220px 220px 32px 32px;
+    background: var(--paper-lilac);
+  }
+
+  .hero__mandala {
+    position: absolute;
+    left: 6px;
+    top: 60px;
+  }
+
+  .k-hero-card {
+    position: absolute;
+    left: 86px;
+    top: 86px;
+    width: 380px;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 26px;
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-hero-card);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .k-hero-card__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .k-hero-card__title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .k-hero-card__hand {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .k-hero-card__couple {
+    font-size: 38px;
+    line-height: 1;
+  }
+
+  .k-hero-card__ratio {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    color: var(--ink-muted);
+  }
+
+  .k-hero-card__ratio-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    box-sizing: border-box;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .k-hero-card__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .k-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: var(--shadow-tile);
+  }
+
+  .k-tile__image {
+    height: 92px;
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .k-tile__image--mustard {
+    background: var(--paper-mustard);
+  }
+
+  .k-tile__image--sky {
+    background: var(--paper-sky);
+  }
+
+  .k-tile__paper {
+    display: block;
+    border-radius: 12px;
+  }
+
+  .k-tile__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 4px 4px;
+  }
+
+  .k-tile__meta--given {
+    gap: 2px;
+  }
+
+  .k-tile__name {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 600;
+  }
+
+  .k-tile__name--muted {
+    color: var(--ink-muted);
+  }
+
+  .k-tile__given {
+    font-size: 20px;
+    line-height: 22px;
+  }
+
+  .k-tile__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .k-tile__price {
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .k-tile__btn {
+    min-height: 28px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .k-tile__cta {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .k-tile__note {
+    position: absolute;
+    right: -2px;
+    top: -2px;
+    font-size: 20px;
+    line-height: 22px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .k-tile__cur {
+    position: absolute;
+    right: 6px;
+    top: 12px;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Wrapping overlay (tile 1) */
+  .k-wrap {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .k-wrap__left,
+  .k-wrap__right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 51%;
+    background:
+      radial-gradient(circle, var(--surface-raised) 2.6px, transparent 3.2px) 0 0 /
+        14px 14px,
+      var(--paper-lilac);
+  }
+
+  .k-wrap__left {
+    left: 0;
+  }
+
+  .k-wrap__right {
+    right: 0;
+  }
+
+  .k-wrap__rv {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 16px;
+    margin-left: -8px;
+    background: var(--surface-raised);
+  }
+
+  .k-wrap__rh {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 47%;
+    height: 16px;
+    margin-top: -8px;
+    background: var(--surface-raised);
+  }
+
+  .k-wrap__bow {
+    position: absolute;
+    left: 50%;
+    top: 47%;
+    width: 60px;
+    height: 60px;
+    margin: -32px 0 0 -30px;
+    display: block;
+  }
+
+  /* Wrapping / bow / cursor / note / button-pulse animations */
+  @keyframes kWrapL {
+    0%,
+    18% {
+      transform: translateX(-102%);
+    }
+    30%,
+    84% {
+      transform: translateX(0);
+    }
+    94%,
+    100% {
+      transform: translateX(-102%);
+    }
+  }
+  @keyframes kWrapR {
+    0%,
+    18% {
+      transform: translateX(102%);
+    }
+    30%,
+    84% {
+      transform: translateX(0);
+    }
+    94%,
+    100% {
+      transform: translateX(102%);
+    }
+  }
+  @keyframes kRibV {
+    0%,
+    30% {
+      transform: scaleY(0);
+    }
+    37%,
+    84% {
+      transform: scaleY(1);
+    }
+    92%,
+    100% {
+      transform: scaleY(0);
+    }
+  }
+  @keyframes kRibH {
+    0%,
+    33% {
+      transform: scaleX(0);
+    }
+    40%,
+    84% {
+      transform: scaleX(1);
+    }
+    92%,
+    100% {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes kBow {
+    0%,
+    40% {
+      transform: scale(0) rotate(-25deg);
+    }
+    46% {
+      transform: scale(1.25) rotate(8deg);
+    }
+    51%,
+    84% {
+      transform: scale(1) rotate(0);
+    }
+    90%,
+    100% {
+      transform: scale(0) rotate(0);
+    }
+  }
+  @keyframes kBtn {
+    0%,
+    11% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    13% {
+      transform: scale(0.9);
+      opacity: 1;
+    }
+    16% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    22%,
+    86% {
+      opacity: 0;
+    }
+    94%,
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes kNote {
+    0%,
+    44% {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px) rotate(-3deg);
+    }
+    52%,
+    84% {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) rotate(-3deg);
+    }
+    90%,
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  @keyframes kCur {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(46px, 40px);
+    }
+    5% {
+      opacity: 1;
+      visibility: visible;
+    }
+    12% {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0);
+    }
+    14% {
+      transform: translate(0, 0) scale(0.85);
+    }
+    16% {
+      transform: translate(0, 0) scale(1);
+    }
+    22%,
+    100% {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(10px, 14px);
+    }
+  }
+  @keyframes kBob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .k-a-wl {
+    animation: kWrapL 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .k-a-wr {
+    animation: kWrapR 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .k-a-rv {
+    transform-origin: 50% 0;
+    animation: kRibV 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .k-a-rh {
+    transform-origin: 0 50%;
+    animation: kRibH 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .k-a-bow {
+    transform-origin: 50% 50%;
+    animation: kBow 7s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+  }
+  .k-a-btn {
+    animation: kBtn 7s ease infinite;
+  }
+  .k-a-note {
+    animation: kNote 7s ease infinite;
+  }
+  .k-a-cur {
+    animation: kCur 7s ease-in-out infinite;
+  }
+  .k-a-bob {
+    animation: kBob 3.2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .k-a-wl,
+    .k-a-wr,
+    .k-a-rv,
+    .k-a-rh,
+    .k-a-bow,
+    .k-a-btn,
+    .k-a-note,
+    .k-a-cur,
+    .k-a-bob {
+      animation: none;
+    }
+    .k-a-cur,
+    .k-a-note {
+      opacity: 0;
+    }
+  }
+
+  .k-pile {
+    position: absolute;
+    left: -24px;
+    bottom: -6px;
+    z-index: 2;
+  }
+
+  /* Tablet band: hero items stack and centre. Upper bound = the smallest
+     viewport where the two desktop columns (text basis 500 + art min 490 +
+     10vw gap) actually fit side-by-side in the available width
+     (viewport − 48 px page padding): `0.9 × W ≥ 1038` → W ≥ 1154 px.
+     Capped at 1159 to leave a small safety margin above that threshold. */
+  @media (min-width: 721px) and (max-width: 1159px) {
+    .hero {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 56px;
+    }
+
+    .hero__text {
+      flex: 0 1 auto;
+      width: 100%;
+      max-width: none;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero__badge {
+      align-self: center;
+    }
+
+    .hero__kicker {
+      transform-origin: center;
+    }
+
+    .hero__lead {
+      margin-inline: auto;
+    }
+
+    .hero__name {
+      justify-content: center;
+    }
+
+    .k-hero-art {
+      flex: 0 1 auto;
+      width: 100%;
+      min-width: 0;
+      max-width: 560px;
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .hero {
+      gap: 32px;
+    }
+
+    .k-hero-art {
+      flex: 1 1 100%;
+      height: auto;
+      min-width: 0;
+      max-width: none;
+      position: relative;
+      background: var(--paper-lilac);
+      border-radius: 36px;
+      padding: 22px 14px 14px;
+      box-sizing: border-box;
+    }
+
+    .k-hero-art > * {
+      display: none;
+    }
+
+    .k-hero-art > .k-hero-card {
+      display: flex;
+      position: static;
+      width: 100%;
+      box-shadow:
+        0 12px 32px -14px rgba(28, 26, 51, 0.4),
+        0 2px 6px rgba(28, 26, 51, 0.08);
+    }
+  }
+</style>
