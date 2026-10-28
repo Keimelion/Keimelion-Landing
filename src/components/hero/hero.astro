@@ -433,7 +433,10 @@ const t = translation
   .k-hero-art {
     position: relative;
     flex: 1 1 440px;
-    min-width: 0;
+    /* Arch is positioned at left:50 width:440, so the art container must be
+       at least 490 px wide to hold it. Below that the arch would bleed past
+       the viewport (which it did at 1120 px desktop before this guard). */
+    min-width: 490px;
     max-width: 560px;
     height: 600px;
   }
@@ -882,11 +885,11 @@ const t = translation
   }
 
   /* Tablet band: hero items stack and centre. Upper bound = the smallest
-     viewport where the two desktop columns (text 500 + art 440 + 10vw gap)
-     actually fit side-by-side in the available width (viewport − 48 px of
-     page padding), computed from `0.9 × W ≥ 988` → W ≥ 1098 px.
-     We cap at 1119 to leave a small safety margin. */
-  @media (min-width: 721px) and (max-width: 1119px) {
+     viewport where the two desktop columns (text basis 500 + art min 490 +
+     10vw gap) actually fit side-by-side in the available width
+     (viewport − 48 px page padding): `0.9 × W ≥ 1038` → W ≥ 1154 px.
+     Capped at 1159 to leave a small safety margin above that threshold. */
+  @media (min-width: 721px) and (max-width: 1159px) {
     .hero {
       flex-direction: column;
       align-items: stretch;
@@ -920,6 +923,7 @@ const t = translation
     .k-hero-art {
       flex: 0 1 auto;
       width: 100%;
+      min-width: 0;
       max-width: 560px;
       margin-inline: auto;
     }
@@ -933,6 +937,7 @@ const t = translation
     .k-hero-art {
       flex: 1 1 100%;
       height: auto;
+      min-width: 0;
       max-width: none;
     }
 
