@@ -44,7 +44,7 @@ The repo contains a `vercel.json` with a single Accept-Language edge redirect (`
 
 ### One-time manual setup (repo owner)
 
-- [ ] Install the Vercel GitHub App on the `Keimelion/Landing` repo (private scope).
+- [ ] Install the Vercel GitHub App on the `Keimelion/Keimelion-Landing` repo (private scope).
 - [ ] Create a Vercel project pointing at the repo; framework preset auto-detects to Astro.
 - [ ] Production branch = `main`. PR previews = enabled (default).
 - [ ] Accept the default build command (`npm run build`) and output dir (`dist`). Vercel's Astro preset sets both — leave them blank in the UI.
