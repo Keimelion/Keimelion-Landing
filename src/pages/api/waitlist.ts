@@ -1,6 +1,6 @@
 // TODO(KEI-138): migrate this handler to call POST /v1/public/waitlist on the Keimelion API.
 // Until the real endpoint lands this route holds an in-memory store so the landing form is testable
-// end-to-end on the Vercel preview. Rate-limit + dedup live in-process and reset on cold start.
+// end-to-end. Rate-limit + dedup live in-process and reset on every restart.
 import type { APIRoute } from 'astro'
 import { z } from 'zod'
 
