@@ -400,7 +400,7 @@ The only file that reads `import.meta.env` is `src/config/env.ts`. It exports a 
 
 1. Added to the schema with a clear Zod rule (`.url()`, `.string().min(1)`, etc.)
 2. Added to `.env.example` with a one-line comment stating what it is for
-3. Registered in Vercel's project settings for Production + Preview + Development
+3. Added to `Keimelion-Infra/.env.example` (build arg / runtime env of the `landing` service)
 
 Any var prefixed `PUBLIC_*` is **embedded in the client bundle**. Never put a secret behind `PUBLIC_*`. A top-comment on `src/config/env.ts` warns of this — do not remove it.
 
@@ -490,11 +490,9 @@ A hard release gate on every PR that touches a user-facing page: **90 or higher*
 
 Never pass user-controlled strings to Astro's `set:html`. If rich formatting is required, sanitise with a trusted library (DOMPurify client-side, or sanitise-html at build time).
 
-## Deployment — Vercel
+## Deployment — self-hosted
 
-- Build command: `npm run build`
-- Output directory: `dist/`
-- Node version: `22`
-- Env vars configured in Vercel's project settings for Production + Preview + Development
-- PR previews are enabled; the preview URL is attached to every Notion ticket at `In Review` time
-- No `vercel.json` unless strictly needed; when needed, keep CSP, HSTS, and Referrer-Policy headers there (or in Vercel's dashboard)
+- Docker image built from `Dockerfile` (`@astrojs/node` standalone), served by the `landing` compose service of Keimelion-Infra
+- Released and deployed by the shared workflows of Keimelion-Infra (`docs/release-process.md`)
+- Security headers (CSP, HSTS, Referrer-Policy) belong in Caddy (`Keimelion-Infra/caddy/Caddyfile`)
+

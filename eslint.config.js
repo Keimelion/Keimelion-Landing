@@ -8,7 +8,6 @@ export default tseslint.config(
       'dist/**',
       'node_modules/**',
       '.astro/**',
-      '.vercel/**',
       '.agents/**',
     ],
   },

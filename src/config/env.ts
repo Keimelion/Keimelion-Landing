@@ -1,5 +1,5 @@
 // Any var prefixed PUBLIC_* is embedded in the client bundle. Never put a secret behind PUBLIC_*.
-// Server-only secrets require a Vercel Edge/Serverless Function, not static output.
+// Server-only secrets must only be read from server endpoints (`prerender = false`), never from pages.
 //
 // This module is the ONLY place that reads `import.meta.env`. Everything else consumes `env`.
 import { z } from 'zod'
