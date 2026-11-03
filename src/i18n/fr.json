@@ -43,7 +43,7 @@
   "example": "Exemple de liste",
   "form": {
     "privacyLink": "Politique de confidentialité",
-    "privacyHref": "/confidentialite",
+    "privacyHref": "/politique-de-confidentialite",
     "submitting": "Enregistrement…",
     "duplicate": "Merci ! On vous écrit dès l'ouverture.",
     "error": "Oups, l'inscription a échoué. Réessayez dans un instant.",
@@ -59,13 +59,72 @@
   "legalPages": {
     "notice": {
       "title": "Mentions légales",
-      "intro": "Page en cours de rédaction. La version définitive sera publiée au lancement de Keimêlion.",
-      "contactLabel": "En attendant, écrivez-nous à"
+      "intro": "Dernière mise à jour : 2 novembre 2026.",
+      "content": {
+        "editor": [
+          "Keimêlion est édité par Alban Pierson, entrepreneur individuel, dont le siège est situé au 6 rue Les Prérots, 70400 Couthenans, France.",
+          "Directeur de la publication : Alban Pierson."
+        ],
+        "hosting": [
+          "Keimêlion est hébergé sur l'infrastructure auto-gérée de l'éditeur (serveur Debian + Docker + Caddy), située à l'adresse du siège, en France.",
+          "La connectivité internet est fournie par Orange SA — 111 quai du Président Roosevelt, 92130 Issy-les-Moulineaux, France (RCS Nanterre 380 129 866). Aucune donnée personnelle n'est confiée à un hébergeur commercial tiers."
+        ],
+        "dataCollection": [
+          "Pendant la phase de pré-lancement, Keimêlion ne collecte que les données strictement nécessaires au fonctionnement de la liste d'attente : adresse e-mail, date d'inscription, adresse IP et User-Agent du navigateur au moment de l'envoi.",
+          "Le détail des traitements et de leurs finalités est décrit dans la politique de confidentialité."
+        ],
+        "purpose": [
+          "Les données collectées servent exclusivement à prévenir les personnes inscrites de l'ouverture du service. Un seul e-mail est envoyé le jour du lancement.",
+          "Aucune communication commerciale, aucune revente, aucun partage à un tiers."
+        ],
+        "gdprRights": [
+          "Conformément au Règlement général sur la protection des données (RGPD) et à la loi « Informatique et Libertés », vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité sur vos données personnelles.",
+          "Pour exercer ces droits, écrivez à contact@keimelion.app. En cas de désaccord sur notre réponse, vous pouvez introduire une réclamation auprès de la CNIL (www.cnil.fr)."
+        ],
+        "contact": [
+          "Pour toute question relative à ces mentions légales, écrivez à contact@keimelion.app. Nous répondons sous un délai raisonnable, en français ou en anglais."
+        ]
+      }
     },
     "privacy": {
       "title": "Politique de confidentialité",
-      "intro": "Page en cours de rédaction. La version définitive, conforme au RGPD, sera publiée au lancement de Keimêlion.",
-      "contactLabel": "Pour toute question, écrivez-nous à"
+      "intro": "Dernière mise à jour : 2 novembre 2026.",
+      "content": {
+        "editor": [
+          "Le responsable du traitement des données collectées via keimelion.app est Alban Pierson (entrepreneur individuel), dont le siège est situé au 6 rue Les Prérots, 70400 Couthenans, France. L'éditeur est joignable à l'adresse contact@keimelion.app.",
+          "L'éditeur ne dispose pas d'un délégué à la protection des données (DPO) : les demandes relatives au RGPD sont traitées directement par l'éditeur."
+        ],
+        "hosting": [
+          "Les données sont stockées dans une base PostgreSQL opérée par l'éditeur, hébergée sur son propre matériel situé à l'adresse du siège (France). La connectivité internet est fournie par Orange SA. Aucune donnée personnelle n'est transférée hors de l'Union européenne.",
+          "Les sauvegardes sont conservées sur le même périmètre technique et pour la même durée que les données d'origine."
+        ],
+        "dataCollection": [
+          "Dans le cadre de la liste d'attente, nous collectons : votre adresse e-mail (champ requis), la date d'inscription, votre adresse IP et le User-Agent de votre navigateur au moment de la soumission.",
+          "L'adresse IP et le User-Agent ne sont utilisés que pour détecter les abus et les soumissions automatisées. Aucune donnée bancaire, aucun nom, aucun numéro de téléphone n'est demandé.",
+          "Aucun cookie publicitaire ni traceur de mesure d'audience tiers n'est déposé sur votre navigateur."
+        ],
+        "purpose": [
+          "Votre adresse e-mail est utilisée dans un seul but : vous notifier de l'ouverture du service. Un seul e-mail transactionnel est envoyé le jour du lancement.",
+          "La base légale de ce traitement est votre consentement (article 6-1-a du RGPD), matérialisé par la soumission volontaire du formulaire d'inscription."
+        ],
+        "gdprRights": [
+          "Vous disposez à tout moment des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur les données vous concernant. Vous pouvez également retirer votre consentement à tout moment.",
+          "Pour exercer ces droits, écrivez à contact@keimelion.app en précisant l'adresse e-mail concernée. Nous répondons dans un délai maximal de trente jours.",
+          "Vos données sont conservées jusqu'au lancement du service, puis au maximum douze mois après l'envoi de l'e-mail de lancement ; elles sont ensuite effacées automatiquement. Vous pouvez demander leur suppression anticipée à tout moment.",
+          "En cas de désaccord persistant, vous pouvez introduire une réclamation auprès de la CNIL (www.cnil.fr)."
+        ],
+        "contact": [
+          "Pour toute question relative au traitement de vos données, l'éditeur reste votre interlocuteur unique à l'adresse contact@keimelion.app. Nous ne faisons appel à aucun sous-traitant externe pour la gestion de la liste d'attente."
+        ]
+      }
+    },
+    "sections": {
+      "editor": "Éditeur",
+      "hosting": "Hébergement",
+      "dataCollection": "Collecte des données",
+      "purpose": "Finalité",
+      "gdprRights": "Droits RGPD",
+      "contact": "Contact"
     },
     "backHome": "Retour à l'accueil",
     "contactEmail": "contact@keimelion.app"

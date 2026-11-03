@@ -56,4 +56,20 @@ const { locale, translation, title, canonicalPath, alternatePath } = Astro.props
     font: 800 36px/40px var(--font-display);
     letter-spacing: -0.04em;
   }
+
+  .legal__inner :global(h2) {
+    font: 700 22px/28px var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .legal__inner :global(section) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .legal__inner :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 </style>
