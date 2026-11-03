@@ -1,0 +1,44 @@
+---
+import LegalLayout from '../layouts/legal-layout.astro'
+import { Locales, getTranslation, type Translation } from '../i18n/t'
+
+export const prerender = true
+
+const SECTION_KEYS: ReadonlyArray<keyof Translation['legalPages']['sections']> = [
+  'editor',
+  'hosting',
+  'dataCollection',
+  'purpose',
+  'gdprRights',
+  'contact',
+]
+
+const locale = Locales.FR
+const translation = getTranslation(locale)
+const legal = translation.legalPages.privacy
+const sections = translation.legalPages.sections
+---
+
+<LegalLayout
+  locale={locale}
+  translation={translation}
+  title={legal.title}
+  canonicalPath="/politique-de-confidentialite"
+  alternatePath="/en/privacy-policy"
+>
+  <h1>{legal.title}</h1>
+  <p>{legal.intro}</p>
+  {
+    SECTION_KEYS.map((key) => (
+      <section>
+        <h2>{sections[key]}</h2>
+        {legal.content[key].map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </section>
+    ))
+  }
+  <p>
+    <a href="/">{translation.legalPages.backHome}</a>
+  </p>
+</LegalLayout>

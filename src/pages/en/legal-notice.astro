@@ -1,13 +1,22 @@
 ---
-// TODO(KEI-144): replace stub with the final legal notice once legal content is drafted.
 import LegalLayout from '../../layouts/legal-layout.astro'
-import { Locales, getTranslation } from '../../i18n/t'
+import { Locales, getTranslation, type Translation } from '../../i18n/t'
 
 export const prerender = true
+
+const SECTION_KEYS: ReadonlyArray<keyof Translation['legalPages']['sections']> = [
+  'editor',
+  'hosting',
+  'dataCollection',
+  'purpose',
+  'gdprRights',
+  'contact',
+]
 
 const locale = Locales.EN
 const translation = getTranslation(locale)
 const legal = translation.legalPages.notice
+const sections = translation.legalPages.sections
 ---
 
 <LegalLayout
@@ -19,12 +28,16 @@ const legal = translation.legalPages.notice
 >
   <h1>{legal.title}</h1>
   <p>{legal.intro}</p>
-  <p>
-    {legal.contactLabel}
-    <a href={`mailto:${translation.legalPages.contactEmail}`}>
-      {translation.legalPages.contactEmail}
-    </a>.
-  </p>
+  {
+    SECTION_KEYS.map((key) => (
+      <section>
+        <h2>{sections[key]}</h2>
+        {legal.content[key].map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </section>
+    ))
+  }
   <p>
     <a href="/en/">{translation.legalPages.backHome}</a>
   </p>
