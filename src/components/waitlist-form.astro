@@ -78,12 +78,6 @@ const t = translation
 </form>
 
 <script>
-  const STATUS_VISIBLE_MS = 6_000
-  // Same duration as the opacity transition of .k-form__thanks.
-  const STATUS_FADE_MS = 400
-  const STATUS_LEAVING_CLASS = 'k-form__thanks--leaving'
-  const statusTimers = new WeakMap<HTMLElement, number>()
-
   interface SuccessPayload {
     ok: true
     duplicate: boolean
@@ -121,22 +115,8 @@ const t = translation
     const node = form.querySelector<HTMLElement>('[data-waitlist-status]')
     const text = form.querySelector<HTMLElement>('[data-waitlist-status-text]')
     if (node === null || text === null) return
-    window.clearTimeout(statusTimers.get(node))
-    node.classList.remove(STATUS_LEAVING_CLASS)
     text.textContent = message
     node.hidden = message.length === 0
-    if (message.length === 0) return
-    statusTimers.set(node, window.setTimeout(() => { fadeOutStatus(node) }, STATUS_VISIBLE_MS))
-  }
-
-  function fadeOutStatus(node: HTMLElement): void {
-    node.classList.add(STATUS_LEAVING_CLASS)
-    statusTimers.set(node, window.setTimeout(() => { hideStatus(node) }, STATUS_FADE_MS))
-  }
-
-  function hideStatus(node: HTMLElement): void {
-    node.hidden = true
-    node.classList.remove(STATUS_LEAVING_CLASS)
   }
 
   function showError(
@@ -328,14 +308,15 @@ const t = translation
     display: none;
   }
 
-  .k-form__thanks--leaving {
-    opacity: 0;
-    transition: opacity 0.4s ease;
+  .k-form__thanks:not([hidden]) {
+    animation: k-form-thanks-out 0.4s ease 6s forwards;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .k-form__thanks--leaving {
-      transition: none;
+  @keyframes k-form-thanks-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+      display: none;
     }
   }
 
