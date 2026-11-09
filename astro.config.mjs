@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, envField } from 'astro/config'
 import node from '@astrojs/node'
 import sitemap from '@astrojs/sitemap'
 
@@ -9,6 +9,12 @@ export default defineConfig({
   site: 'https://keimelion.app',
   output: 'server',
   adapter: node({ mode: 'standalone' }),
+  env: {
+    schema: {
+      // `secret` is what makes Astro read it at runtime instead of inlining it at build time.
+      API_INTERNAL_URL: envField.string({ context: 'server', access: 'secret', url: true }),
+    },
+  },
   i18n: {
     locales: ['fr', 'en'],
     defaultLocale: 'fr',

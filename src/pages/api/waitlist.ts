@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro'
 import { z } from 'zod'
-import { env } from '../../config/env'
+import { API_INTERNAL_URL } from 'astro:env/server'
 
 export const prerender = false
 
@@ -132,7 +132,7 @@ async function postToWaitlistApi(
   ip: string,
 ): Promise<WaitlistApiReply | null> {
   try {
-    const response = await fetch(new URL(WAITLIST_API_PATH, env.PUBLIC_API_BASE_URL), {
+    const response = await fetch(new URL(WAITLIST_API_PATH, API_INTERNAL_URL), {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-forwarded-for': ip },
       body: JSON.stringify({
