@@ -308,6 +308,18 @@ const t = translation
     display: none;
   }
 
+  .k-form__thanks:not([hidden]) {
+    animation: k-form-thanks-out 0.4s ease 6s forwards;
+  }
+
+  @keyframes k-form-thanks-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+      display: none;
+    }
+  }
+
   .k-form__error {
     margin: 0;
     font-size: 14px;
