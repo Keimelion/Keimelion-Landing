@@ -309,14 +309,29 @@ const t = translation
   }
 
   .k-form__thanks:not([hidden]) {
-    animation: k-form-thanks-out 0.4s ease 6s forwards;
+    overflow: hidden;
+    animation:
+      k-form-thanks-reveal 0.35s ease-out,
+      k-form-thanks-reveal 0.5s ease-in 6s reverse forwards;
   }
 
-  @keyframes k-form-thanks-out {
-    to {
+  @keyframes k-form-thanks-reveal {
+    /* The negative margin absorbs the form's 10px gap, so that nothing jumps when collapsed. */
+    from {
       opacity: 0;
       visibility: hidden;
-      display: none;
+      max-height: 0;
+      padding-block: 0;
+      margin-top: -10px;
+    }
+    to {
+      max-height: 80px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .k-form__thanks:not([hidden]) {
+      animation-duration: 1ms;
     }
   }
 
