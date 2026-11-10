@@ -23,7 +23,7 @@
     "@fontsource/caveat": "^5.1.0",
     "@fontsource/dm-mono": "^5.1.0",
     "@fontsource/dm-sans": "^5.1.0",
-    "astro": "^7.4.5",
+    "astro": "^7.4.7",
     "zod": "^4.6.7"
   },
   "devDependencies": {
