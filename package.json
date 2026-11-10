@@ -17,7 +17,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@astrojs/node": "^11.1.9",
+    "@astrojs/node": "^11.1.11",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/bricolage-grotesque": "^5.1.0",
     "@fontsource/caveat": "^5.1.0",
