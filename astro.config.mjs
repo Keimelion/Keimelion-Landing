@@ -5,6 +5,9 @@ import sitemap from '@astrojs/sitemap'
 // Site URL is a placeholder; KEI-137 locks the final domain.
 // Server output with the Node adapter (standalone, self-hosted) so `src/pages/api/waitlist.ts` runs server-side.
 // Every `.astro` page explicitly opts into static pre-render via `export const prerender = true`.
+const WAITLIST_TOKEN_PAGE_PATTERN =
+  /\/(confirmer-inscription|supprimer-inscription|confirm-signup|delete-signup)\/?$/
+
 export default defineConfig({
   site: 'https://keimelion.app',
   output: 'server',
@@ -31,8 +34,9 @@ export default defineConfig({
           en: 'en',
         },
       },
-      // The /api/waitlist route is a server endpoint, not a public page.
-      filter: (page) => !page.includes('/api/'),
+      // The /api/* routes are server endpoints, and the waitlist link pages only make sense with
+      // the token of an email: none of them belongs in the sitemap.
+      filter: (page) => !WAITLIST_TOKEN_PAGE_PATTERN.test(page) && !page.includes('/api/'),
     }),
   ],
 })

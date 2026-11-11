@@ -16,47 +16,57 @@ const t = translation
   action="/api/waitlist"
   novalidate
   data-locale={locale}
-  data-i18n-thanks={t.thanks}
-  data-i18n-duplicate={t.form.duplicate}
   data-i18n-error={t.form.error}
   data-i18n-invalid-email={t.form.errorInvalidEmail}
   data-i18n-rate-limited={t.form.errorRateLimited}
   data-i18n-submit={t.notify}
   data-i18n-submitting={t.form.submitting}
 >
-  <label for="k-email" class="k-form__label">{t.formLabel}</label>
-  <div class="k-form__row">
-    <input
-      id="k-email"
-      name="email"
-      class="k-input"
-      type="email"
-      required
-      autocomplete="email"
-      inputmode="email"
-      placeholder={t.placeholder}
-    />
-    <button type="submit" class="k-btn k-btn-primary k-form__submit">{t.notify}</button>
-  </div>
-  <div class="visually-hidden k-form__hp" aria-hidden="true">
-    <label>
-      <span>{t.form.honeypotLabel}</span>
-      <input type="text" name="website" tabindex="-1" autocomplete="off" />
+  <div class="k-form__fields" data-waitlist-fields>
+    <label for="k-email" class="k-form__label">
+      {t.formLabel}
     </label>
+    <div class="k-form__row">
+      <input
+        id="k-email"
+        name="email"
+        class="k-input"
+        type="email"
+        required
+        autocomplete="email"
+        inputmode="email"
+        placeholder={t.placeholder}
+      />
+      <button type="submit" class="k-btn k-btn-primary k-form__submit">
+        {t.notify}
+      </button>
+    </div>
+    <div class="visually-hidden k-form__hp" aria-hidden="true">
+      <label>
+        <span>{t.form.honeypotLabel}</span>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+      </label>
+    </div>
+    <input type="hidden" name="locale" value={locale} />
+    <input type="hidden" name="consent" value="true" />
+    <span class="k-form__privacy">
+      {t.privacy}&nbsp;
+      <a href={t.form.privacyHref} class="k-form__privacy-link">
+        {t.form.privacyLink}
+      </a>
+      .
+    </span>
   </div>
-  <input type="hidden" name="locale" value={locale} />
-  <input type="hidden" name="consent" value="true" />
-  <span class="k-form__privacy">
-    {t.privacy}&nbsp;<a href={t.form.privacyHref} class="k-form__privacy-link">{t.form.privacyLink}</a>.
-  </span>
-  <p
-    class="k-form__thanks"
+  <div
+    class="k-form__sent"
     role="status"
     aria-live="polite"
-    data-waitlist-status
+    tabindex="-1"
+    data-waitlist-sent
+    data-i18n-body={t.waitlist.form.success.body}
     hidden
   >
-    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22">
       <path
         d="m5 12.5 4.5 4.5L19 7.5"
         fill="none"
@@ -66,21 +76,18 @@ const t = translation
         stroke-linejoin="round"
       ></path>
     </svg>
-    <span data-waitlist-status-text></span>
-  </p>
-  <p
-    class="k-form__error"
-    role="alert"
-    tabindex="-1"
-    data-waitlist-error
-    hidden
-  ></p>
+    <div class="k-form__sent-text">
+      <p class="k-form__sent-title">{t.waitlist.form.success.title}</p>
+      <p data-waitlist-sent-body></p>
+      <p class="k-form__sent-hint">{t.waitlist.form.success.hint}</p>
+    </div>
+  </div>
+  <p class="k-form__error" role="alert" tabindex="-1" data-waitlist-error hidden></p>
 </form>
 
 <script>
   interface SuccessPayload {
     ok: true
-    duplicate: boolean
   }
 
   interface FailurePayload {
@@ -106,24 +113,28 @@ const t = translation
     return map[code] ?? form.dataset.i18nError ?? ''
   }
 
-  function successMessageFor(form: HTMLFormElement, payload: SuccessPayload): string {
-    if (payload.duplicate) return form.dataset.i18nDuplicate ?? ''
-    return form.dataset.i18nThanks ?? ''
+  const EMAIL_PLACEHOLDER = '{email}'
+
+  // The address is inserted as a text node, never as HTML.
+  function fillSentBody(node: HTMLElement, template: string, email: string): void {
+    const [before = '', after = ''] = template.split(EMAIL_PLACEHOLDER)
+    const strong = document.createElement('strong')
+    strong.textContent = email
+    node.replaceChildren(before, strong, after)
   }
 
-  function showStatus(form: HTMLFormElement, message: string): void {
-    const node = form.querySelector<HTMLElement>('[data-waitlist-status]')
-    const text = form.querySelector<HTMLElement>('[data-waitlist-status-text]')
-    if (node === null || text === null) return
-    text.textContent = message
-    node.hidden = message.length === 0
+  function showCheckInbox(form: HTMLFormElement, email: string): void {
+    const fields = form.querySelector<HTMLElement>('[data-waitlist-fields]')
+    const sent = form.querySelector<HTMLElement>('[data-waitlist-sent]')
+    const body = form.querySelector<HTMLElement>('[data-waitlist-sent-body]')
+    if (fields === null || sent === null || body === null) return
+    fillSentBody(body, sent.dataset.i18nBody ?? '', email)
+    fields.hidden = true
+    sent.hidden = false
+    sent.focus()
   }
 
-  function showError(
-    form: HTMLFormElement,
-    message: string,
-    code?: FailurePayload['error'],
-  ): void {
+  function showError(form: HTMLFormElement, message: string, code?: FailurePayload['error']): void {
     const node = form.querySelector<HTMLElement>('[data-waitlist-error]')
     if (node === null) return
     node.textContent = message
@@ -154,7 +165,6 @@ const t = translation
       website: String(data.get('website') ?? ''),
     }
     showError(form, '')
-    showStatus(form, '')
     setSubmitting(form, true)
     try {
       const response = await fetch(form.action, {
@@ -168,7 +178,7 @@ const t = translation
         return
       }
       if (raw.ok) {
-        showStatus(form, successMessageFor(form, raw))
+        showCheckInbox(form, payload.email.trim().toLowerCase())
         form.reset()
         return
       }
@@ -291,47 +301,71 @@ const t = translation
     color: var(--brand);
   }
 
-  .k-form__thanks {
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
+  .k-form__fields {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    max-width: 520px;
-    padding: 14px 18px;
-    border-radius: 18px;
-    background: var(--paper-mint);
-    font-weight: 600;
-    color: var(--ink);
   }
 
-  .k-form__thanks[hidden] {
+  .k-form__fields[hidden],
+  .k-form__sent[hidden] {
     display: none;
   }
 
-  .k-form__thanks:not([hidden]) {
-    overflow: hidden;
-    animation:
-      k-form-thanks-reveal 0.35s ease-out,
-      k-form-thanks-reveal 0.5s ease-in 6s reverse forwards;
+  .k-form__sent {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 520px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: var(--paper-mint);
+    color: var(--ink);
+    animation: k-form-sent-reveal 0.35s ease-out;
   }
 
-  @keyframes k-form-thanks-reveal {
-    /* The negative margin absorbs the form's 10px gap, so that nothing jumps when collapsed. */
+  .k-form__sent:focus {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .k-form__sent svg {
+    flex: none;
+    margin-top: 2px;
+  }
+
+  .k-form__sent-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .k-form__sent-text p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .k-form__sent-text .k-form__sent-title {
+    font: 700 18px/24px var(--font-display);
+  }
+
+  .k-form__sent-text .k-form__sent-hint {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink-muted);
+  }
+
+  @keyframes k-form-sent-reveal {
     from {
       opacity: 0;
-      visibility: hidden;
-      max-height: 0;
-      padding-block: 0;
-      margin-top: -10px;
-    }
-    to {
-      max-height: 80px;
+      transform: translateY(4px);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .k-form__thanks:not([hidden]) {
-      animation-duration: 1ms;
+    .k-form__sent {
+      animation: none;
     }
   }
 

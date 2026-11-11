@@ -1,0 +1,13 @@
+---
+import WaitlistLinkPage from '../../components/waitlist-link-page.astro'
+import { Locales } from '../../i18n/t'
+
+export const prerender = true
+---
+
+<WaitlistLinkPage
+  locale={Locales.EN}
+  mode="unsubscribe"
+  canonicalPath="/en/delete-signup"
+  alternatePath="/supprimer-inscription"
+/>
