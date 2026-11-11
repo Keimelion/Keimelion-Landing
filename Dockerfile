@@ -8,7 +8,9 @@ RUN npm ci
 
 FROM deps AS build
 ARG PUBLIC_API_BASE_URL
+ARG GIT_SHA=""
 ENV PUBLIC_API_BASE_URL=${PUBLIC_API_BASE_URL} \
+    GIT_SHA=${GIT_SHA} \
     ASTRO_TELEMETRY_DISABLED=1
 COPY . .
 RUN npm run build && npm prune --omit=dev

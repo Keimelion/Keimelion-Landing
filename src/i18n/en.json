@@ -91,6 +91,7 @@
     "contactHref": "mailto:contact@keimelion.app"
   },
   "copyright": "© 2026 Keimêlion",
+  "versionLabel": "Deployed version",
   "legalPages": {
     "notice": {
       "title": "Legal notice",

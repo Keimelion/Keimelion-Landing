@@ -16,6 +16,7 @@ export default defineConfig({
     schema: {
       // `secret` is what makes Astro read it at runtime instead of inlining it at build time.
       API_INTERNAL_URL: envField.string({ context: 'server', access: 'secret', url: true }),
+      GIT_SHA: envField.string({ context: 'server', access: 'public', optional: true, default: '' }),
     },
   },
   i18n: {
