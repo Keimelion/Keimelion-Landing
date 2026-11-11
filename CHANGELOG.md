@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/Keimelion/Keimelion-Landing/compare/v1.0.0...v1.0.1) (2026-11-11)
+
+### Bug Fixes
+
+* utils/app-version read GIT_SHA from process.env so the Docker build passes (KEI-181) ([#47](https://github.com/Keimelion/Keimelion-Landing/issues/47)) ([def8d78](https://github.com/Keimelion/Keimelion-Landing/commit/def8d788cf472ff7cdb40fef2fa00b64dfeb38d9))
+
 ## [1.0.0](https://github.com/Keimelion/Keimelion-Landing/compare/v0.1.0...v1.0.0) (2026-11-11)
 
 ### ⚠ BREAKING CHANGES
