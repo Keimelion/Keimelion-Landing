@@ -12,8 +12,7 @@
   "formLabel": "Votre adresse e-mail",
   "placeholder": "vous@exemple.fr",
   "notify": "Prévenez-moi",
-  "privacy": "Un seul e-mail, le jour du lancement. Rien d'autre.",
-  "thanks": "Merci ! On vous écrit dès l'ouverture.",
+  "privacy": "Un e-mail pour confirmer votre adresse, puis un seul le jour du lancement. Rien d'autre.",
   "nameNote": "du grec ancien κειμήλιον : « le trésor que l'on garde ».",
   "occHand": "pour tous les",
   "occTitle": "Moments de vie",
@@ -45,11 +44,46 @@
     "privacyLink": "Politique de confidentialité",
     "privacyHref": "/politique-de-confidentialite",
     "submitting": "Enregistrement…",
-    "duplicate": "Merci ! On vous écrit dès l'ouverture.",
     "error": "Oups, l'inscription a échoué. Réessayez dans un instant.",
     "errorInvalidEmail": "Cette adresse e-mail ne semble pas valide.",
     "errorRateLimited": "Beaucoup de demandes à la minute. Réessayez dans un instant.",
     "honeypotLabel": "Ne remplissez pas ce champ"
+  },
+  "waitlist": {
+    "form": {
+      "success": {
+        "title": "Vérifiez votre boîte mail",
+        "body": "Nous venons d'envoyer un lien de confirmation à {email}. Cliquez dessus pour rejoindre la liste d'attente.",
+        "hint": "Rien reçu ? Regardez dans vos courriers indésirables. Le lien est valable 7 jours."
+      }
+    },
+    "confirm": {
+      "metaTitle": "Confirmer mon inscription — Keimêlion",
+      "loading": "Confirmation en cours…",
+      "success": {
+        "kicker": "c'est confirmé !",
+        "title": "Vous êtes sur la liste.",
+        "body": "Merci ! Nous vous écrirons une seule fois, le jour du lancement de Keimêlion.",
+        "cta": "Retour à l'accueil"
+      },
+      "invalid": {
+        "title": "Ce lien n'est plus valable",
+        "body": "Il a peut-être expiré (il est valable 7 jours) ou été remplacé par un lien plus récent. Inscrivez-vous à nouveau pour en recevoir un autre.",
+        "cta": "Revenir au formulaire"
+      },
+      "error": "Oups, la confirmation a échoué. Rechargez la page dans un instant pour réessayer."
+    },
+    "unsubscribe": {
+      "metaTitle": "Supprimer mon inscription — Keimêlion",
+      "loading": "Suppression en cours…",
+      "done": {
+        "title": "Inscription supprimée",
+        "body": "Votre adresse a été effacée de notre liste d'attente. Vous ne recevrez plus aucun e-mail de notre part.",
+        "again": "Vous avez changé d'avis ? Vous pouvez vous réinscrire à tout moment.",
+        "cta": "Retour à l'accueil"
+      },
+      "error": "Oups, la suppression a échoué. Rechargez la page dans un instant pour réessayer."
+    }
   },
   "links": {
     "legalHref": "/mentions-legales",
@@ -59,7 +93,7 @@
   "legalPages": {
     "notice": {
       "title": "Mentions légales",
-      "intro": "Dernière mise à jour : 2 novembre 2026.",
+      "intro": "Dernière mise à jour : 11 novembre 2026.",
       "content": {
         "editor": [
           "Keimêlion est édité par Alban Pierson, entrepreneur individuel, dont le siège est situé au 6 rue Les Prérots, 70400 Couthenans, France.",
@@ -67,15 +101,17 @@
         ],
         "hosting": [
           "Keimêlion est hébergé sur l'infrastructure auto-gérée de l'éditeur (serveur Debian + Docker + Caddy), située à l'adresse du siège, en France.",
-          "La connectivité internet est fournie par Orange SA — 111 quai du Président Roosevelt, 92130 Issy-les-Moulineaux, France (RCS Nanterre 380 129 866). Aucune donnée personnelle n'est confiée à un hébergeur commercial tiers."
+          "La connectivité internet est fournie par Orange SA — 111 quai du Président Roosevelt, 92130 Issy-les-Moulineaux, France (RCS Nanterre 380 129 866). Aucune donnée personnelle n'est confiée à un hébergeur commercial tiers.",
+          "Seul l'envoi des e-mails de la liste d'attente est confié à un prestataire : Resend, Inc. (États-Unis), qui reçoit pour cela votre adresse e-mail et le contenu des messages. Le détail figure dans la politique de confidentialité."
         ],
         "dataCollection": [
-          "Pendant la phase de pré-lancement, Keimêlion ne collecte que les données strictement nécessaires au fonctionnement de la liste d'attente : adresse e-mail, date d'inscription, adresse IP et User-Agent du navigateur au moment de l'envoi.",
-          "Le détail des traitements et de leurs finalités est décrit dans la politique de confidentialité."
+          "Pendant la phase de pré-lancement, Keimêlion ne traite que les données strictement nécessaires au fonctionnement de la liste d'attente : votre adresse e-mail, la langue choisie, la date de votre consentement et le statut de confirmation de votre adresse.",
+          "Votre adresse IP et le User-Agent de votre navigateur ne sont pas enregistrés avec votre inscription : ils n'apparaissent que dans les journaux techniques du serveur (journaux d'accès et de détection d'abus).",
+          "Le détail des traitements, de leurs finalités et de leurs durées de conservation est décrit dans la politique de confidentialité."
         ],
         "purpose": [
-          "Les données collectées servent exclusivement à prévenir les personnes inscrites de l'ouverture du service. Un seul e-mail est envoyé le jour du lancement.",
-          "Aucune communication commerciale, aucune revente, aucun partage à un tiers."
+          "Les données collectées servent exclusivement à confirmer votre adresse puis à vous prévenir de l'ouverture du service : un e-mail de confirmation à l'inscription, puis un seul e-mail le jour du lancement.",
+          "Aucune communication commerciale, aucune revente. Le seul tiers impliqué est Resend, le prestataire d'envoi d'e-mails, qui achemine ces messages pour le compte de l'éditeur et ne peut pas utiliser vos données à d'autres fins."
         ],
         "gdprRights": [
           "Conformément au Règlement général sur la protection des données (RGPD) et à la loi « Informatique et Libertés », vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité sur vos données personnelles.",
@@ -88,33 +124,36 @@
     },
     "privacy": {
       "title": "Politique de confidentialité",
-      "intro": "Dernière mise à jour : 2 novembre 2026.",
+      "intro": "Dernière mise à jour : 11 novembre 2026.",
       "content": {
         "editor": [
           "Le responsable du traitement des données collectées via keimelion.app est Alban Pierson (entrepreneur individuel), dont le siège est situé au 6 rue Les Prérots, 70400 Couthenans, France. L'éditeur est joignable à l'adresse contact@keimelion.app.",
           "L'éditeur ne dispose pas d'un délégué à la protection des données (DPO) : les demandes relatives au RGPD sont traitées directement par l'éditeur."
         ],
         "hosting": [
-          "Les données sont stockées dans une base PostgreSQL opérée par l'éditeur, hébergée sur son propre matériel situé à l'adresse du siège (France). La connectivité internet est fournie par Orange SA. Aucune donnée personnelle n'est transférée hors de l'Union européenne.",
-          "Les sauvegardes sont conservées sur le même périmètre technique et pour la même durée que les données d'origine."
+          "Les données de la liste d'attente sont stockées dans une base PostgreSQL opérée par l'éditeur, hébergée sur son propre matériel situé à l'adresse du siège (France). La connectivité internet est fournie par Orange SA.",
+          "Les e-mails de la liste d'attente sont envoyés par Resend, Inc., société établie aux États-Unis, en qualité de sous-traitant. Pour acheminer un message, Resend reçoit votre adresse e-mail et le contenu de l'e-mail, et peut les traiter en dehors de l'Union européenne. Ce transfert est encadré par l'accord de traitement des données conclu avec Resend, qui intègre les clauses contractuelles types de la Commission européenne.",
+          "Les sauvegardes de la base sont chiffrées et conservées sur le matériel de l'éditeur. Elles ne servent qu'à restaurer le service après un incident. Une inscription supprimée disparaît des sauvegardes au fil de leur renouvellement, au plus tard treize mois après sa suppression."
         ],
         "dataCollection": [
-          "Dans le cadre de la liste d'attente, nous collectons : votre adresse e-mail (champ requis), la date d'inscription, votre adresse IP et le User-Agent de votre navigateur au moment de la soumission.",
-          "L'adresse IP et le User-Agent ne sont utilisés que pour détecter les abus et les soumissions automatisées. Aucune donnée bancaire, aucun nom, aucun numéro de téléphone n'est demandé.",
+          "Pour la liste d'attente, nous enregistrons : votre adresse e-mail (champ requis), la langue de votre inscription, la date de votre consentement et le statut de confirmation de votre adresse. S'y ajoutent des jetons techniques, conservés uniquement sous forme d'empreinte irréversible, qui font fonctionner les liens de confirmation et de suppression.",
+          "Votre adresse IP et le User-Agent de votre navigateur ne sont pas enregistrés avec votre inscription. Ils apparaissent uniquement dans les journaux techniques du serveur (journaux d'accès du proxy inverse et journaux de détection d'abus), utilisés pour la sécurité du service et la lutte contre les soumissions automatisées. Ces journaux ne sont ni sauvegardés ni archivés : leur rotation automatique les efface, et ils sont conservés au maximum [DURÉE À VALIDER]. L'adresse IP est aussi gardée en mémoire quinze minutes au plus, pour limiter le nombre de demandes.",
+          "Aucune donnée bancaire, aucun nom, aucun numéro de téléphone n'est demandé.",
           "Aucun cookie publicitaire ni traceur de mesure d'audience tiers n'est déposé sur votre navigateur."
         ],
         "purpose": [
-          "Votre adresse e-mail est utilisée dans un seul but : vous notifier de l'ouverture du service. Un seul e-mail transactionnel est envoyé le jour du lancement.",
-          "La base légale de ce traitement est votre consentement (article 6-1-a du RGPD), matérialisé par la soumission volontaire du formulaire d'inscription."
+          "Votre adresse e-mail sert uniquement à deux envois : un e-mail pour confirmer votre inscription, puis un seul e-mail le jour du lancement du service.",
+          "La base légale de ce traitement est votre consentement (article 6-1-a du RGPD), donné en soumettant le formulaire d'inscription puis confirmé en cliquant sur le lien reçu par e-mail."
         ],
         "gdprRights": [
           "Vous disposez à tout moment des droits d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur les données vous concernant. Vous pouvez également retirer votre consentement à tout moment.",
-          "Pour exercer ces droits, écrivez à contact@keimelion.app en précisant l'adresse e-mail concernée. Nous répondons dans un délai maximal de trente jours.",
-          "Vos données sont conservées jusqu'au lancement du service, puis au maximum douze mois après l'envoi de l'e-mail de lancement ; elles sont ensuite effacées automatiquement. Vous pouvez demander leur suppression anticipée à tout moment.",
+          "Chaque e-mail contient un lien « Supprimer mon inscription » : il efface immédiatement et définitivement votre adresse de la liste d'attente.",
+          "Vous pouvez aussi écrire à contact@keimelion.app en précisant l'adresse e-mail concernée. Nous répondons dans un délai maximal de trente jours.",
+          "Une inscription non confirmée est supprimée automatiquement sept jours après l'envoi du dernier lien de confirmation. Une inscription confirmée est conservée jusqu'au lancement du service, puis au maximum douze mois après l'envoi de l'e-mail de lancement ; elle est ensuite effacée automatiquement.",
           "En cas de désaccord persistant, vous pouvez introduire une réclamation auprès de la CNIL (www.cnil.fr)."
         ],
         "contact": [
-          "Pour toute question relative au traitement de vos données, l'éditeur reste votre interlocuteur unique à l'adresse contact@keimelion.app. Nous ne faisons appel à aucun sous-traitant externe pour la gestion de la liste d'attente."
+          "Pour toute question relative au traitement de vos données, l'éditeur reste votre interlocuteur unique à l'adresse contact@keimelion.app. Un seul sous-traitant intervient dans la gestion de la liste d'attente : Resend, Inc., qui envoie les e-mails de confirmation et de lancement pour le compte de l'éditeur."
         ]
       }
     },

@@ -1,6 +1,14 @@
 import type { APIRoute } from 'astro'
 import { z } from 'zod'
 import { API_INTERNAL_URL } from 'astro:env/server'
+import {
+  createIpRateLimiter,
+  jsonResponse,
+  parseJsonBody,
+  readJsonBody,
+  resolveClientIp,
+  type ApiReply,
+} from '../../utils/api-proxy'
 
 export const prerender = false
 
@@ -10,28 +18,25 @@ const MAX_EMAIL_LENGTH = 254
 const WAITLIST_API_PATH = '/v1/public/waitlist'
 const WAITLIST_API_TIMEOUT_MS = 5_000
 const HONEYPOT_ERROR_CODE = 'WAITLIST_HONEYPOT_TRIGGERED'
-const ALREADY_SUBSCRIBED_STATUS = 'already_subscribed'
+const PENDING_CONFIRMATION_STATUS = 'pending_confirmation'
 const HTTP_OK = 200
-const HTTP_CREATED = 201
+const HTTP_ACCEPTED = 202
 const HTTP_BAD_REQUEST = 400
 const HTTP_UNPROCESSABLE_ENTITY = 422
 const HTTP_TOO_MANY_REQUESTS = 429
 const HTTP_SERVICE_UNAVAILABLE = 503
 
 const waitlistInputSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .toLowerCase()
-    .max(MAX_EMAIL_LENGTH)
-    .pipe(z.email()),
+  email: z.string().trim().toLowerCase().max(MAX_EMAIL_LENGTH).pipe(z.email()),
   locale: z.enum(['fr', 'en']),
   consent: z.literal(true),
   website: z.string().max(200).optional(),
 })
 
+// The API answers every signup with the same status, so the landing cannot tell (and never shows)
+// whether the address was already on the list.
 const apiSignupSchema = z.object({
-  status: z.enum(['subscribed', ALREADY_SUBSCRIBED_STATUS]),
+  status: z.literal(PENDING_CONFIRMATION_STATUS),
 })
 
 const apiErrorSchema = z.object({
@@ -45,76 +50,35 @@ type WaitlistInput = z.infer<typeof waitlistInputSchema>
 
 interface WaitlistSuccess {
   ok: true
-  duplicate: boolean
 }
 
 interface WaitlistFailure {
   ok: false
   error:
-    | 'invalid_email'
-    | 'invalid_consent'
-    | 'rate_limited'
-    | 'invalid_payload'
-    | 'service_unavailable'
+    'invalid_email' | 'invalid_consent' | 'rate_limited' | 'invalid_payload' | 'service_unavailable'
 }
 
 type WaitlistResponse = WaitlistSuccess | WaitlistFailure
 
-interface WaitlistApiReply {
-  status: number
-  body: unknown
-}
-
-const requestsByIp = new Map<string, number[]>()
+const isRateLimited = createIpRateLimiter(MAX_REQUESTS_PER_WINDOW, RATE_WINDOW_MS)
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   const ip = resolveClientIp(request, clientAddress)
   if (isRateLimited(ip)) {
-    return jsonResponse(HTTP_TOO_MANY_REQUESTS, { ok: false, error: 'rate_limited' })
+    return waitlistResponse(HTTP_TOO_MANY_REQUESTS, { ok: false, error: 'rate_limited' })
   }
 
   const payload = await parseJsonBody(request)
   if (payload === null) {
-    return jsonResponse(HTTP_BAD_REQUEST, { ok: false, error: 'invalid_payload' })
+    return waitlistResponse(HTTP_BAD_REQUEST, { ok: false, error: 'invalid_payload' })
   }
 
   const parsed = waitlistInputSchema.safeParse(payload)
-  if (!parsed.success) return jsonResponse(HTTP_BAD_REQUEST, errorFromZod(parsed.error))
+  if (!parsed.success) return waitlistResponse(HTTP_BAD_REQUEST, errorFromZod(parsed.error))
 
   const reply = await postToWaitlistApi(parsed.data, ip)
   if (reply === null) return serviceUnavailableResponse()
   return responseFromApiReply(reply)
-}
-
-function resolveClientIp(request: Request, fallback: string | undefined): string {
-  const forwarded = request.headers.get('x-forwarded-for')
-  if (forwarded !== null && forwarded.length > 0) {
-    const first = forwarded.split(',')[0]?.trim()
-    if (first !== undefined && first.length > 0) return first
-  }
-  return fallback ?? 'unknown'
-}
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now()
-  const windowStart = now - RATE_WINDOW_MS
-  const previous = requestsByIp.get(ip) ?? []
-  const recent = previous.filter((timestamp) => timestamp >= windowStart)
-  if (recent.length >= MAX_REQUESTS_PER_WINDOW) {
-    requestsByIp.set(ip, recent)
-    return true
-  }
-  recent.push(now)
-  requestsByIp.set(ip, recent)
-  return false
-}
-
-async function parseJsonBody(request: Request): Promise<unknown> {
-  try {
-    return (await request.json()) as unknown
-  } catch {
-    return null
-  }
 }
 
 function errorFromZod(error: z.ZodError): WaitlistFailure {
@@ -127,10 +91,7 @@ function failureFromIssuePaths(paths: string[]): WaitlistFailure {
   return { ok: false, error: 'invalid_payload' }
 }
 
-async function postToWaitlistApi(
-  input: WaitlistInput,
-  ip: string,
-): Promise<WaitlistApiReply | null> {
+async function postToWaitlistApi(input: WaitlistInput, ip: string): Promise<ApiReply | null> {
   try {
     const response = await fetch(new URL(WAITLIST_API_PATH, API_INTERNAL_URL), {
       method: 'POST',
@@ -143,24 +104,23 @@ async function postToWaitlistApi(
       }),
       signal: AbortSignal.timeout(WAITLIST_API_TIMEOUT_MS),
     })
-    return { status: response.status, body: (await response.json()) as unknown }
+    return { status: response.status, body: await readJsonBody(response) }
   } catch (error) {
     console.error('waitlist_api_unreachable', error)
     return null
   }
 }
 
-function responseFromApiReply(reply: WaitlistApiReply): Response {
+function responseFromApiReply(reply: ApiReply): Response {
   switch (reply.status) {
-    case HTTP_OK:
-    case HTTP_CREATED:
+    case HTTP_ACCEPTED:
       return responseFromApiSignup(reply.body)
     case HTTP_BAD_REQUEST:
       return responseFromApiBadRequest(reply.body)
     case HTTP_UNPROCESSABLE_ENTITY:
-      return jsonResponse(HTTP_BAD_REQUEST, failureFromApiValidation(reply.body))
+      return waitlistResponse(HTTP_BAD_REQUEST, failureFromApiValidation(reply.body))
     case HTTP_TOO_MANY_REQUESTS:
-      return jsonResponse(HTTP_TOO_MANY_REQUESTS, { ok: false, error: 'rate_limited' })
+      return waitlistResponse(HTTP_TOO_MANY_REQUESTS, { ok: false, error: 'rate_limited' })
     default:
       console.error('waitlist_api_failure', reply.status)
       return serviceUnavailableResponse()
@@ -168,20 +128,17 @@ function responseFromApiReply(reply: WaitlistApiReply): Response {
 }
 
 function responseFromApiSignup(body: unknown): Response {
-  const signup = apiSignupSchema.safeParse(body)
-  if (!signup.success) return serviceUnavailableResponse()
-  return jsonResponse(HTTP_OK, {
-    ok: true,
-    duplicate: signup.data.status === ALREADY_SUBSCRIBED_STATUS,
-  })
+  if (!apiSignupSchema.safeParse(body).success) return serviceUnavailableResponse()
+  return waitlistResponse(HTTP_OK, { ok: true })
 }
 
+// A honeypot hit looks like a normal signup to the bot.
 function responseFromApiBadRequest(body: unknown): Response {
   const apiError = apiErrorSchema.safeParse(body)
   if (apiError.success && apiError.data.code === HONEYPOT_ERROR_CODE) {
-    return jsonResponse(HTTP_OK, { ok: true, duplicate: false })
+    return waitlistResponse(HTTP_OK, { ok: true })
   }
-  return jsonResponse(HTTP_BAD_REQUEST, { ok: false, error: 'invalid_payload' })
+  return waitlistResponse(HTTP_BAD_REQUEST, { ok: false, error: 'invalid_payload' })
 }
 
 function failureFromApiValidation(body: unknown): WaitlistFailure {
@@ -192,15 +149,9 @@ function failureFromApiValidation(body: unknown): WaitlistFailure {
 }
 
 function serviceUnavailableResponse(): Response {
-  return jsonResponse(HTTP_SERVICE_UNAVAILABLE, { ok: false, error: 'service_unavailable' })
+  return waitlistResponse(HTTP_SERVICE_UNAVAILABLE, { ok: false, error: 'service_unavailable' })
 }
 
-function jsonResponse(status: number, body: WaitlistResponse): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: {
-      'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store',
-    },
-  })
+function waitlistResponse(status: number, body: WaitlistResponse): Response {
+  return jsonResponse(status, body)
 }

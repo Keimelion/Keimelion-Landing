@@ -12,8 +12,7 @@
   "formLabel": "Your email address",
   "placeholder": "you@example.com",
   "notify": "Notify me",
-  "privacy": "Just one email, on launch day. Nothing else.",
-  "thanks": "Thank you! We'll email you as soon as we open.",
+  "privacy": "One email to confirm your address, then just one on launch day. Nothing else.",
   "nameNote": "from Ancient Greek κειμήλιον: “a treasure you keep”.",
   "occHand": "for all of life's",
   "occTitle": "Big moments",
@@ -45,11 +44,46 @@
     "privacyLink": "Privacy policy",
     "privacyHref": "/en/privacy-policy",
     "submitting": "Saving…",
-    "duplicate": "Thank you! We'll email you as soon as we open.",
     "error": "Sign-up failed. Please try again in a moment.",
     "errorInvalidEmail": "That email address doesn't look valid.",
     "errorRateLimited": "Too many requests. Please try again shortly.",
     "honeypotLabel": "Please leave this field empty"
+  },
+  "waitlist": {
+    "form": {
+      "success": {
+        "title": "Check your inbox",
+        "body": "We've just sent a confirmation link to {email}. Click it to join the waitlist.",
+        "hint": "Nothing yet? Check your spam folder. The link is valid for 7 days."
+      }
+    },
+    "confirm": {
+      "metaTitle": "Confirm my signup — Keimêlion",
+      "loading": "Confirming…",
+      "success": {
+        "kicker": "you're in!",
+        "title": "You're on the list.",
+        "body": "Thank you! We'll email you just once, on the day Keimêlion launches.",
+        "cta": "Back to home"
+      },
+      "invalid": {
+        "title": "This link is no longer valid",
+        "body": "It may have expired (links are valid for 7 days) or been replaced by a newer one. Sign up again to get a new link.",
+        "cta": "Back to the form"
+      },
+      "error": "Something went wrong while confirming. Reload the page in a moment to try again."
+    },
+    "unsubscribe": {
+      "metaTitle": "Delete my signup — Keimêlion",
+      "loading": "Deleting…",
+      "done": {
+        "title": "Signup deleted",
+        "body": "Your address has been erased from our waitlist. You won't receive any more emails from us.",
+        "again": "Changed your mind? You can sign up again anytime.",
+        "cta": "Back to home"
+      },
+      "error": "Something went wrong while deleting. Reload the page in a moment to try again."
+    }
   },
   "links": {
     "legalHref": "/en/legal-notice",
@@ -59,7 +93,7 @@
   "legalPages": {
     "notice": {
       "title": "Legal notice",
-      "intro": "Last updated: 2 November 2026.",
+      "intro": "Last updated: 11 November 2026.",
       "content": {
         "editor": [
           "Keimêlion is published by Alban Pierson, sole trader (entrepreneur individuel under French law), whose registered office is at 6 rue Les Prérots, 70400 Couthenans, France.",
@@ -67,15 +101,17 @@
         ],
         "hosting": [
           "Keimêlion is hosted on the publisher's self-managed infrastructure (Debian + Docker + Caddy), located at the registered office address, in France.",
-          "Internet connectivity is provided by Orange SA — 111 quai du Président Roosevelt, 92130 Issy-les-Moulineaux, France (RCS Nanterre 380 129 866). No personal data is entrusted to a third-party commercial host."
+          "Internet connectivity is provided by Orange SA — 111 quai du Président Roosevelt, 92130 Issy-les-Moulineaux, France (RCS Nanterre 380 129 866). No personal data is entrusted to a third-party commercial host.",
+          "Only the sending of waiting-list emails is entrusted to a provider: Resend, Inc. (United States), which receives your email address and the content of the messages for that purpose. Details are set out in the privacy policy."
         ],
         "dataCollection": [
-          "During the pre-launch phase, Keimêlion only collects data strictly required to operate the waiting list: email address, sign-up timestamp, IP address and browser User-Agent at submission time.",
-          "The full description of processing activities and purposes is set out in the privacy policy."
+          "During the pre-launch phase, Keimêlion only processes data strictly required to operate the waiting list: your email address, the language you chose, the date of your consent and whether your address is confirmed.",
+          "Your IP address and browser User-Agent are not stored with your sign-up: they only appear in the server's technical logs (access and abuse-detection logs).",
+          "The full description of processing activities, their purposes and retention periods is set out in the privacy policy."
         ],
         "purpose": [
-          "The collected data is used exclusively to notify registered users of the service launch. A single email is sent on launch day.",
-          "No commercial communication, no resale, no sharing with any third party."
+          "The collected data is used exclusively to confirm your address and then notify you of the service launch: one confirmation email when you sign up, then a single email on launch day.",
+          "No commercial communication, no resale. The only third party involved is Resend, the email delivery provider, which delivers these messages on the publisher's behalf and may not use your data for any other purpose."
         ],
         "gdprRights": [
           "In accordance with the General Data Protection Regulation (GDPR) and the French Data Protection Act, you have the right to access, rectify, erase, object to, restrict, and port your personal data.",
@@ -88,33 +124,36 @@
     },
     "privacy": {
       "title": "Privacy policy",
-      "intro": "Last updated: 2 November 2026.",
+      "intro": "Last updated: 11 November 2026.",
       "content": {
         "editor": [
           "The controller of personal data collected through keimelion.app is Alban Pierson (sole trader), whose registered office is at 6 rue Les Prérots, 70400 Couthenans, France. The publisher is reachable at contact@keimelion.app.",
           "The publisher has not appointed a Data Protection Officer (DPO): GDPR requests are handled directly by the publisher."
         ],
         "hosting": [
-          "Data is stored in a PostgreSQL database operated by the publisher, hosted on its own hardware located at the registered office address (France). Internet connectivity is provided by Orange SA. No personal data is transferred outside the European Union.",
-          "Backups are kept within the same technical perimeter and for the same retention period as the source data."
+          "Waiting-list data is stored in a PostgreSQL database operated by the publisher, hosted on its own hardware located at the registered office address (France). Internet connectivity is provided by Orange SA.",
+          "Waiting-list emails are sent by Resend, Inc., a company established in the United States, acting as a processor. To deliver a message, Resend receives your email address and the content of the email, and may process them outside the European Union. This transfer is governed by the data processing agreement signed with Resend, which includes the European Commission's standard contractual clauses.",
+          "Database backups are encrypted and kept on the publisher's hardware. They are only used to restore the service after an incident. A deleted sign-up disappears from the backups as they are renewed, at the latest thirteen months after its deletion."
         ],
         "dataCollection": [
-          "For the waiting list, we collect: your email address (required field), the sign-up timestamp, your IP address and the User-Agent of your browser at submission time.",
-          "The IP address and User-Agent are used only to detect abuse and automated submissions. No banking data, no name, no phone number is requested.",
+          "For the waiting list, we store: your email address (required field), the language of your sign-up, the date of your consent and whether your address is confirmed. Technical tokens are added, kept only as an irreversible fingerprint (hash), to make the confirmation and deletion links work.",
+          "Your IP address and browser User-Agent are not stored with your sign-up. They only appear in the server's technical logs (reverse-proxy access logs and abuse-detection logs), used to secure the service and fight automated submissions. These logs are neither backed up nor archived: automatic rotation erases them, and they are kept for at most [DURATION TO BE VALIDATED]. The IP address is also held in memory for at most fifteen minutes, to limit the number of requests.",
+          "No banking data, no name, no phone number is requested.",
           "No advertising cookie and no third-party audience-measurement tracker is placed on your browser."
         ],
         "purpose": [
-          "Your email address is used for a single purpose: notifying you of the service launch. A single transactional email is sent on launch day.",
-          "The legal basis for this processing is your consent (Article 6(1)(a) of the GDPR), materialised by your voluntary submission of the sign-up form."
+          "Your email address is used for two messages only: one email to confirm your sign-up, then a single email on the day the service launches.",
+          "The legal basis for this processing is your consent (Article 6(1)(a) of the GDPR), given by submitting the sign-up form and confirmed by clicking the link received by email."
         ],
         "gdprRights": [
           "You can exercise your rights of access, rectification, erasure, restriction, objection, and portability over your data at any time. You can also withdraw your consent at any time.",
-          "To exercise these rights, write to contact@keimelion.app, specifying the email address concerned. We reply within a maximum of thirty days.",
-          "Your data is kept until the service launches, then for at most twelve months after the launch email is sent; it is then erased automatically. You may request early deletion at any time.",
+          "Every email contains a “Delete my signup” link: it immediately and permanently erases your address from the waiting list.",
+          "You can also write to contact@keimelion.app, specifying the email address concerned. We reply within a maximum of thirty days.",
+          "An unconfirmed sign-up is deleted automatically seven days after the latest confirmation link was sent. A confirmed sign-up is kept until the service launches, then for at most twelve months after the launch email is sent; it is then erased automatically.",
           "If disagreement persists, you may lodge a complaint with the CNIL (www.cnil.fr), the French data-protection authority."
         ],
         "contact": [
-          "For any question about the processing of your data, the publisher remains your single point of contact at contact@keimelion.app. No external processor is involved in the operation of the waiting list."
+          "For any question about the processing of your data, the publisher remains your single point of contact at contact@keimelion.app. A single processor is involved in the operation of the waiting list: Resend, Inc., which sends the confirmation and launch emails on the publisher's behalf."
         ]
       }
     },
