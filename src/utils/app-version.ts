@@ -1,4 +1,3 @@
-import { GIT_SHA } from 'astro:env/server'
 import packageJson from '../../package.json' with { type: 'json' }
 
 const VERSION_PREFIX = 'v'
@@ -9,4 +8,4 @@ function formatAppVersion(version: string, commitSha: string): string {
   return `${VERSION_PREFIX}${version}${BUILD_METADATA_SEPARATOR}${commitSha}`
 }
 
-export const APP_VERSION = formatAppVersion(packageJson.version, GIT_SHA)
+export const APP_VERSION = formatAppVersion(packageJson.version, process.env.GIT_SHA ?? '')
