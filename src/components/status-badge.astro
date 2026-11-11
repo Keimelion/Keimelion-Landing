@@ -1,0 +1,118 @@
+---
+// Round badge with a line icon (KEI-164 landing states): the waitlist pages, the form's
+// "check your inbox" card and the loading state all use it. Decorative: hidden from assistive
+// technology, the text next to it carries the meaning.
+export type StatusBadgeIcon = 'mail' | 'clock' | 'check' | 'warning' | 'ribbon'
+export type StatusBadgeTone = 'cream' | 'surface' | 'rose' | 'mint'
+export type StatusBadgeSize = 'md' | 'lg'
+
+interface Props {
+  icon: StatusBadgeIcon
+  tone: StatusBadgeTone
+  size?: StatusBadgeSize
+  // Gentle scale pulse for a pending state, off with reduced motion
+  pulse?: boolean
+}
+
+const { icon, tone, size = 'md', pulse = false } = Astro.props
+const iconSize = size === 'lg' ? 52 : 34
+---
+
+<span
+  class:list={['k-badge', `k-badge--${tone}`, `k-badge--${size}`, { 'k-badge--pulse': pulse }]}
+  aria-hidden="true"
+>
+  {icon === 'ribbon' ? (
+    <svg width={iconSize} height={iconSize}>
+      <use href="#brand-ribbon" />
+    </svg>
+  ) : (
+    <svg
+      viewBox="0 0 24 24"
+      width={iconSize}
+      height={iconSize}
+      fill="none"
+      stroke="currentColor"
+      stroke-width={icon === 'check' ? 2.2 : 1.6}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      {icon === 'mail' && (
+        <>
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="m3.5 6.5 8.5 6.5 8.5-6.5" />
+        </>
+      )}
+      {icon === 'clock' && (
+        <>
+          <circle cx="12" cy="13" r="8" />
+          <path d="M12 9v4l2.5 2.5" />
+          <path d="M9 2h6" />
+        </>
+      )}
+      {icon === 'check' && <path d="m5 12.5 4.5 4.5L19 7.5" />}
+      {icon === 'warning' && (
+        <>
+          <path d="M12 3.5 2.8 19.5h18.4z" />
+          <path d="M12 10v4" />
+          <path d="M12 17h.01" />
+        </>
+      )}
+    </svg>
+  )}
+</span>
+
+<style>
+  .k-badge {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-pill);
+    color: var(--ink);
+  }
+
+  .k-badge--md {
+    width: 72px;
+    height: 72px;
+  }
+
+  .k-badge--lg {
+    width: 84px;
+    height: 84px;
+  }
+
+  .k-badge--cream {
+    background: var(--surface-raised);
+  }
+
+  .k-badge--surface {
+    background: var(--surface);
+    color: var(--brand);
+  }
+
+  .k-badge--rose {
+    background: var(--paper-rose);
+  }
+
+  .k-badge--mint {
+    background: var(--paper-mint);
+    color: #13694d;
+  }
+
+  .k-badge--pulse {
+    animation: k-badge-pulse 1.4s ease-in-out infinite;
+  }
+
+  @keyframes k-badge-pulse {
+    50% {
+      transform: scale(1.08);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .k-badge--pulse {
+      animation: none;
+    }
+  }
+</style>

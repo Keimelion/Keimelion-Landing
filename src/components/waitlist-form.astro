@@ -1,5 +1,6 @@
 ---
 import type { Locale, Translation } from '../i18n/t'
+import StatusBadge from './status-badge.astro'
 
 interface Props {
   locale: Locale
@@ -36,10 +37,36 @@ const t = translation
         autocomplete="email"
         inputmode="email"
         placeholder={t.placeholder}
+        aria-describedby="k-email-error"
       />
       <button type="submit" class="k-btn k-btn-primary k-form__submit">
         {t.notify}
       </button>
+    </div>
+    <div
+      class="k-form__error"
+      id="k-email-error"
+      role="alert"
+      tabindex="-1"
+      data-waitlist-error
+      hidden
+    >
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="M12 7.5v5"></path>
+        <path d="M12 16h.01"></path>
+      </svg>
+      <p data-waitlist-error-text></p>
     </div>
     <div class="visually-hidden k-form__hp" aria-hidden="true">
       <label>
@@ -66,23 +93,13 @@ const t = translation
     data-i18n-body={t.waitlist.form.success.body}
     hidden
   >
-    <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22">
-      <path
-        d="m5 12.5 4.5 4.5L19 7.5"
-        fill="none"
-        stroke="#13694d"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></path>
-    </svg>
+    <StatusBadge icon="mail" tone="cream" />
     <div class="k-form__sent-text">
       <p class="k-form__sent-title">{t.waitlist.form.success.title}</p>
       <p data-waitlist-sent-body></p>
       <p class="k-form__sent-hint">{t.waitlist.form.success.hint}</p>
     </div>
   </div>
-  <p class="k-form__error" role="alert" tabindex="-1" data-waitlist-error hidden></p>
 </form>
 
 <script>
@@ -134,14 +151,21 @@ const t = translation
     sent.focus()
   }
 
+  function emailInput(form: HTMLFormElement): HTMLInputElement | null {
+    return form.querySelector<HTMLInputElement>('input[name="email"]')
+  }
+
   function showError(form: HTMLFormElement, message: string, code?: FailurePayload['error']): void {
     const node = form.querySelector<HTMLElement>('[data-waitlist-error]')
-    if (node === null) return
-    node.textContent = message
+    const text = form.querySelector<HTMLElement>('[data-waitlist-error-text]')
+    if (node === null || text === null) return
+    text.textContent = message
     node.hidden = message.length === 0
+    const input = emailInput(form)
+    const isInvalidEmail = code === 'invalid_email'
+    input?.toggleAttribute('aria-invalid', isInvalidEmail)
     if (message.length === 0) return
-    if (code === 'invalid_email') {
-      const input = form.querySelector<HTMLInputElement>('input[name="email"]')
+    if (isInvalidEmail) {
       input?.focus()
       return
     }
@@ -199,6 +223,11 @@ const t = translation
         event.preventDefault()
         void submit(form)
       })
+      // The error stays until the visitor edits the address, then clears with the red outline
+      emailInput(form)?.addEventListener('input', () => {
+        const error = form.querySelector<HTMLElement>('[data-waitlist-error]')
+        if (error?.hidden === false) showError(form, '')
+      })
     })
   }
 
@@ -235,6 +264,11 @@ const t = translation
 
   .k-form__row:focus-within {
     border-color: var(--ink);
+  }
+
+  .k-form__row:has(.k-input[aria-invalid]) {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(163, 38, 26, 0.16);
   }
 
   .k-form__row .k-input {
@@ -312,13 +346,14 @@ const t = translation
     display: none;
   }
 
+  /* KEI-164 "check your inbox": icon, title, body and hint stacked on the mint card */
   .k-form__sent {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
     gap: 12px;
     max-width: 520px;
-    padding: 16px 20px;
-    border-radius: 18px;
+    padding: 20px;
+    border-radius: 22px;
     background: var(--paper-mint);
     color: var(--ink);
     animation: k-form-sent-reveal 0.35s ease-out;
@@ -329,15 +364,10 @@ const t = translation
     outline-offset: 2px;
   }
 
-  .k-form__sent svg {
-    flex: none;
-    margin-top: 2px;
-  }
-
   .k-form__sent-text {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 12px;
   }
 
   .k-form__sent-text p {
@@ -347,13 +377,13 @@ const t = translation
   }
 
   .k-form__sent-text .k-form__sent-title {
-    font: 700 18px/24px var(--font-display);
+    font: 800 24px/28px var(--font-display);
+    letter-spacing: -0.03em;
   }
 
   .k-form__sent-text .k-form__sent-hint {
-    font-size: 14px;
-    line-height: 20px;
-    color: var(--ink-muted);
+    font-size: 13px;
+    line-height: 18px;
   }
 
   @keyframes k-form-sent-reveal {
@@ -369,11 +399,30 @@ const t = translation
     }
   }
 
+  /* Not in the KEI-164 handoff: built from its tokens (danger ink on a rose-tinted card) */
   .k-form__error {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 520px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: #fbe4e0;
+    box-shadow: inset 0 0 0 1.5px var(--danger);
     color: var(--danger);
+    animation: k-form-sent-reveal 0.2s ease-out;
+  }
+
+  .k-form__error svg {
+    flex: none;
+    margin-top: 1px;
+  }
+
+  .k-form__error p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 600;
   }
 
   .k-form__error[hidden] {
@@ -383,6 +432,11 @@ const t = translation
   .k-form__error:focus {
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
-    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .k-form__error {
+      animation: none;
+    }
   }
 </style>
