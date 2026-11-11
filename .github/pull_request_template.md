@@ -17,7 +17,6 @@ Examples:
 - [ ] `npm run lint` clean
 - [ ] `npm run typecheck` clean
 - [ ] `npm run build` succeeds
-- [ ] Vercel preview deploy green
-- [ ] Smoke test on preview: both locales (`/`, `/en`), happy path, error states
+- [ ] Smoke test locally (`npm run build && npm run preview`): both locales (`/`, `/en`), happy path, error states
 - [ ] Lighthouse mobile ≥ 90 on all four categories for changed pages
-- [ ] All acceptance criteria verified in the preview URL
+- [ ] All acceptance criteria verified

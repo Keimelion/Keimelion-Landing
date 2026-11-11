@@ -1,27 +1,19 @@
 # syntax=docker/dockerfile:1
-# Self-hosted build: the repo targets Vercel, so the image swaps the adapter for
-# @astrojs/node (standalone) to keep the server route /api/waitlist working.
 
 FROM node:24-alpine AS deps
 WORKDIR /app
 ENV HUSKY=0
 COPY package.json package-lock.json ./
-RUN npm ci && npm install @astrojs/node
+RUN npm ci
 
 FROM deps AS build
 ARG PUBLIC_API_BASE_URL
+ARG GIT_SHA=""
 ENV PUBLIC_API_BASE_URL=${PUBLIC_API_BASE_URL} \
+    GIT_SHA=${GIT_SHA} \
     ASTRO_TELEMETRY_DISABLED=1
 COPY . .
-# Restore the manifests from `deps` (they declare @astrojs/node) so `npm prune` keeps it.
-COPY --from=deps /app/package.json /app/package-lock.json ./
-COPY <<'EOF' astro.config.docker.mjs
-import node from '@astrojs/node'
-import baseConfig from './astro.config.mjs'
-
-export default { ...baseConfig, adapter: node({ mode: 'standalone' }) }
-EOF
-RUN npx astro build --config astro.config.docker.mjs && npm prune --omit=dev
+RUN npm run build && npm prune --omit=dev
 
 FROM node:24-alpine AS runner
 WORKDIR /app

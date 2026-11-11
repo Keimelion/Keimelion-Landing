@@ -2,17 +2,33 @@ version: 2
 updates:
   - package-ecosystem: npm
     directory: /
+    target-branch: dev
     schedule:
       interval: weekly
     open-pull-requests-limit: 10
+    ignore:
+      # TS 7 (native port) ships no JS API: typescript-eslint, astro check and next build
+      # still need TS 6. Revisit when typescript-eslint supports TS 7.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # v10 needs conventional-changelog-writer@9, but @semantic-release/release-notes-generator
+      # still ships writer@8 (release fails in generateNotes). Revisit when it moves to writer@9.
+      - dependency-name: conventional-changelog-conventionalcommits
+        update-types: ['version-update:semver-major']
     commit-message:
       prefix: chore
       include: scope
 
   - package-ecosystem: github-actions
     directory: /
+    target-branch: dev
     schedule:
       interval: weekly
+    groups:
+      # Dependabot sees one dependency per reusable workflow file: one PR, and one tag per repo.
+      keimelion-infra:
+        patterns:
+          - 'Keimelion/Keimelion-Infra/*'
     commit-message:
       prefix: chore
       include: scope

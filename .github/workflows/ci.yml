@@ -1,39 +1,32 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+    branches: [dev, main]
+  push:
+    branches: [dev]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
   ci:
-    name: Lint, typecheck, build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
+    uses: Keimelion/Keimelion-Infra/.github/workflows/node-ci.yml@v0.2.0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
+  pr-title:
+    if: github.event_name == 'pull_request'
+    uses: Keimelion/Keimelion-Infra/.github/workflows/pr-title.yml@v0.2.0
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Build
-        run: npm run build
-        env:
-          # Dev-only value; the Zod env wrapper is fail-fast so CI needs a URL to build.
-          # Override via repo variable PUBLIC_API_BASE_URL once the dev API URL is finalised.
-          PUBLIC_API_BASE_URL: ${{ vars.PUBLIC_API_BASE_URL || 'http://localhost:3000' }}
+  # Patch/minor Dependabot bumps merge themselves once ci and pr-title are green.
+  dependabot-automerge:
+    needs: [ci, pr-title]
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: Keimelion/Keimelion-Infra/.github/workflows/dependabot-automerge.yml@v0.2.0

@@ -1,6 +1,7 @@
 ---
 import Logo from './logo.astro'
 import { getLocalisedHomePath, type Locale, type Translation } from '../i18n/t'
+import { APP_VERSION } from '../utils/app-version'
 
 interface Props {
   locale: Locale
@@ -25,7 +26,10 @@ const homeHref = getLocalisedHomePath(locale)
     <a href={t.links.legalHref} class="k-link site-footer__link">{t.legal}</a>
     <a href={t.links.contactHref} class="k-link site-footer__link">{t.contact}</a>
   </nav>
-  <span class="site-footer__copyright">{t.copyright}</span>
+  <span class="site-footer__meta">
+    <span class="site-footer__copyright">{t.copyright}</span>
+    <span class="site-footer__version" title={t.versionLabel}>{APP_VERSION}</span>
+  </span>
 </footer>
 
 <style>
@@ -52,8 +56,21 @@ const homeHref = getLocalisedHomePath(locale)
     font-size: 14px;
   }
 
+  .site-footer__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
+  }
+
   .site-footer__copyright {
     font-size: 14px;
+    color: var(--ink-muted);
+  }
+
+  .site-footer__version {
+    font-family: var(--font-mono);
+    font-size: 12px;
     color: var(--ink-muted);
   }
 

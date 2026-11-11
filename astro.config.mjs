@@ -1,14 +1,24 @@
-import { defineConfig } from 'astro/config'
-import vercel from '@astrojs/vercel'
+import { defineConfig, envField } from 'astro/config'
+import node from '@astrojs/node'
 import sitemap from '@astrojs/sitemap'
 
 // Site URL is a placeholder; KEI-137 locks the final domain.
-// Server output with Vercel adapter so `src/pages/api/waitlist.ts` runs as a serverless function.
+// Server output with the Node adapter (standalone, self-hosted) so `src/pages/api/waitlist.ts` runs server-side.
 // Every `.astro` page explicitly opts into static pre-render via `export const prerender = true`.
+const WAITLIST_TOKEN_PAGE_PATTERN =
+  /\/(confirmer-inscription|supprimer-inscription|confirm-signup|delete-signup)\/?$/
+
 export default defineConfig({
   site: 'https://keimelion.app',
   output: 'server',
-  adapter: vercel(),
+  adapter: node({ mode: 'standalone' }),
+  env: {
+    schema: {
+      // `secret` is what makes Astro read it at runtime instead of inlining it at build time.
+      API_INTERNAL_URL: envField.string({ context: 'server', access: 'secret', url: true }),
+      GIT_SHA: envField.string({ context: 'server', access: 'public', optional: true, default: '' }),
+    },
+  },
   i18n: {
     locales: ['fr', 'en'],
     defaultLocale: 'fr',
@@ -25,8 +35,9 @@ export default defineConfig({
           en: 'en',
         },
       },
-      // The /api/waitlist route is a serverless function, not a public page.
-      filter: (page) => !page.includes('/api/'),
+      // The /api/* routes are server endpoints, and the waitlist link pages only make sense with
+      // the token of an email: none of them belongs in the sitemap.
+      filter: (page) => !WAITLIST_TOKEN_PAGE_PATTERN.test(page) && !page.includes('/api/'),
     }),
   ],
 })
