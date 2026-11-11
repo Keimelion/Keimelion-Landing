@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/Keimelion/Keimelion-Landing/compare/v1.0.1...v1.1.0) (2026-11-11)
+
+### Features
+
+* layouts/base-layout ship scripts as files, add home-screen icons and manifest ([#50](https://github.com/Keimelion/Keimelion-Landing/issues/50)) ([7e062cc](https://github.com/Keimelion/Keimelion-Landing/commit/7e062ccfc89f8ce2647f49be028fdf4a450faa7e))
+
 ## [1.0.1](https://github.com/Keimelion/Keimelion-Landing/compare/v1.0.0...v1.0.1) (2026-11-11)
 
 ### Bug Fixes
