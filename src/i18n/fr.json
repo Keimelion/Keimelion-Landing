@@ -90,7 +90,7 @@
     "legalHref": "/mentions-legales",
     "contactHref": "mailto:contact@keimelion.app"
   },
-  "copyright": "© 2026 Keimêlion",
+  "copyright": "© {year} Keimêlion",
   "versionLabel": "Version déployée",
   "legalPages": {
     "notice": {
