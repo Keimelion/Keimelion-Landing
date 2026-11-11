@@ -25,6 +25,11 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  vite: {
+    build: {
+      assetsInlineLimit: 0,
+    },
+  },
   integrations: [
     sitemap({
       i18n: {
