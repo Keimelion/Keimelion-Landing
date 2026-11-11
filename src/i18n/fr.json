@@ -83,7 +83,8 @@
         "cta": "Retour à l'accueil"
       },
       "error": "Oups, la suppression a échoué. Rechargez la page dans un instant pour réessayer."
-    }
+    },
+    "retry": "Réessayer"
   },
   "links": {
     "legalHref": "/mentions-legales",

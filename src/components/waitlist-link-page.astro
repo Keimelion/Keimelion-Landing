@@ -18,6 +18,9 @@ const ENDPOINTS: Record<WaitlistLinkMode, string> = {
   unsubscribe: '/api/waitlist/unsubscribe',
 }
 
+// The form's email field: "back to the form" lands on it
+const FORM_ANCHOR = '#k-email'
+
 const { locale, mode, canonicalPath, alternatePath } = Astro.props
 const translation = getTranslation(locale)
 const copy = translation.waitlist
@@ -45,35 +48,76 @@ const errorLabel = mode === 'confirm' ? copy.confirm.error : copy.unsubscribe.er
     canonicalPath={canonicalPath}
     alternatePath={alternatePath}
   />
-  <main id="main-content" class="k-link">
+  <main id="main-content" class="k-wl-page">
     <section
-      class="k-link__card"
+      class="k-wl-page__column"
       aria-live="polite"
       data-waitlist-link
       data-mode={mode}
       data-endpoint={ENDPOINTS[mode]}
     >
-      <div class="k-link__panel" data-panel="loading">
-        <svg class="k-link__ribbon" aria-hidden="true" width="56" height="56">
-          <use href="#brand-ribbon"></use>
-        </svg>
-        <p class="k-link__loading">{loadingLabel}</p>
+      <div class="k-wl-page__panel k-wl-page__panel--loading" data-panel="loading" role="status">
+        <span class="k-wl-page__pulse" aria-hidden="true">
+          <svg width="52" height="52">
+            <use href="#brand-ribbon"></use>
+          </svg>
+        </span>
+        <p class="k-wl-page__loading">{loadingLabel}</p>
       </div>
 
       {mode === 'confirm' && (
         <>
-          <div class="k-link__panel" data-panel="confirmed" hidden>
-            <span class="k-link__kicker">{copy.confirm.success.kicker}</span>
-            <h1 tabindex="-1">{copy.confirm.success.title}</h1>
-            <p>{copy.confirm.success.body}</p>
-            <a class="k-btn k-btn-primary k-link__cta" href={homeHref}>
+          <div class="k-wl-page__panel" data-panel="confirmed" hidden>
+            <svg
+              class="k-wl-page__gift"
+              aria-hidden="true"
+              viewBox="0 0 120 110"
+              width="120"
+              height="110"
+            >
+              <defs>
+                <pattern id="k-wl-gift-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+                  <rect width="14" height="14" fill="#cdb8f5"></rect>
+                  <circle cx="4" cy="4" r="2.6" fill="#fffaf0"></circle>
+                  <circle cx="11" cy="11" r="2.6" fill="#fffaf0"></circle>
+                </pattern>
+              </defs>
+              <rect x="14" y="30" width="92" height="74" rx="10" fill="url(#k-wl-gift-dots)"></rect>
+              <rect x="52" y="30" width="16" height="74" fill="#fffaf0"></rect>
+              <rect x="14" y="58" width="92" height="14" fill="#fffaf0"></rect>
+              <use href="#brand-ribbon" x="29" y="1.5" width="62" height="62"></use>
+            </svg>
+            <span class="k-wl-page__kicker">{copy.confirm.success.kicker}</span>
+            <h1 class="k-wl-page__title k-wl-page__title--hero" tabindex="-1">
+              {copy.confirm.success.title}
+            </h1>
+            <p class="k-wl-page__body">{copy.confirm.success.body}</p>
+            <a class="k-btn k-wl-page__cta k-wl-page__cta--secondary" href={homeHref}>
               {copy.confirm.success.cta}
             </a>
           </div>
-          <div class="k-link__panel" data-panel="invalid" hidden>
-            <h1 tabindex="-1">{copy.confirm.invalid.title}</h1>
-            <p>{copy.confirm.invalid.body}</p>
-            <a class="k-btn k-btn-primary k-link__cta" href={homeHref}>
+          <div class="k-wl-page__panel" data-panel="invalid" hidden>
+            <span class="k-wl-page__icon k-wl-page__icon--rose" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="34"
+                height="34"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="13" r="8"></circle>
+                <path d="M12 9v4l2.5 2.5"></path>
+                <path d="M9 2h6"></path>
+              </svg>
+            </span>
+            <h1 class="k-wl-page__title" tabindex="-1">
+              {copy.confirm.invalid.title}
+            </h1>
+            <p class="k-wl-page__body">{copy.confirm.invalid.body}</p>
+            <a class="k-btn k-btn-primary k-wl-page__cta" href={`${homeHref}${FORM_ANCHOR}`}>
               {copy.confirm.invalid.cta}
             </a>
           </div>
@@ -81,20 +125,55 @@ const errorLabel = mode === 'confirm' ? copy.confirm.error : copy.unsubscribe.er
       )}
 
       {mode === 'unsubscribe' && (
-        <div class="k-link__panel" data-panel="done" hidden>
-          <h1 tabindex="-1">{copy.unsubscribe.done.title}</h1>
-          <p>{copy.unsubscribe.done.body}</p>
-          <p class="k-link__muted">{copy.unsubscribe.done.again}</p>
-          <a class="k-btn k-btn-primary k-link__cta" href={homeHref}>
+        <div class="k-wl-page__panel" data-panel="done" hidden>
+          <span class="k-wl-page__icon k-wl-page__icon--mint" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="34"
+              height="34"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m5 12.5 4.5 4.5L19 7.5"></path>
+            </svg>
+          </span>
+          <h1 class="k-wl-page__title" tabindex="-1">
+            {copy.unsubscribe.done.title}
+          </h1>
+          <p class="k-wl-page__body">{copy.unsubscribe.done.body}</p>
+          <p class="k-wl-page__note">{copy.unsubscribe.done.again}</p>
+          <a class="k-btn k-wl-page__cta k-wl-page__cta--secondary" href={homeHref}>
             {copy.unsubscribe.done.cta}
           </a>
         </div>
       )}
 
-      <div class="k-link__panel" data-panel="error" hidden>
-        <p class="k-link__error" tabindex="-1">
+      <div class="k-wl-page__panel" data-panel="error" hidden>
+        <span class="k-wl-page__icon k-wl-page__icon--rose" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="34"
+            height="34"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3.5 2.8 19.5h18.4z"></path>
+            <path d="M12 10v4"></path>
+            <path d="M12 17h.01"></path>
+          </svg>
+        </span>
+        <p class="k-wl-page__body k-wl-page__body--strong" role="alert" tabindex="-1">
           {errorLabel}
         </p>
+        <button type="button" class="k-btn k-btn-primary k-wl-page__cta" data-waitlist-retry>
+          {copy.retry}
+        </button>
       </div>
     </section>
   </main>
@@ -144,7 +223,9 @@ const errorLabel = mode === 'confirm' ? copy.confirm.error : copy.unsubscribe.er
     root.querySelector<HTMLElement>(`[data-panel="${name}"] [tabindex="-1"]`)?.focus()
   }
 
+  // On an error the token stays in the URL, so trying again replays the same request.
   async function resolveLink(root: HTMLElement): Promise<void> {
+    showPanel(root, 'loading')
     const token = readToken()
     const outcome = token === null ? 'invalid' : await postToken(root.dataset.endpoint ?? '', token)
     if (outcome !== 'error') forgetToken()
@@ -155,6 +236,9 @@ const errorLabel = mode === 'confirm' ? copy.confirm.error : copy.unsubscribe.er
     document.querySelectorAll<HTMLElement>('[data-waitlist-link]').forEach((root) => {
       if (root.dataset.waitlistBound === 'true') return
       root.dataset.waitlistBound = 'true'
+      root.querySelector('[data-waitlist-retry]')?.addEventListener('click', () => {
+        void resolveLink(root)
+      })
       void resolveLink(root)
     })
   }
@@ -164,91 +248,148 @@ const errorLabel = mode === 'confirm' ? copy.confirm.error : copy.unsubscribe.er
 </script>
 
 <style>
-  .k-link {
-    padding: 64px 24px;
-    min-height: 60vh;
+  /* KEI-164 "landing states": a 480px column on the page background, vertically centred. */
+  .k-wl-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 62vh;
+    padding: 48px 24px 64px;
   }
 
-  .k-link__card {
+  .k-wl-page__column {
+    width: 100%;
     max-width: 480px;
-    margin: 0 auto;
-    padding: 40px 32px;
-    border-radius: 22px;
-    background: var(--surface-raised);
-    box-shadow: var(--shadow-tile);
   }
 
-  .k-link__panel {
+  .k-wl-page__panel {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 18px;
   }
 
-  .k-link__panel[hidden] {
+  .k-wl-page__panel[hidden] {
     display: none;
   }
 
-  .k-link__panel[data-panel='loading'] {
+  .k-wl-page__panel--loading {
     align-items: center;
+    gap: 16px;
     text-align: center;
   }
 
-  .k-link__panel h1 {
-    margin: 0;
-    font: 800 32px/1.1 var(--font-display);
-    letter-spacing: -0.03em;
+  .k-wl-page__pulse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--brand);
+    animation: k-wl-pulse 1.4s ease-in-out infinite;
   }
 
-  .k-link__panel h1:focus,
-  .k-link__error:focus {
+  .k-wl-page__loading {
+    margin: 0;
+    font: 600 17px/24px var(--font-sans);
+  }
+
+  .k-wl-page__gift {
+    align-self: center;
+    color: var(--brand);
+  }
+
+  .k-wl-page__kicker {
+    font: 600 30px/30px var(--font-hand);
+    color: var(--brand);
+    transform: rotate(-3deg);
+    transform-origin: left center;
+  }
+
+  .k-wl-page__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-pill);
+    color: var(--ink);
+  }
+
+  .k-wl-page__icon--rose {
+    background: var(--paper-rose);
+  }
+
+  .k-wl-page__icon--mint {
+    background: var(--paper-mint);
+    color: #13694d;
+  }
+
+  .k-wl-page__title {
+    margin: 0;
+    font: 800 30px/1.05 var(--font-display);
+    letter-spacing: -0.04em;
+  }
+
+  .k-wl-page__title--hero {
+    font-size: 34px;
+    line-height: 1;
+  }
+
+  .k-wl-page__title:focus,
+  .k-wl-page__body:focus {
     outline: none;
   }
 
-  .k-link__panel p {
+  .k-wl-page__body {
     margin: 0;
     font: var(--text-body);
-  }
-
-  .k-link__kicker {
-    font: 600 28px/28px var(--font-hand);
-    color: var(--brand);
-  }
-
-  .k-link__muted {
     color: var(--ink-muted);
   }
 
-  .k-link__error {
-    color: var(--danger);
+  .k-wl-page__body--strong {
+    color: var(--ink);
     font-weight: 500;
   }
 
-  .k-link__ribbon {
-    color: var(--brand);
-    animation: k-link-pulse 1.2s ease-in-out infinite;
+  .k-wl-page__note {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink-muted);
   }
 
-  @keyframes k-link-pulse {
+  .k-wl-page__cta {
+    min-height: 48px;
+  }
+
+  .k-wl-page__cta--secondary {
+    background: transparent;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1.5px var(--rule-strong);
+  }
+
+  .k-wl-page__cta--secondary:hover {
+    box-shadow: inset 0 0 0 1.5px var(--ink);
+  }
+
+  @keyframes k-wl-pulse {
     50% {
-      transform: scale(1.12);
-      opacity: 0.7;
+      transform: scale(1.08);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .k-link__ribbon {
+    .k-wl-page__pulse {
       animation: none;
     }
   }
 
   @media (max-width: 420px) {
-    .k-link {
-      padding: 40px 16px;
-    }
-
-    .k-link__card {
-      padding: 32px 20px;
+    .k-wl-page {
+      padding: 32px 24px 48px;
     }
   }
 </style>

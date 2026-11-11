@@ -83,7 +83,8 @@
         "cta": "Back to home"
       },
       "error": "Something went wrong while deleting. Reload the page in a moment to try again."
-    }
+    },
+    "retry": "Try again"
   },
   "links": {
     "legalHref": "/en/legal-notice",
