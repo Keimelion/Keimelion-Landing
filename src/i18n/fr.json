@@ -137,7 +137,7 @@
         ],
         "dataCollection": [
           "Pour la liste d'attente, nous enregistrons : votre adresse e-mail (champ requis), la langue de votre inscription, la date de votre consentement et le statut de confirmation de votre adresse. S'y ajoutent des jetons techniques, conservés uniquement sous forme d'empreinte irréversible, qui font fonctionner les liens de confirmation et de suppression.",
-          "Votre adresse IP et le User-Agent de votre navigateur ne sont pas enregistrés avec votre inscription. Ils apparaissent uniquement dans les journaux techniques du serveur (journaux d'accès du proxy inverse et journaux de détection d'abus), utilisés pour la sécurité du service et la lutte contre les soumissions automatisées. Ces journaux ne sont ni sauvegardés ni archivés : leur rotation automatique les efface, et ils sont conservés au maximum [DURÉE À VALIDER]. L'adresse IP est aussi gardée en mémoire quinze minutes au plus, pour limiter le nombre de demandes.",
+          "Votre adresse IP et le User-Agent de votre navigateur ne sont pas enregistrés avec votre inscription. Ils apparaissent uniquement dans les journaux techniques du serveur (journaux d'accès du proxy inverse et journaux de détection d'abus), utilisés pour la sécurité du service et la lutte contre les soumissions automatisées. Ces journaux ne sont ni sauvegardés ni archivés : leur rotation automatique les efface, et ils sont conservés au maximum un an. L'adresse IP est aussi gardée en mémoire quinze minutes au plus, pour limiter le nombre de demandes.",
           "Aucune donnée bancaire, aucun nom, aucun numéro de téléphone n'est demandé.",
           "Aucun cookie publicitaire ni traceur de mesure d'audience tiers n'est déposé sur votre navigateur."
         ],

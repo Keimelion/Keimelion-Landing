@@ -137,7 +137,7 @@
         ],
         "dataCollection": [
           "For the waiting list, we store: your email address (required field), the language of your sign-up, the date of your consent and whether your address is confirmed. Technical tokens are added, kept only as an irreversible fingerprint (hash), to make the confirmation and deletion links work.",
-          "Your IP address and browser User-Agent are not stored with your sign-up. They only appear in the server's technical logs (reverse-proxy access logs and abuse-detection logs), used to secure the service and fight automated submissions. These logs are neither backed up nor archived: automatic rotation erases them, and they are kept for at most [DURATION TO BE VALIDATED]. The IP address is also held in memory for at most fifteen minutes, to limit the number of requests.",
+          "Your IP address and browser User-Agent are not stored with your sign-up. They only appear in the server's technical logs (reverse-proxy access logs and abuse-detection logs), used to secure the service and fight automated submissions. These logs are neither backed up nor archived: automatic rotation erases them, and they are kept for at most one year. The IP address is also held in memory for at most fifteen minutes, to limit the number of requests.",
           "No banking data, no name, no phone number is requested.",
           "No advertising cookie and no third-party audience-measurement tracker is placed on your browser."
         ],
