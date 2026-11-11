@@ -1,3 +1,29 @@
+## [1.0.0](https://github.com/Keimelion/Keimelion-Landing/compare/v0.1.0...v1.0.0) (2026-11-11)
+
+### ⚠ BREAKING CHANGES
+
+* the landing leaves 0.x, the next release is v1.0.0.
+
+Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>
+
+### Features
+
+* components/site-footer show the deployed version (KEI-181) ([#46](https://github.com/Keimelion/Keimelion-Landing/issues/46)) ([7d04063](https://github.com/Keimelion/Keimelion-Landing/commit/7d04063a40b01df7c4f7b2c617707cca6fc30100))
+* components/waitlist-form fade out the success message ([#35](https://github.com/Keimelion/Keimelion-Landing/issues/35)) ([b35616f](https://github.com/Keimelion/Keimelion-Landing/commit/b35616f3326ec2c82614caed5f6303dec76ddc61))
+* legal pages FR/EN — mentions + confidentialité (KEI-144) ([#29](https://github.com/Keimelion/Keimelion-Landing/issues/29)) ([023d8d2](https://github.com/Keimelion/Keimelion-Landing/commit/023d8d200a376ad3c10b51ffa6b30f137b248a06))
+* pages/waitlist align the form and link pages with the KEI-164 states design (KEI-166) ([#43](https://github.com/Keimelion/Keimelion-Landing/issues/43)) ([4f0740d](https://github.com/Keimelion/Keimelion-Landing/commit/4f0740d112ae462e2236c91e497a7dc0893a819f))
+* pages/waitlist double opt-in confirm and delete pages with updated legal copy (KEI-166) ([#42](https://github.com/Keimelion/Keimelion-Landing/issues/42)) ([2d58a17](https://github.com/Keimelion/Keimelion-Landing/commit/2d58a171078bfe5f646db0ba1cf5705ce14ae9e9))
+* src/pages/api/waitlist submit signups to the Keimelion API (KEI-138) ([#33](https://github.com/Keimelion/Keimelion-Landing/issues/33)) ([9a30d67](https://github.com/Keimelion/Keimelion-Landing/commit/9a30d67d5d6e9e2a114d0bb1480a78d5daedc778))
+
+### Bug Fixes
+
+* components/waitlist-form smooth the success message in and out ([#36](https://github.com/Keimelion/Keimelion-Landing/issues/36)) ([c3b780f](https://github.com/Keimelion/Keimelion-Landing/commit/c3b780f7f964533cbf5df8588e4e7905d9b3799c))
+* public/robots.txt point to the generated sitemap-index.xml ([#41](https://github.com/Keimelion/Keimelion-Landing/issues/41)) ([f9171b8](https://github.com/Keimelion/Keimelion-Landing/commit/f9171b8464f5cdd30c0d33ec3147a5c5a57b5585))
+
+### Miscellaneous Chores
+
+* .releaserc.json leave 0.x versioning for the 1.0 release ([#44](https://github.com/Keimelion/Keimelion-Landing/issues/44)) ([a78324d](https://github.com/Keimelion/Keimelion-Landing/commit/a78324d2e81eeab65232f4c594377448a9de0d91))
+
 ## 0.1.0 (2026-10-28)
 
 
