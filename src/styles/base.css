@@ -222,6 +222,75 @@ button {
   box-sizing: border-box;
 }
 
+/* Wrapping papers (identity board): one cream motif on one palette colour, both drawn at random
+   per gift and per visit by public/gift-papers.js. The gift element carries data-paper and
+   data-paper-color; HTML gifts paint with .k-paper, SVG gifts with .k-paper-base (colour) and a
+   .k-paper-motif whose fill attribute points at the base-layout sprite. The markup's own values
+   are the no-JS fallback. Names, tile sizes and the scale mirror src/utils/gift-papers.ts. */
+:root {
+  --k-paper-scale: 0.6;
+}
+
+[data-gift] {
+  --k-paper-bow: var(--brand);
+}
+[data-paper-color='rose'] {
+  --k-paper-color: var(--paper-rose);
+}
+[data-paper-color='mustard'] {
+  --k-paper-color: var(--paper-mustard);
+}
+[data-paper-color='sky'] {
+  --k-paper-color: var(--paper-sky);
+}
+[data-paper-color='mint'] {
+  --k-paper-color: var(--paper-mint);
+}
+[data-paper-color='lilac'] {
+  --k-paper-color: var(--paper-lilac);
+}
+/* The brand bow and the orange paper are too close in value: the bow switches to ink. */
+[data-paper-color='orange'] {
+  --k-paper-color: var(--accent);
+  --k-paper-bow: var(--ink);
+}
+
+[data-paper='pois'] {
+  --k-paper-image: url('/papers/pois.svg');
+  --k-paper-size: 24px;
+}
+[data-paper='rayures'] {
+  --k-paper-image: url('/papers/rayures.svg');
+  --k-paper-size: 31.11px;
+}
+[data-paper='vichy'] {
+  --k-paper-image: url('/papers/vichy.svg');
+  --k-paper-size: 28px;
+}
+[data-paper='confettis'] {
+  --k-paper-image: url('/papers/confettis.svg');
+  --k-paper-size: 60px;
+}
+[data-paper='etoiles'] {
+  --k-paper-image: url('/papers/etoiles.svg');
+  --k-paper-size: 40px;
+}
+
+.k-paper {
+  background-color: var(--k-paper-color);
+  background-image: var(--k-paper-image);
+  background-size: calc(var(--k-paper-size) * var(--k-paper-scale)) auto;
+}
+
+.k-paper-base {
+  fill: var(--k-paper-color);
+}
+
+/* Set by gift-papers.js until every gift has its paper, so the fallback papers never flash. */
+.k-papers-pending [data-gift-group] {
+  opacity: 0;
+}
+
 .k-h1 {
   /* Font tracks its container's inline-size (cqi), not the viewport, so the
      H1 always exceeds its own line box regardless of how the hero text
