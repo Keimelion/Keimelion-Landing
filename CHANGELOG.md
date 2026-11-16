@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/Keimelion/Keimelion-Landing/compare/v1.1.0...v1.2.0) (2026-11-16)
+
+### Features
+
+* / random wrapping papers on gifts, fix Search Console indexing ([#52](https://github.com/Keimelion/Keimelion-Landing/issues/52)) ([d555a09](https://github.com/Keimelion/Keimelion-Landing/commit/d555a0986aca28131ac4c462dff5d9be938ddaa0))
+
 ## [1.1.0](https://github.com/Keimelion/Keimelion-Landing/compare/v1.0.1...v1.1.0) (2026-11-11)
 
 ### Features
