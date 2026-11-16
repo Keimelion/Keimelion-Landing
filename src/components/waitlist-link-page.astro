@@ -38,10 +38,10 @@ const errorLabel = mode === 'confirm' ? copy.confirm.error : copy.unsubscribe.er
   canonicalPath={canonicalPath}
   alternatePath={alternatePath}
   ogAlt={translation.meta.ogAlt}
+  robots="noindex, nofollow"
 >
   <Fragment slot="head">
     <meta name="referrer" content="no-referrer" />
-    <meta name="robots" content="noindex, nofollow" />
   </Fragment>
   <SiteHeader
     locale={locale}
