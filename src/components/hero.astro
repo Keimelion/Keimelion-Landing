@@ -29,7 +29,7 @@ const t = translation
     </p>
   </div>
 
-  <div class="k-hero-art" aria-hidden="true">
+  <div class="k-hero-art" aria-hidden="true" data-gift-group>
     <!-- 1. Lilac arch backdrop -->
     <div class="hero__arch"></div>
 
@@ -78,13 +78,19 @@ const t = translation
               <path d="M8 32h56"></path>
               <path d="M30 32v-3a6 6 0 0 1 12 0v3"></path>
             </svg>
-            <span class="k-wrap">
-              <span class="k-wrap__left k-a-wl"></span>
-              <span class="k-wrap__right k-a-wr"></span>
+            <span
+              class="k-wrap"
+              data-gift
+              data-gift-avoid="mustard"
+              data-paper="pois"
+              data-paper-color="lilac"
+            >
+              <span class="k-wrap__left k-paper k-a-wl"></span>
+              <span class="k-wrap__right k-paper k-a-wr"></span>
               <span class="k-wrap__rv k-a-rv"></span>
               <span class="k-wrap__rh k-a-rh"></span>
               <span class="k-wrap__bow k-a-bow">
-                <svg viewBox="0 0 100 100" width="60" height="60" style="color:#b3204c">
+                <svg viewBox="0 0 100 100" width="60" height="60" style="color:var(--k-paper-bow)">
                   <use href="#brand-ribbon" y="-2"></use>
                 </svg>
               </span>
@@ -97,12 +103,7 @@ const t = translation
               <span class="k-tile__cta">
                 <span class="k-btn k-btn-primary k-a-btn k-tile__btn">{t.reserve}</span>
                 <span class="k-hand k-a-note k-tile__note">{t.given}</span>
-                <svg
-                  class="k-a-cur k-tile__cur"
-                  viewBox="0 0 20 26"
-                  width="20"
-                  height="26"
-                >
+                <svg class="k-a-cur k-tile__cur" viewBox="0 0 20 26" width="20" height="26">
                   <path
                     d="M2 2v19l5-5 4 8 3-1.5-4-7.5h7z"
                     fill="#1c1a33"
@@ -124,20 +125,22 @@ const t = translation
             height="92"
             preserveAspectRatio="xMidYMid slice"
             class="k-tile__paper"
+            data-gift
+            data-paper="confettis"
+            data-paper-color="rose"
           >
-            <defs>
-              <pattern id="hpA" width="22" height="22" patternUnits="userSpaceOnUse">
-                <rect width="22" height="22" fill="#f7b8c8"></rect>
-                <circle cx="5" cy="5" r="3" fill="#fffaf0"></circle>
-                <circle cx="16" cy="16" r="3" fill="#fffaf0"></circle>
-              </pattern>
-            </defs>
-            <rect width="160" height="92" fill="url(#hpA)"></rect>
+            <rect class="k-paper-base" width="160" height="92"></rect>
+            <rect
+              class="k-paper-motif"
+              fill="url(#k-paper-confettis)"
+              width="160"
+              height="92"
+            ></rect>
             <rect x="72" y="0" width="16" height="92" fill="#fffaf0"></rect>
             <rect x="0" y="39.24" width="160" height="16" fill="#fffaf0"></rect>
             <g
               transform="translate(80 43.24) scale(0.6) translate(-50 -46)"
-              style="color:#b3204c"
+              style="color:var(--k-paper-bow)"
             >
               <use href="#brand-ribbon" width="100" height="100"></use>
             </g>
@@ -156,20 +159,17 @@ const t = translation
             height="92"
             preserveAspectRatio="xMidYMid slice"
             class="k-tile__paper"
+            data-gift
+            data-paper="rayures"
+            data-paper-color="mint"
           >
-            <defs>
-              <pattern id="hpB" width="22" height="22" patternUnits="userSpaceOnUse">
-                <rect width="22" height="22" fill="#a8e0c0"></rect>
-                <circle cx="5" cy="5" r="3" fill="#fffaf0"></circle>
-                <circle cx="16" cy="16" r="3" fill="#fffaf0"></circle>
-              </pattern>
-            </defs>
-            <rect width="160" height="92" fill="url(#hpB)"></rect>
+            <rect class="k-paper-base" width="160" height="92"></rect>
+            <rect class="k-paper-motif" fill="url(#k-paper-rayures)" width="160" height="92"></rect>
             <rect x="72" y="0" width="16" height="92" fill="#fffaf0"></rect>
             <rect x="0" y="39.24" width="160" height="16" fill="#fffaf0"></rect>
             <g
               transform="translate(80 43.24) scale(0.6) translate(-50 -46)"
-              style="color:#b3204c"
+              style="color:var(--k-paper-bow)"
             >
               <use href="#brand-ribbon" width="100" height="100"></use>
             </g>
@@ -212,58 +212,81 @@ const t = translation
     <!-- 4. Bobbing pile of gifts (parent k-hero-art is aria-hidden; no role/label needed) -->
     <div class="k-a-bob k-pile">
       <svg viewBox="0 0 200 170" width="200" height="170">
-        <defs>
-          <pattern id="hpP1" width="22" height="22" patternUnits="userSpaceOnUse">
-            <rect width="22" height="22" fill="#f2bf3d"></rect>
-            <circle cx="5" cy="5" r="3" fill="#f8dc8e"></circle>
-            <circle cx="16" cy="16" r="3" fill="#f8dc8e"></circle>
-          </pattern>
-          <pattern
-            id="hpP2"
-            width="18"
-            height="18"
-            patternUnits="userSpaceOnUse"
-            patternTransform="rotate(45)"
-          >
-            <rect width="18" height="18" fill="#a8e0c0"></rect>
-            <rect width="7" height="18" fill="#7fcfa2"></rect>
-          </pattern>
-          <pattern id="hpP3" width="22" height="22" patternUnits="userSpaceOnUse">
-            <rect width="22" height="22" fill="#9fcbf2"></rect>
-            <circle cx="5" cy="5" r="3" fill="#d3e8fa"></circle>
-            <circle cx="16" cy="16" r="3" fill="#d3e8fa"></circle>
-          </pattern>
-        </defs>
         <ellipse cx="100" cy="160" rx="86" ry="8" fill="#1c1a33" opacity="0.08"></ellipse>
-        <g transform="rotate(-3 60 119)">
-          <rect x="14" y="82" width="92" height="74" rx="6" fill="url(#hpP1)"></rect>
+        <g
+          transform="rotate(-3 60 119)"
+          data-gift
+          data-gift-avoid="lilac"
+          data-paper="confettis"
+          data-paper-color="mustard"
+        >
+          <rect class="k-paper-base" x="14" y="82" width="92" height="74" rx="6"></rect>
+          <rect
+            class="k-paper-motif"
+            fill="url(#k-paper-confettis)"
+            x="14"
+            y="82"
+            width="92"
+            height="74"
+            rx="6"
+          ></rect>
           <rect x="55" y="82" width="10" height="74" fill="#fffaf0"></rect>
           <rect x="14" y="108.08" width="92" height="10" fill="#fffaf0"></rect>
           <g
             transform="translate(60 109.08) scale(0.5411764705882353) translate(-50 -46)"
-            style="color:#b3204c"
+            style="color:var(--k-paper-bow)"
           >
             <use href="#brand-ribbon" width="100" height="100"></use>
           </g>
         </g>
-        <g transform="rotate(4 144 126)">
-          <rect x="104" y="96" width="80" height="60" rx="6" fill="url(#hpP2)"></rect>
+        <g
+          transform="rotate(4 144 126)"
+          data-gift
+          data-gift-avoid="lilac"
+          data-paper="etoiles"
+          data-paper-color="orange"
+        >
+          <rect class="k-paper-base" x="104" y="96" width="80" height="60" rx="6"></rect>
+          <rect
+            class="k-paper-motif"
+            fill="url(#k-paper-etoiles)"
+            x="104"
+            y="96"
+            width="80"
+            height="60"
+            rx="6"
+          ></rect>
           <rect x="139" y="96" width="10" height="60" fill="#fffaf0"></rect>
           <rect x="104" y="116.2" width="80" height="10" fill="#fffaf0"></rect>
           <g
             transform="translate(144 117.2) scale(0.47058823529411764) translate(-50 -46)"
-            style="color:#b3204c"
+            style="color:var(--k-paper-bow)"
           >
             <use href="#brand-ribbon" width="100" height="100"></use>
           </g>
         </g>
-        <g transform="rotate(-8 91 53)">
-          <rect x="54" y="22" width="74" height="62" rx="6" fill="url(#hpP3)"></rect>
+        <g
+          transform="rotate(-8 91 53)"
+          data-gift
+          data-gift-avoid="lilac"
+          data-paper="vichy"
+          data-paper-color="sky"
+        >
+          <rect class="k-paper-base" x="54" y="22" width="74" height="62" rx="6"></rect>
+          <rect
+            class="k-paper-motif"
+            fill="url(#k-paper-vichy)"
+            x="54"
+            y="22"
+            width="74"
+            height="62"
+            rx="6"
+          ></rect>
           <rect x="86" y="22" width="10" height="62" fill="#fffaf0"></rect>
           <rect x="54" y="43.04" width="74" height="10" fill="#fffaf0"></rect>
           <g
             transform="translate(91 44.04) scale(0.43529411764705883) translate(-50 -46)"
-            style="color:#b3204c"
+            style="color:var(--k-paper-bow)"
           >
             <use href="#brand-ribbon" width="100" height="100"></use>
           </g>
@@ -604,10 +627,6 @@ const t = translation
     top: 0;
     bottom: 0;
     width: 51%;
-    background:
-      radial-gradient(circle, var(--surface-raised) 2.6px, transparent 3.2px) 0 0 /
-        14px 14px,
-      var(--paper-lilac);
   }
 
   .k-wrap__left {

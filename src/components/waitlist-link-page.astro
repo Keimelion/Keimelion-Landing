@@ -64,22 +64,27 @@ const errorLabel = mode === 'confirm' ? copy.confirm.error : copy.unsubscribe.er
 
       {mode === 'confirm' && (
         <>
-          <div class="k-wl-page__panel" data-panel="confirmed" hidden>
+          <div class="k-wl-page__panel" data-panel="confirmed" data-gift-group hidden>
             <svg
               class="k-wl-page__gift"
               aria-hidden="true"
               viewBox="0 0 120 110"
               width="120"
               height="110"
+              data-gift
+              data-paper="pois"
+              data-paper-color="lilac"
             >
-              <defs>
-                <pattern id="k-wl-gift-dots" width="14" height="14" patternUnits="userSpaceOnUse">
-                  <rect width="14" height="14" fill="#cdb8f5"></rect>
-                  <circle cx="4" cy="4" r="2.6" fill="#fffaf0"></circle>
-                  <circle cx="11" cy="11" r="2.6" fill="#fffaf0"></circle>
-                </pattern>
-              </defs>
-              <rect x="14" y="30" width="92" height="74" rx="10" fill="url(#k-wl-gift-dots)"></rect>
+              <rect class="k-paper-base" x="14" y="30" width="92" height="74" rx="10"></rect>
+              <rect
+                class="k-paper-motif"
+                fill="url(#k-paper-pois)"
+                x="14"
+                y="30"
+                width="92"
+                height="74"
+                rx="10"
+              ></rect>
               <rect x="52" y="30" width="16" height="74" fill="#fffaf0"></rect>
               <rect x="14" y="58" width="92" height="14" fill="#fffaf0"></rect>
               <use href="#brand-ribbon" x="29" y="1.5" width="62" height="62"></use>
@@ -251,7 +256,7 @@ const errorLabel = mode === 'confirm' ? copy.confirm.error : copy.unsubscribe.er
 
   .k-wl-page__gift {
     align-self: center;
-    color: var(--brand);
+    color: var(--k-paper-bow);
   }
 
   .k-wl-page__kicker {

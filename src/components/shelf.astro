@@ -18,47 +18,75 @@ const t = translation
       </div>
 
       <div class="shelf__scene">
-        <div class="k-shelf">
-          <div class="k-parcel k-parcel--p1" aria-hidden="true">
+        <div class="k-shelf" data-gift-group>
+          <div
+            class="k-parcel k-parcel--p1 k-paper"
+            aria-hidden="true"
+            data-gift
+            data-gift-avoid="lilac"
+            data-paper="pois"
+            data-paper-color="rose"
+          >
             <svg
               viewBox="0 0 100 100"
               width="28"
               height="28"
               class="k-parcel__bow"
-              style="color:#f2bf3d"
+              style="color:var(--k-paper-bow)"
             >
               <use href="#brand-ribbon" y="-2"></use>
             </svg>
           </div>
-          <div class="k-parcel k-parcel--p2" aria-hidden="true">
+          <div
+            class="k-parcel k-parcel--p2 k-paper"
+            aria-hidden="true"
+            data-gift
+            data-gift-avoid="lilac"
+            data-paper="vichy"
+            data-paper-color="mustard"
+          >
             <svg
               viewBox="0 0 100 100"
               width="28"
               height="28"
               class="k-parcel__bow"
-              style="color:#b3204c"
+              style="color:var(--k-paper-bow)"
             >
               <use href="#brand-ribbon" y="-2"></use>
             </svg>
           </div>
-          <div class="k-parcel k-parcel--p3" aria-hidden="true">
+          <div
+            class="k-parcel k-parcel--p3 k-paper"
+            aria-hidden="true"
+            data-gift
+            data-gift-avoid="lilac"
+            data-paper="etoiles"
+            data-paper-color="sky"
+          >
             <svg
               viewBox="0 0 100 100"
               width="28"
               height="28"
               class="k-parcel__bow"
-              style="color:#b3204c"
+              style="color:var(--k-paper-bow)"
             >
               <use href="#brand-ribbon" y="-2"></use>
             </svg>
           </div>
-          <div class="k-parcel k-parcel--p4" aria-hidden="true">
+          <div
+            class="k-parcel k-parcel--p4 k-paper"
+            aria-hidden="true"
+            data-gift
+            data-gift-avoid="lilac"
+            data-paper="rayures"
+            data-paper-color="mint"
+          >
             <svg
               viewBox="0 0 100 100"
               width="28"
               height="28"
               class="k-parcel__bow"
-              style="color:#f2bf3d"
+              style="color:var(--k-paper-bow)"
             >
               <use href="#brand-ribbon" y="-2"></use>
             </svg>
@@ -67,13 +95,19 @@ const t = translation
           <!-- Falling parcels landing on empty slots -->
           <div class="k-slot-wrap k-slot-wrap--s1" aria-hidden="true">
             <div class="k-slot"></div>
-            <div class="k-parcel k-a-fall k-parcel--s1">
+            <div
+              class="k-parcel k-a-fall k-parcel--s1 k-paper"
+              data-gift
+              data-gift-avoid="lilac"
+              data-paper="etoiles"
+              data-paper-color="orange"
+            >
               <svg
                 viewBox="0 0 100 100"
                 width="26"
                 height="26"
                 class="k-parcel__bow"
-                style="color:#b3204c"
+                style="color:var(--k-paper-bow)"
               >
                 <use href="#brand-ribbon" y="-2"></use>
               </svg>
@@ -81,13 +115,19 @@ const t = translation
           </div>
           <div class="k-slot-wrap k-slot-wrap--s2" aria-hidden="true">
             <div class="k-slot"></div>
-            <div class="k-parcel k-a-fall k-parcel--s2">
+            <div
+              class="k-parcel k-a-fall k-parcel--s2 k-paper"
+              data-gift
+              data-gift-avoid="lilac"
+              data-paper="confettis"
+              data-paper-color="mustard"
+            >
               <svg
                 viewBox="0 0 100 100"
                 width="26"
                 height="26"
                 class="k-parcel__bow"
-                style="color:#b3204c"
+                style="color:var(--k-paper-bow)"
               >
                 <use href="#brand-ribbon" y="-2"></use>
               </svg>
@@ -95,13 +135,19 @@ const t = translation
           </div>
           <div class="k-slot-wrap k-slot-wrap--s3" aria-hidden="true">
             <div class="k-slot"></div>
-            <div class="k-parcel k-a-fall k-parcel--s3">
+            <div
+              class="k-parcel k-a-fall k-parcel--s3 k-paper"
+              data-gift
+              data-gift-avoid="lilac"
+              data-paper="pois"
+              data-paper-color="sky"
+            >
               <svg
                 viewBox="0 0 100 100"
                 width="26"
                 height="26"
                 class="k-parcel__bow"
-                style="color:#b3204c"
+                style="color:var(--k-paper-bow)"
               >
                 <use href="#brand-ribbon" y="-2"></use>
               </svg>
@@ -120,7 +166,9 @@ const t = translation
             <span class="k-c7">7</span>
           </span>
           <span>{t.reservedOf}</span>
-          <span class="k-hand k-a-plus" aria-hidden="true">+1 !</span>
+          <span class="k-hand k-a-plus" aria-hidden="true">
+            +1 !
+          </span>
         </span>
         <span class="k-label">{t.example}</span>
       </div>
@@ -225,48 +273,56 @@ const t = translation
      breakpoint. Breakpoints are the available scene inner width, not the
      viewport, which keeps the two-column desktop and mobile paths consistent. */
   @container (max-width: 478px) {
-    .k-shelf { --shelf-scale: 0.9; }
+    .k-shelf {
+      --shelf-scale: 0.9;
+    }
   }
   @container (max-width: 430px) {
-    .k-shelf { --shelf-scale: 0.8; }
+    .k-shelf {
+      --shelf-scale: 0.8;
+    }
   }
   @container (max-width: 383px) {
-    .k-shelf { --shelf-scale: 0.72; }
+    .k-shelf {
+      --shelf-scale: 0.72;
+    }
   }
   @container (max-width: 345px) {
-    .k-shelf { --shelf-scale: 0.65; }
+    .k-shelf {
+      --shelf-scale: 0.65;
+    }
   }
   @container (max-width: 310px) {
-    .k-shelf { --shelf-scale: 0.58; }
+    .k-shelf {
+      --shelf-scale: 0.58;
+    }
   }
   @container (max-width: 280px) {
-    .k-shelf { --shelf-scale: 0.52; }
+    .k-shelf {
+      --shelf-scale: 0.52;
+    }
   }
 
   .k-parcel--p1 {
     width: 64px;
     height: 52px;
-    background: #b3204c;
   }
 
   .k-parcel--p2 {
     width: 46px;
     height: 76px;
-    background: #f2bf3d;
     transform: rotate(-4deg);
   }
 
   .k-parcel--p3 {
     width: 56px;
     height: 40px;
-    background: #9fcbf2;
     transform: rotate(3deg);
   }
 
   .k-parcel--p4 {
     width: 72px;
     height: 62px;
-    background: #13694d;
   }
 
   .k-parcel__bow {
@@ -305,18 +361,6 @@ const t = translation
   .k-slot-wrap .k-parcel {
     position: absolute;
     inset: 0;
-  }
-
-  .k-parcel--s1 {
-    background: #f7b8c8;
-  }
-
-  .k-parcel--s2 {
-    background: #f2bf3d;
-  }
-
-  .k-parcel--s3 {
-    background: #f2622e;
   }
 
   .k-parcel--s1 .k-parcel__bow,
